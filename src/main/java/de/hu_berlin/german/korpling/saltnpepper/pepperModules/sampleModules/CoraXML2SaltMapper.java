@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+import org.omg.IOP.TAG_INTERNET_IOP;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
@@ -46,7 +47,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	
 	class CoraXMLReader extends DefaultHandler2
 	{
+		/** stores start for line **/
 		Hashtable<String, SSpan> lineStart= new Hashtable<String, SSpan>();
+		/** stores start for line **/
 		Hashtable<String, SSpan> lineEnd= new Hashtable<String, SSpan>();
 		Hashtable<SSpan, SSpan> dipl2line= new Hashtable<SSpan, SSpan>();
 		
@@ -125,6 +128,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				
 			}
 			else if (TAG_PAGE.equals(qName)){
+				
 			}
 			else if (TAG_SHIFTTAGS.equals(qName)){
 			}
@@ -151,6 +155,16 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					currentLine= null;
 			}
 			else if (TAG_COLUMN.equals(qName)){
+				SSpan sSpan= SaltFactory.eINSTANCE.createSSpan();
+				sSpan.createSAnnotation(null, ATT_ID, attributes.getValue(TAG_COLUMN));
+				getSDocument().getSDocumentGraph().addSNode(sSpan);
+				String[] parts= attributes.getValue(ATT_RANGE).split("[.][.]");
+				if (parts.length>= 1){
+					lineStart.put(parts[0], sSpan);
+					if (parts.length== 2)
+						lineEnd.put(parts[1], sSpan);
+					else lineEnd.put(parts[0], sSpan);
+				}
 			}
 			else if (TAG_LINE.equals(qName)){
 				SSpan sSpan= SaltFactory.eINSTANCE.createSSpan();
