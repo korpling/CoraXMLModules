@@ -1,241 +1,136 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="http://www.oasis-open.org/docbook/xml/5.0/rng/docbook.rng" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" version="5.0">
-    <info>
-        <title>SampleModules</title>
-        <subtitle>User's Guide</subtitle>
-        <authorgroup>
-            <author>
-                <personname>
-                    <firstname>YOUR</firstname>
-                    <surname>NAME</surname>
-                </personname>
-            </author>
-        </authorgroup>
-        <copyright>
-            <year>THE DATE OF NOW</year>
-            <holder>YOUR NAME, All rights reserved.</holder>
-        </copyright>
-        <releaseinfo>Version ${project.version}</releaseinfo>
-    </info>
-    <preface>
-        <title>Foreword</title>
-        <para>The intention of this document is first to give a guide to the user of how to use the
-            here mentioned pepper modules and how to utilize a mapping performed by them. Second
-            this document shall give a closer view in the details of such a mapping in a declarative
-            way, to give the user a chance to understand how specific data will be mapped by the
-            presented pepper modules.</para>
-    </preface>
-    <chapter>
-        <title>Overview</title>
-        <para>This project contains the pepper modules listed in <xref linkend="table_overview"/>. A
-            single module can be identified via its coordinates (module-name, format-name,
-            format-version) also given in <xref linkend="table_overview"/>. You can use these
-            coordinates in a pepper workflow description file to identify the modules in a pepper
-            conversion process. A description of how to model a workfloe description file can be
-            found under https://korpling.german.hu-berlin.de/saltnpepper/.</para>
-        <table xml:id="table_overview" frame="all">
-            <title>pepper modules contained in this project</title>
-            <tgroup cols="3" align="left" colsep="1" rowsep="1">
-                <thead>
-                    <row>
-                        <entry>Name of pepper module</entry>
-                        <entry>Type of pepper module</entry>
-                        <entry>Format (if module is im- or exporter)</entry>
-                    </row>
-                </thead>
-                <tbody>
-                    <row>
-                        <entry><xref linkend="sample_importer" endterm="sample_importer_name"
-                            /></entry>
-                        <entry>importer</entry>
-                        <entry>version</entry>
-                    </row>
-                    <row>
-                        <entry><xref linkend="sample_manipulator" endterm="sample_manipulator_name"
-                            /></entry>
-                        <entry>manipulator</entry>
-                        <entry> -- </entry>
-                    </row>
-                    <row>
-                        <entry><xref linkend="sample_exporter" endterm="sample_exporter_name"
-                            /></entry>
-                        <entry>exporter</entry>
-                        <entry>version</entry>
-                    </row>
-                </tbody>
-            </tgroup>
-        </table>
-    </chapter>
-    <chapter xml:id="changes">
-        <title>Changes</title>
-        <para> This chapter contains the changes in version ${project.version} compared to the
-            previous version. </para>
-        <section>
-            <title><xref linkend="sample_importer_name"/></title>
-            <itemizedlist spacing="compact">
-                <listitem>
-                    <para>Change 1</para>
-                    <para>Change 2</para>
-                </listitem>
-            </itemizedlist>
-        </section>
-        <section>
-            <title><xref linkend="sample_manipulator_name"/></title>
-            <itemizedlist spacing="compact">
-                <listitem>
-                    <para>Change 1</para>
-                    <para>Change 2</para>
-                </listitem>
-            </itemizedlist>
-        </section>
-        <section>
-            <title><xref linkend="sample_exporter_name"/></title>
-            <itemizedlist spacing="compact">
-                <listitem>
-                    <para>Change 1</para>
-                    <para>Change 2</para>
-                </listitem>
-            </itemizedlist>
-        </section>
-    </chapter>
-    <chapter xml:id="sample_importer">
-        <title xml:id="sample_importer_name">SampleImporter</title>
-        <para>General information about this importer.</para>
-        <sect1>
-            <title>Mapping to Salt</title>
-            <para>This section shall describe the mapping from the original format to a Salt
-                model.</para>
-        </sect1>
-        <sect1>
-            <title>Properties</title>
-            <para> The table <xref linkend="importer_prop_overview"/> contains an overview of all
-                usable properties to customize the behaviour of this pepper module. The following
-                section contains a close description to each single property and describes the
-                resulting differences in the mapping to the salt model.</para>
-            <table xml:id="importer_prop_overview" frame="all">
-                <title>properties to customize importer behaviour</title>
-                <tgroup cols="4" align="left" colsep="1" rowsep="1">
-                    <thead>
-                        <row>
-                            <entry>Name of property</entry>
-                            <entry>Type of property</entry>
-                            <entry>optional/ mandatory</entry>
-                            <entry>default value</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><xref linkend="prop_prop1" endterm="importer_prop1_title"
-                                /></entry>
-                            <entry>data type (e.g. Boolean) or a list of possible values (e.g.
-                                value1|value2)</entry>
-                            <entry>optional|mandatory</entry>
-                            <entry>default value</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-            <sect2 xml:id="prop_prop1">
-                <title xml:id="importer_prop1_title">sampleImporter.property1</title>
-                <para><code>sampleImporter.property1=SYNOPSIS (e.g. 'value1, value2' for
-                        lsits)</code></para>
-                <para>A detailed description of the property and resulting differences in the
-                    mapping to the salt model.</para>
-            </sect2>
-        </sect1>
-    </chapter>
-    <chapter xml:id="sample_manipulator">
-        <title xml:id="sample_manipulator_name">SampleManipulator</title>
-        <para>General information about this manipulator.</para>
-        <sect1>
-            <title>Mapping to Salt</title>
-            <para>This section shall describe the mapping from the source salt model and the target
-                salt model.</para>
-        </sect1>
-        <sect1>
-            <title>Properties</title>
-            <para> The table <xref linkend="manipulator_prop_overview"/> contains an overview of all
-                usable properties to customize the behaviour of this pepper module. The following
-                section contains a close description to each single property and describes the
-                resulting differences in the mapping to the salt model.</para>
-            <table xml:id="manipulator_prop_overview" frame="all">
-                <title>properties to customize manipulator behaviour</title>
-                <tgroup cols="4" align="left" colsep="1" rowsep="1">
-                    <thead>
-                        <row>
-                            <entry>Name of property</entry>
-                            <entry>Type of property</entry>
-                            <entry>optional/ mandatory</entry>
-                            <entry>default value</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><xref linkend="manipulator_prop_prop1"
-                                    endterm="manipulator_prop1_title"/></entry>
-                            <entry>data type (e.g. Boolean) or a list of possible values (e.g.
-                                value1|value2)</entry>
-                            <entry>optional|mandatory</entry>
-                            <entry>default value</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-            <sect2 xml:id="manipulator_prop_prop1">
-                <title xml:id="manipulator_prop1_title">sampleManipulator.property1</title>
-                <para><code>sampleManipulator.property1=SYNOPSIS (e.g. 'value1, value2' for
-                        lsits)</code></para>
-                <para>A detailed description of the property and resulting differences in the
-                    mapping to the salt model.</para>
-            </sect2>
-        </sect1>
-    </chapter>
+﻿<?xml version='1.0'?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="5.0">
+	<info>
+		<title>CoraXMLModules</title>
+		<subtitle>User&apos;s Guide</subtitle>
+		<authorgroup>
+			<author><personname><firstname>Florian</firstname> <surname>
+			Zipser</surname></personname></author>
+		</authorgroup>
+		<copyright><year>2013</year> <holder>Florian Zipser, All rights 
+		reserved.</holder></copyright>
+		<releaseinfo>Version ${project.version}</releaseinfo>
+	</info>
+	<preface>
+		<title>Foreword</title>
+		<para>The intention of this document is first to give a guide to the 
+		user of how to use the here mentioned Pepper modules and how to 
+		utilize a mapping performed by them. Second this document shall give 
+		a closer view in the details of such a mapping in a declarative way, 
+		to give the user a chance to understand how specific data will be 
+		mapped by the presented Pepper modules.</para>
+	</preface>
+	<chapter>
+		<title>Overview</title>
+		<para>This project contains the Pepper modules listed in 
+		<xref linkend="table_overview"/>. A single module can be identified 
+		via its coordinates (module-name, format-name, format-version) also 
+		given in <xref linkend="table_overview"/>. You can use these 
+		coordinates in a Pepper workflow description file to identify the 
+		modules in a Pepper conversion process. A description of how to model 
+		a workfloe description file can be found under 
+		https://korpling.german.hu-berlin.de/saltnpepper/.</para>
+		<table frame="all" xml:id="table_overview">
+			<title>Pepper modules contained in this project</title>
+			<tgroup align="left" cols="3" colsep="1" rowsep="1">
+				<thead>
+					<row>
+						<entry>Name of Pepper module</entry>
+						<entry>Type of Pepper module</entry>
+						<entry>Format (if module is im- or exporter)</entry>
+					</row>
+				</thead>
+				<tbody>
+					<row>
+						<entry>
+						<xref endterm="coraxml_importer_name" linkend="coraxml_importer"/>
+						</entry>
+						<entry>importer</entry>
+						<entry>version</entry>
+					</row>
+				</tbody>
+			</tgroup>
+		</table>
+	</chapter>
+	<!-- 
+		&lt;chapter xml:id=&quot;changes&quot;&gt; 
+		&lt;title&gt;Changes&lt;/title&gt; &lt;para&gt;This chapter contains 
+		the changes in version ${project.version} compared to the previous 
+		version.&lt;/para&gt; &lt;section&gt; &lt;title&gt;&lt;xref 
+		linkend=&quot;sample_importer_name&quot;/&gt;&lt;/title&gt; 
+		&lt;itemizedlist spacing=&quot;compact&quot;&gt; &lt;listitem&gt; 
+		&lt;para&gt;Change 1&lt;/para&gt; &lt;para&gt;Change 2&lt;/para&gt; 
+		&lt;/listitem&gt; &lt;/itemizedlist&gt; &lt;/section&gt; 
+		&lt;section&gt; &lt;title&gt;&lt;xref 
+		linkend=&quot;sample_manipulator_name&quot;/&gt;&lt;/title&gt; 
+		&lt;itemizedlist spacing=&quot;compact&quot;&gt; &lt;listitem&gt; 
+		&lt;para&gt;Change 1&lt;/para&gt; &lt;para&gt;Change 2&lt;/para&gt; 
+		&lt;/listitem&gt; &lt;/itemizedlist&gt; &lt;/section&gt; 
+		&lt;section&gt; &lt;title&gt;&lt;xref 
+		linkend=&quot;sample_exporter_name&quot;/&gt;&lt;/title&gt; 
+		&lt;itemizedlist spacing=&quot;compact&quot;&gt; &lt;listitem&gt; 
+		&lt;para&gt;Change 1&lt;/para&gt; &lt;para&gt;Change 2&lt;/para&gt; 
+		&lt;/listitem&gt; &lt;/itemizedlist&gt; &lt;/section&gt; 
+		&lt;/chapter&gt;
+	 -->
+	<chapter xml:id="coraxml_importer">
+		<title xml:id="coraxml_importer_name">CoraXMLImporter</title>
+		<para>This importer currently does not handle generic tasks, it more handles a specific situation given by a DDD project in Bochum. The purpose of this importer is to bring data from the CoraXML format to ANNIS in the same manner as it is in the RIDGES (see: <ulink url="http://korpling.german.hu-berlin.de/ridges/index_en.html">http://korpling.german.hu-berlin.de/ridges/index_en.html</ulink>) or DDD project. Unfortunatly this specific purpose impacts the mapping to Salt and is therefore not very generic.</para>
+		<sect1>
+			<title>Mapping to Salt</title>
+			<para>In CoraXML there are three segments representing the tokenization, dipl, mod and token, which is a kind of an aggregation. An example of that structure in CoraXML is shown here:
+			<programmlisting><token id="t1" trans="$ol|tu">
+        <dipl id="t1_d1" utf="Å¿oltu"/>
+        <mod id="t1_m1" ascii="sol" utf="Å¿ol"/>
+        <mod id="t1_m2" ascii="tu" utf="tu">
+        </mod>
+</token>
+			</programmlisting>
+			To prepare those data for ANNIS, the segmentations have to be flatterned, which means, that three parallel existing segmentations token, dipl and mod are created. These segmentations are represented in <classname>SSpan</classname> objects. A set of artificial <className>SToken</className> objects is created and linked to the <classname>SSpan</classname> objects. Having the last shown example in mind, an <classname>SToken</classname> object is related to each &lt;dipl&gt;, &lt;mod&gt; and &lt;token&gt; element. In this example, two <classname>SToken</classname> objects are created and linked to the <classname>SSpan</classname>objects. The <classname>SSpan</classname> object representing the //mod[1] element is related to the same <classname>SToken</classname> object as the one representing the element //dipl. The <classname>SSpan</classname> object representing the element //mod[2] gets a new <classname>SToken</classname> object. The <classname>SSpan</classname> object representing the //token object is related to both <classname>SToken</classname> objects. Since it is not possible to find out, how the &lt;mod&gt; and &lt;dipl&gt; elements are related to each other, the importer relates them by their position.  
+			</para>
+			<para><classname>SOrderRelation</classname> objects relate the several <classname>SSpan</classname> objects representing th esame kind of span (dipl, mod or token) to each other.
+			</para>
+			<para>The primary text included in the @trans or @utf attribute values is mapped to <classname>SAnnotation.sValue</classname> of the created <classname>SSpan</classname> objects.</para>
+			<para>
+			The set of supported linguistic annotations is limited to lemma, pos and morph. Imagine the following example:
+			<programming><token id="t1" trans="$ol|tu">
+        <dipl id="t1_d1" utf="Å¿oltu"/>
+        <mod id="t1_m1" ascii="sol" utf="Å¿ol">
+            <lemma tag="sollen"/>
+            <pos tag="VVFIN"/>
+            <morph tag="2.Sg.Praes.Ind."/>
+            <suggestions>
+                <lemma tag="sollen" score="0.50"/>
+                <lemma tag="soltau" score="0.001"/>
+                <pos tag="VVFIN" score="0.900"/>
+                <pos tag="ART" score="0.06"/>
+                <morph tag="2.Sg.Praes.Ind." score="0.89"/>
+                <morph tag="Nom.Sg.Neut" score="0.047218"/>
+                <morph tag="Acc.Sg.Neut" score="0.014275"/>
+            </suggestions>
+        </mod>
+        <mod id="t1_m2" ascii="tu" utf="tu">
+            <!-- tags hier und im folgendenanalog zu t1_m1 -->
+        </mod>
+</token>
+			</programming>
+			For the elements //mod/lemma and //mod/pos an <classname>SAnnotation</classname> is created and added to the <classname>SSpan</classname> object representing the //mod elements. For the elements //suggestions/lemma etc. <classname>SAnnotation</classname> objects named suggestion1_lemma, suggestion2_lemma etc. will be created, the score will be mapped to a <classname>SAnnotation</classname> on the suggestion1_lemma etc. <classname>SAnnotation</classname>
+			</para>
+			<para>The elements &lt;column&gt; and &lt;page&gt; are also mapped to <classname>SSpan</classname> objects. The attributes //page/@id, //page/@side, //page/@no and //column/@id are mapped to <classname>SAnnotation</classname> objects. See the following example:
+			<programmlisting><layoutinfo>
+		<page id="p1" side="r" range="c1" no="AI"/>
+		<page id="p2" side="v" range="c2" no="AI"/>
+		
+		<column id="c1" range="l1..l5"/>
+		<column id="c2" range="l6..20"/>
 
-    <chapter xml:id="sample_exporter">
-        <title xml:id="sample_exporter_name">SampleExporter</title>
-        <para>General information about this exporter.</para>
-        <sect1>
-            <title>Mapping to Salt</title>
-            <para>This section shall describe the mapping from the salt model to the target
-                format.</para>
-        </sect1>
-        <sect1>
-            <title>Properties</title>
-            <para> The table <xref linkend="exporter_prop_overview"/> contains an overview of all
-                usable properties to customize the behaviour of this pepper module. The following
-                section contains a close description to each single property and describes the
-                resulting differences in the mapping to the salt model.</para>
-            <table xml:id="exporter_prop_overview" frame="all">
-                <title>properties to customize exporter behaviour</title>
-                <tgroup cols="4" align="left" colsep="1" rowsep="1">
-                    <thead>
-                        <row>
-                            <entry>Name of property</entry>
-                            <entry>Type of property</entry>
-                            <entry>optional/ mandatory</entry>
-                            <entry>default value</entry>
-                        </row>
-                    </thead>
-                    <tbody>
-                        <row>
-                            <entry><xref linkend="exporter_prop_prop1"
-                                    endterm="exporter_prop_prop1_title"/></entry>
-                            <entry>data type (e.g. Boolean) or a list of possible values (e.g.
-                                value1|value2)</entry>
-                            <entry>optional|mandatory</entry>
-                            <entry>default value</entry>
-                        </row>
-                    </tbody>
-                </tgroup>
-            </table>
-            <sect2 xml:id="exporter_prop_prop1">
-                <title xml:id="exporter_prop_prop1_title">sampleExporter.property1</title>
-                <para><code>sampleexporter.property1=SYNOPSIS (e.g. 'value1, value2' for
-                        lsits)</code></para>
-                <para>A detailed description of the property and resulting differences in the
-                    mapping to the salt model.</para>
-            </sect2>
-        </sect1>
-    </chapter>
+		<line id="l1" name="01" range="t1_d1..t6_d1"/>
+		<line id="l2" name="02" range="t6_d2..t9_d1"/>
+		...
+		</layoutinfo>layoutinfo>
+			</programmlisting>
+			</para>
+		</sect1>
+	</chapter>
 </book>
