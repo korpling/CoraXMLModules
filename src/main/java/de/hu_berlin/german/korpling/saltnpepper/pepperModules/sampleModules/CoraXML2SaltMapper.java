@@ -1,14 +1,19 @@
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
 
+import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Set;
 import java.util.Stack;
 import java.util.Vector;
 
-import org.omg.IOP.TAG_INTERNET_IOP;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
+
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
 
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
@@ -51,7 +56,19 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		Hashtable<String, SSpan> lineStart= new Hashtable<String, SSpan>();
 		/** stores start for line **/
 		Hashtable<String, SSpan> lineEnd= new Hashtable<String, SSpan>();
-		Hashtable<SSpan, SSpan> dipl2line= new Hashtable<SSpan, SSpan>();
+		/** stores all {@link SSpan} objects to be linked to given dipl {@link SSpan} (key= dipl, value, list of open {@link SSpan}s)**/
+		Multimap<SSpan, SSpan> dipl2SSpan= HashMultimap.create();
+		
+		
+		/** stores start for column **/
+		Hashtable<String, SSpan> columnStart= new Hashtable<String, SSpan>();
+		/** stores start for column **/
+		Hashtable<String, SSpan> columnEnd= new Hashtable<String, SSpan>();
+		
+		/** stores start for page **/
+		Hashtable<String, SSpan> pageStart= new Hashtable<String, SSpan>();
+		/** stores start for page **/
+		Hashtable<String, SSpan> pageEnd= new Hashtable<String, SSpan>();
 		
 		private List<SSpan> openDipls= null;
 		/** returns all open {@link CoraXMLDictionary#TAG_DIPL} which are related to a {@link SSpan} and are not connected with {@link SToken} objects so far **/
@@ -107,6 +124,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		
 		/** stores current line**/
 		private SSpan currentLine= null;
+		/** stores current column**/
+		private SSpan currentColumn= null;
+		/** stores current page**/
+		private SSpan currentPage= null;
 		
 		@Override
 		public void startElement(	String uri,
@@ -128,7 +149,19 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				
 			}
 			else if (TAG_PAGE.equals(qName)){
+				SSpan colSpan= SaltFactory.eINSTANCE.createSSpan();
+				colSpan.createSAnnotation(null, TAG_PAGE, attributes.getValue(ATT_ID));
+				colSpan.createSAnnotation(null, ATT_SIDE, attributes.getValue(ATT_SIDE));
+				colSpan.createSAnnotation(null, ATT_NO, attributes.getValue(ATT_NO));
 				
+				getSDocument().getSDocumentGraph().addSNode(colSpan);
+				String[] parts= attributes.getValue(ATT_RANGE).split("[.][.]");
+				if (parts.length>= 1){
+					pageStart.put(parts[0], colSpan);
+					if (parts.length== 2)
+						pageEnd.put(parts[1], colSpan);
+					else pageEnd.put(parts[0], colSpan);
+				}
 			}
 			else if (TAG_SHIFTTAGS.equals(qName)){
 			}
@@ -150,32 +183,103 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (lineStart.get(id)!= null)
 					currentLine= lineStart.get(id);
 				
-				dipl2line.put(span, currentLine);
+				dipl2SSpan.put(span, currentLine);
 				if (lineEnd.get(id)!= null)
 					currentLine= null;
+				
+				//switch column links to line identifier
+					if (columnStart.get(id)!= null)
+						currentColumn= columnStart.get(id);
+					
+					dipl2SSpan.put(span, currentColumn);
+					if (columnEnd.get(id)!= null)
+						currentColumn= null;
+				//switch column links to line identifier
+					
+				//switch page links to column identifier
+					if (pageStart.get(id)!= null)
+						currentPage= pageStart.get(id);
+					
+					dipl2SSpan.put(span, currentPage);
+					if (pageEnd.get(id)!= null)
+						currentPage= null;
+				//switch page links to column identifier
 			}
 			else if (TAG_COLUMN.equals(qName)){
-				SSpan sSpan= SaltFactory.eINSTANCE.createSSpan();
-				sSpan.createSAnnotation(null, ATT_ID, attributes.getValue(TAG_COLUMN));
-				getSDocument().getSDocumentGraph().addSNode(sSpan);
+				SSpan colSpan= SaltFactory.eINSTANCE.createSSpan();
+				colSpan.createSAnnotation(null, TAG_COLUMN, attributes.getValue(ATT_ID));
+				
+				getSDocument().getSDocumentGraph().addSNode(colSpan);
 				String[] parts= attributes.getValue(ATT_RANGE).split("[.][.]");
+				String start= null;
+				String end= null;
 				if (parts.length>= 1){
-					lineStart.put(parts[0], sSpan);
+					start= parts[0];
 					if (parts.length== 2)
-						lineEnd.put(parts[1], sSpan);
-					else lineEnd.put(parts[0], sSpan);
+						end= parts[1];
+					else end= parts[0];
 				}
+				columnStart.put(start, colSpan);
+				columnEnd.put(end, colSpan);
+				
+				String id= attributes.getValue(ATT_ID);
+				//switch page links to column identifier
+					SSpan pageSpan= pageStart.get(id);
+					if (pageSpan!= null)
+					{
+						pageStart.remove(id);
+						pageStart.put(start, pageSpan);
+					}
+					pageSpan= pageEnd.get(id);
+					if (pageSpan!= null)
+					{
+						pageEnd.remove(id);
+						pageEnd.put(end, pageSpan);
+					}
+				//switch page links to column identifier
 			}
 			else if (TAG_LINE.equals(qName)){
 				SSpan sSpan= SaltFactory.eINSTANCE.createSSpan();
 				sSpan.createSAnnotation(null, TAG_LINE, attributes.getValue(ATT_NAME));
 				getSDocument().getSDocumentGraph().addSNode(sSpan);
 				String[] parts= attributes.getValue(ATT_RANGE).split("[.][.]");
+				String start= null;
+				String end= null;
 				if (parts.length>= 1){
-					lineStart.put(parts[0], sSpan);
+					start= parts[0];
 					if (parts.length== 2)
-						lineEnd.put(parts[1], sSpan);
-					else lineEnd.put(parts[0], sSpan);
+						end= parts[1];
+					else end= parts[0];
+				}
+				lineStart.put(start, sSpan);
+				lineEnd.put(end, sSpan);
+				
+				String id= attributes.getValue(ATT_ID);
+
+				SSpan column= columnStart.get(id); 
+				if (column!= null)
+				{
+					columnStart.remove(id);
+					columnStart.put(start, column);
+				}
+				column= columnEnd.get(id); 
+				if (column!= null)
+				{
+					columnEnd.remove(id);
+					columnEnd.put(end, column);
+				}
+				
+				SSpan pageSpan= pageStart.get(id);
+				if (pageSpan!= null)
+				{
+					pageStart.remove(id);
+					pageStart.put(start, pageSpan);
+				}
+				pageSpan= pageEnd.get(id); 
+				if (pageSpan!= null)
+				{
+					pageEnd.remove(id);
+					pageEnd.put(end, pageSpan);
 				}
 			}
 			else if (TAG_COMMENT.equals(qName)){
@@ -305,12 +409,18 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 						sSpanRel.setSToken(sToken);
 						getSDocument().getSDocumentGraph().addSRelation(sSpanRel);
 						
-						SSpan lineSpan= dipl2line.get(diplSpan);
-						dipl2line.remove(diplSpan);
-						sSpanRel= SaltFactory.eINSTANCE.createSSpanningRelation();
-						sSpanRel.setSSpan(lineSpan);
-						sSpanRel.setSToken(sToken);
-						getSDocument().getSDocumentGraph().addSRelation(sSpanRel);
+						Collection<SSpan> sSpans= dipl2SSpan.get(diplSpan);
+						if (sSpans!= null)
+						{
+							for (SSpan sSpan: sSpans)
+							{
+								sSpanRel= SaltFactory.eINSTANCE.createSSpanningRelation();
+								sSpanRel.setSSpan(sSpan);
+								sSpanRel.setSToken(sToken);
+								getSDocument().getSDocumentGraph().addSRelation(sSpanRel);
+							}
+							dipl2SSpan.removeAll(diplSpan);
+						}
 						
 					}
 					
