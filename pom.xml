@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>pepperModules-CoraXMLModules</artifactId>
   <name>${project.groupId}.${project.artifactId}</name>
-  <version>1.1.0-SNAPSHOT</version>
+  <version>1.1.0</version>
   <packaging>bundle</packaging>
   <properties>
   	<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
@@ -53,8 +53,8 @@
   </organization>
   <scm>
     <!-- TODO /9/ change the connection to the trunk folder of your scm, what you can see here is the subversion connection for the pepperModules-SampleModules project -->
-    <developerConnection>scm:svn:https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/CoraXMLModules/trunk</developerConnection>
-    <url>scm:svn:https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/CoraXMLModules/</url>
+    <developerConnection>scm:svn:https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/CoraXMLModules/tags/pepperModules-CoraXMLModules-1.1.0</developerConnection>
+    <url>scm:svn:https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/CoraXMLModules/tags/pepperModules-CoraXMLModules-1.1.0</url>
   </scm>
  
   <dependencies>
