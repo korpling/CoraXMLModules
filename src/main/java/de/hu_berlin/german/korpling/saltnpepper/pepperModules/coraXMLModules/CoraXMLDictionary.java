@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.coraXMLModules;
 /**
  * Dictionary of CoraXML
  * 

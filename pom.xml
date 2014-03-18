@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>pepperModules-CoraXMLModules</artifactId>
   <name>${project.groupId}.${project.artifactId}</name>
-  <version>1.1.1-SNAPSHOT</version>
+  <version>1.1.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
   <properties>
   	<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
@@ -35,7 +35,7 @@
   <parent>
     <groupId>de.hu_berlin.german.korpling.saltnpepper</groupId>
     <artifactId>pepper-parentModule</artifactId>
-    <version>1.1.6</version>
+    <version>2.0.0-SNAPSHOT</version>
   </parent>
   <description>This project provides three sample modules for Pepper. It provides an importer, an exporter and a manipulator. The project can be used as a container for creating new PepperModules. One just have to override the areas marked with TODO.</description>
   <url>https://korpling.german.hu-berlin.de/p/projects/peppermodules-coraxmlmodules</url>

@@ -15,7 +15,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
+package de.hu_berlin.german.korpling.saltnpepper.pepperModules.coraXMLModules;
 
 import java.util.Collection;
 import java.util.Hashtable;
