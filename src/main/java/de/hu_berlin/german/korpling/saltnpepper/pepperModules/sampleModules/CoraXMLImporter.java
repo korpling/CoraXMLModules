@@ -20,12 +20,12 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperExceptions.PepperModuleNotReadyException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperImporter;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperModule;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperModuleProperties;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperImporterImpl;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperImporter;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperties;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleNotReadyException;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperImporterImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 /**
@@ -50,7 +50,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	public CoraXMLImporter()
 	{
 		super();
-		this.name= "CoraXMLImporter";
+		this.setName("CoraXMLImporter");
 		this.setVersion("1.0");
 		this.addSupportedFormat("coraXML", "1.0", null);
 		this.getSDocumentEndings().add(PepperImporter.ENDING_XML);

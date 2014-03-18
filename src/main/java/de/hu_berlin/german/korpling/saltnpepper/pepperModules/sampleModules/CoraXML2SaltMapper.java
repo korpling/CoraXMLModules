@@ -20,7 +20,6 @@ package de.hu_berlin.german.korpling.saltnpepper.pepperModules.sampleModules;
 import java.util.Collection;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Set;
 import java.util.Stack;
 import java.util.Vector;
 
@@ -29,12 +28,11 @@ import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
 
 import com.google.common.collect.HashMultimap;
-import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.MAPPING_RESULT;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.PepperMapper;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.pepperModules.impl.PepperMapperImpl;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
+import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
 import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpan;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpanningRelation;
@@ -51,20 +49,14 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	 * OVERRIDE THIS METHOD FOR CUSTOMIZED MAPPING.
 	 */
 	@Override
-	public MAPPING_RESULT mapSDocument() {
-		if (this.getSDocument().getSDocumentGraph()== null)
+	public DOCUMENT_STATUS mapSDocument() {
+		if (this.getSDocument().getSDocumentGraph()== null){
 			this.getSDocument().setSDocumentGraph(SaltFactory.eINSTANCE.createSDocumentGraph());
-		try
-		{
-			CoraXMLReader reader= new CoraXMLReader();
-			this.readXMLResource(reader, this.getResourceURI());
-		}catch (Exception e)
-		{
-			//TODO remove this
-			e.printStackTrace();
-			return(MAPPING_RESULT.FAILED);
 		}
-		return(MAPPING_RESULT.FINISHED); 
+		CoraXMLReader reader= new CoraXMLReader();
+		this.readXMLResource(reader, this.getResourceURI());
+		
+		return(DOCUMENT_STATUS.COMPLETED); 
 	}
 	
 	class CoraXMLReader extends DefaultHandler2
