@@ -49,13 +49,26 @@ public interface CoraXMLDictionary {
 	public static final String TAG_HEADER= "header";
 	/** constant to address the xml-element 'pos'. **/
 	public static final String TAG_POS= "pos";
+
+        public static final String TAG_POS_LEMMA="pos_gen";
+        public static final String TAG_INFL = "infl";
+        public static final String TAG_INFLCLASS = "inflClass";
+        public static final String TAG_INFLCLASS_LEMMA = "inflClass_gen";
+
 	/** constant to address the xml-element 'lemma'. **/
 	public static final String TAG_LEMMA= "lemma";
+        public static final String TAG_LEMMA_ID = "lemma_idmwb";
+
 	/** constant to address the xml-element 'morph'. **/
 	public static final String TAG_MORPH= "morph";
 	/** constant to address the xml-element 'suggestions'. **/
 	public static final String TAG_SUGGESTIONS= "suggestions";
-	
+
+        public static final String TAG_NORM = "norm";
+        public static final String TAG_NORMBROAD = "norm_broad";
+        public static final String TAG_NORMALIGN = "norm_align";
+        public static final String TAG_NORMALIGN_VARIANT = "grapho";
+
 	/** constant to address the xml-attribute 'ascii'. **/
 	public static final String ATT_ASCII= "ascii";
 	/** constant to address the xml-attribute 'id'. **/

@@ -119,15 +119,16 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		
 		/** number of read pos in suggestion //suggestions/pos **/
 		private int sugPos=1;
+                private int sugPosLemma=1;
 		/** number of read lemma in suggestion //suggestions/lemma **/
 		private int sugLemma=1;
 		/** number of read morph in suggestion //suggestions/morph **/
 		private int sugMorph=1;
 		
 		/** name of segmentation identified by {@link CoraXMLDictionary#TAG_MOD}**/
-		public static final String SEGMENTATION_NAME_MOD="mod";
+		public static final String SEGMENTATION_NAME_MOD="tok_mod";
 		/** name of segmentation identified by {@link CoraXMLDictionary#TAG_DIPL}**/
-		public static final String SEGMENTATION_NAME_DIPL="dipl";
+		public static final String SEGMENTATION_NAME_DIPL="tok_dipl";
 		/** name of segmentation identified by {@link CoraXMLDictionary#TAG_TOKEN}**/
 		public static final String SEGMENTATION_NAME_TOKEN="token";
 		
@@ -137,6 +138,15 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		private SSpan currentColumn= null;
 		/** stores current page**/
 		private SSpan currentPage= null;
+
+    private void addSimpleRow(String name, Attributes attributes) {
+        addSimpleRow(name, attributes, null);
+    }
+
+    private void addSimpleRow(String name, Attributes attributes, String ns) {
+        getSNodeStack().peek().createSAnnotation(ns, name, attributes.getValue(ATT_TAG));
+    }
+
 		
 		@Override
 		public void startElement(	String uri,
@@ -176,7 +186,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			}
 			else if (TAG_MOD.equals(qName)){
 				SSpan span= SaltFactory.eINSTANCE.createSSpan();
-				span.createSAnnotation(null, SEGMENTATION_NAME_MOD, attributes.getValue(ATT_UTF));
+				span.createSAnnotation(null, SEGMENTATION_NAME_MOD, attributes.getValue(ATT_ASCII));
 				getSDocument().getSDocumentGraph().addSNode(span);
 				this.getOpenMods().add(span);
 				getSNodeStack().add(span);
@@ -308,8 +318,41 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					sugPos++;
 				}
 				else
-					getSNodeStack().peek().createSAnnotation(null, TAG_POS, attributes.getValue(ATT_TAG));
+                                    addSimpleRow(TAG_POS, attributes);
 			}
+    else if (TAG_POS_LEMMA.equals(qName)) {
+        if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
+            SAnnotation sAnno = getSNodeStack().peek().createSAnnotation(TAG_SUGGESTIONS, TAG_POS + "_" + sugPosLemma, attributes.getValue(ATT_TAG));
+            if (attributes.getValue(ATT_SCORE) != null) {
+                SAnnotation scoreAnno = SaltFactory.eINSTANCE.createSAnnotation();
+                scoreAnno.setSName(ATT_SCORE);
+                scoreAnno.setSValue(attributes.getValue(ATT_SCORE));
+                sAnno.addLabel(scoreAnno);
+            }
+            sugPosLemma++;
+        } else {
+            addSimpleRow("posLemma", attributes);
+        }
+    }
+    else if (TAG_NORM.equals(qName) || TAG_NORMBROAD.equals(qName)) {
+        String ann_name = TAG_NORM.equals(qName) ? "norm" : "modern";
+        addSimpleRow(ann_name, attributes);
+    }
+    else if (TAG_INFLCLASS.equals(qName)) {
+        addSimpleRow("inflectionClass", attributes);
+    }
+    else if (TAG_INFLCLASS_LEMMA.equals(qName)) {
+        addSimpleRow("inflectionClassLemma", attributes);
+    }
+    else if (TAG_INFL.equals(qName)) {
+        addSimpleRow("inflection", attributes);
+    }
+    else if (TAG_NORMALIGN.equals(qName) || TAG_NORMALIGN_VARIANT.equals(qName)) {
+        addSimpleRow("char_align", attributes);
+    }
+    else if (TAG_LEMMA_ID.equals(qName)) {
+        addSimpleRow("lemmaId", attributes);
+    }
 			else if (TAG_LEMMA.equals(qName)){
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek()))
 				{
@@ -323,7 +366,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					sugLemma++;
 				}
 				else
-					getSNodeStack().peek().createSAnnotation(null, TAG_LEMMA, attributes.getValue(ATT_TAG));	
+                                    addSimpleRow(TAG_LEMMA, attributes);
 			}
 			else if (TAG_MORPH.equals(qName)){
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek()))
@@ -338,7 +381,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					sugMorph++;
 				}
 				else
-					getSNodeStack().peek().createSAnnotation(null, TAG_MORPH, attributes.getValue(ATT_TAG));
+                                    addSimpleRow(TAG_MORPH, attributes);
 			}
 			//must be at the end, that one before last is always on top when processing
 			getXMLELementStack().push(qName);
@@ -456,6 +499,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			else if (TAG_SUGGESTIONS.equals(qName)){
 				sugLemma= 0;
 				sugPos= 0;
+                                sugPosLemma = 0;
 				sugMorph= 0;
 			}
 			getXMLELementStack().pop();
