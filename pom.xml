@@ -40,8 +40,8 @@
   <description>This project provides three sample modules for Pepper. It provides an importer, an exporter and a manipulator. The project can be used as a container for creating new PepperModules. One just have to override the areas marked with TODO.</description>
   <url>https://korpling.german.hu-berlin.de/p/projects/peppermodules-coraxmlmodules</url>
   <issueManagement>
-  	<system>Redmine</system>
-  	<url>https://korpling.german.hu-berlin.de/p/projects/peppermodules-coraxmlmodules/issues</url>
+  	<system>GitHub</system>
+  	<url>https://github.com/korpling/CoraXMLModules/issues</url>
   </issueManagement>
   <ciManagement>
   	<system>Jenkins</system>
@@ -52,9 +52,9 @@
   	<name>Humboldt Univerity of Berlin, INRIA</name>
   </organization>
   <scm>
-    <!-- TODO /9/ change the connection to the trunk folder of your scm, what you can see here is the subversion connection for the pepperModules-SampleModules project -->
-    <developerConnection>scm:svn:https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/CoraXMLModules/trunk</developerConnection>
-    <url>scm:svn:https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/CoraXMLModules/</url>
+  	<connection>scm:git:git://github.com/korpling/CoraXMLModules.git</connection>
+    <developerConnection>scm:git:git@github.com:korpling/CoraXMLModules.git</developerConnection>
+    <url>https://github.com/korpling/CoraXMLModules</url>
   </scm>
  
   <dependencies>
@@ -71,11 +71,19 @@
       <!-- start: Plugin for automatic releasing -->
       <plugin>
         <artifactId>maven-release-plugin</artifactId>
-        <version>${maven-release-plugin.version}</version>
+        <version>2.2.1</version>
+        <executions>
+        	<execution>
+        		<id>default</id>
+        		<goals>
+        			<goal>perform</goal>        			
+        		</goals>
+        		<configuration>
+        			<pomFileName>CoraXMLModules/pom.xml</pomFileName>
+        		</configuration>
+        	</execution>
+        </executions>
         <configuration>
-          <tagBase>
-           https://korpling.german.hu-berlin.de/svn/saltnpepper/PepperModules/CoraXMLModules/tags/
-          </tagBase>
           <releaseProfiles>release</releaseProfiles>
           <goals>package assembly:single deploy</goals>
         </configuration>
