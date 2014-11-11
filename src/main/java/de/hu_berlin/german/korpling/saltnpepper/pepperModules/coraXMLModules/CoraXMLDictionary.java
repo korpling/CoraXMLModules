@@ -55,6 +55,11 @@ public interface CoraXMLDictionary {
         public static final String TAG_INFLCLASS = "inflClass";
         public static final String TAG_INFLCLASS_LEMMA = "inflClass_gen";
 
+        // interne pos tags in Bonn XML zur korrektur
+        public static final String TAG_POS_INT = "intern_pos";
+        public static final String TAG_POS_INT_LEMMA = "intern_pos_lemma";
+        public static final String TAG_INFL_INT = "intern_infl";
+
 	/** constant to address the xml-element 'lemma'. **/
 	public static final String TAG_LEMMA= "lemma";
         public static final String TAG_LEMMA_ID = "lemma_idmwb";
@@ -69,6 +74,8 @@ public interface CoraXMLDictionary {
         public static final String TAG_NORMALIGN = "norm_align";
         public static final String TAG_NORMALIGN_VARIANT = "grapho";
 
+
+        public static final String ATT_SIMPLE="simple";
 	/** constant to address the xml-attribute 'ascii'. **/
 	public static final String ATT_ASCII= "ascii";
 	/** constant to address the xml-attribute 'id'. **/
