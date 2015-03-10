@@ -56,7 +56,7 @@ A detailed description of the Pepper workflow can be found on the [Pepper projec
 ### c) Use properties
 ```xml
 <importer name="CoraXMLImporter" path="PATH_TO_CORPUS">
-  <property key="PROPERTY_NAME">PROPERTY_VALUE</key>
+  <property key="PROPERTY_NAME">PROPERTY_VALUE</property>
 </importer>
 ```
 
