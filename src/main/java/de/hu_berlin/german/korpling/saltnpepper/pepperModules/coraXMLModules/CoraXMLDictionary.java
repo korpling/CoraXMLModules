@@ -57,7 +57,7 @@ public interface CoraXMLDictionary {
 
         // interne pos tags in Bonn XML zur korrektur
         public static final String TAG_POS_INT = "intern_pos";
-        public static final String TAG_POS_INT_LEMMA = "intern_pos_lemma";
+        public static final String TAG_POS_INT_LEMMA = "intern_pos_gen";
         public static final String TAG_INFL_INT = "intern_infl";
 
 	/** constant to address the xml-element 'lemma'. **/
