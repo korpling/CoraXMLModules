@@ -170,7 +170,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          }
          else if (TAG_TOKEN.equals(qName)){
             openToken= SaltFactory.eINSTANCE.createSSpan();
-            openToken.createSAnnotation(null, SEGMENTATION_NAME_TOKEN, StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
+            openToken.createSAnnotation(null,
+                                        SEGMENTATION_NAME_TOKEN,
+                                        StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
             getSDocument().getSDocumentGraph().addSNode(openToken);
             getSNodeStack().add(openToken);
 
@@ -463,62 +465,58 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             }
          }
       }
+      private void span_on_tok(SSpan span, SToken tok) {
+          SSpanningRelation rel = SaltFactory.eINSTANCE.createSSpanningRelation();
+          rel.setSSpan(span);
+          rel.setSToken(tok);
+          getSDocument().getSDocumentGraph().addSRelation(rel);
+      }
 
       @Override
-      public void endElement(   String uri,
-            String localName,
-            String qName)throws SAXException
-      {
-         if (TAG_TOKEN.equals(qName))
-         {// tag is TAG_TOKEN
-            int numOfTokens= getOpenDipls().size();
-            if (numOfTokens <  getOpenMods().size())
-               numOfTokens= getOpenMods().size();
-            for (int i= 0; i< numOfTokens; i++)
-            {
-               int leftPos= getSTextualDS().getSText().length();
-               getSTextualDS().setSText(getSTextualDS().getSText()+" ");
-               int rightPos= getSTextualDS().getSText().length();
-               SToken sToken= getSDocument().getSDocumentGraph().createSToken(sTextualDS, leftPos, rightPos);
-
-               if (openToken!= null)
-               {
-                  SSpanningRelation sSpanRel= SaltFactory.eINSTANCE.createSSpanningRelation();
-                  sSpanRel.setSSpan(openToken);
-                  sSpanRel.setSToken(sToken);
-                  getSDocument().getSDocumentGraph().addSRelation(sSpanRel);
-               }
-               if (i < getOpenDipls().size())
-               {
-                  SSpan diplSpan= getOpenDipls().get(i);
-                  SSpanningRelation sSpanRel= SaltFactory.eINSTANCE.createSSpanningRelation();
-                  sSpanRel.setSSpan(diplSpan);
-                  sSpanRel.setSToken(sToken);
-                  getSDocument().getSDocumentGraph().addSRelation(sSpanRel);
-
-                  Collection<SSpan> sSpans= dipl2SSpan.get(diplSpan);
-                  if (sSpans!= null)
-                  {
-                     for (SSpan sSpan: sSpans)
-                     {
-                        sSpanRel= SaltFactory.eINSTANCE.createSSpanningRelation();
-                        sSpanRel.setSSpan(sSpan);
-                        sSpanRel.setSToken(sToken);
-                        getSDocument().getSDocumentGraph().addSRelation(sSpanRel);
-                     }
-                     dipl2SSpan.removeAll(diplSpan);
+      public void endElement(String uri, String localName, String qName)
+              throws SAXException {
+          if (TAG_TOKEN.equals(qName)) {
+              int dipl_pos = 0, mod_pos = 0;
+              // initialization is actually unnecessary, but if i don't do it,
+              // eclipse gives warnings
+              SSpan last_dipl = null,
+                    last_mod = null;
+              while (dipl_pos < getOpenDipls().size() || mod_pos < getOpenMods().size()) {
+                  if (dipl_pos < getOpenDipls().size())
+                      last_dipl = getOpenDipls().get(dipl_pos);
+                  if (mod_pos < getOpenMods().size())
+                      last_mod = getOpenMods().get(mod_pos);
+                  // increment the length of the (dummy) text object
+                  int left_pos = getSTextualDS().getSText().length();
+                  getSTextualDS().setSText(getSTextualDS().getSText() + " ");
+                  int right_pos = getSTextualDS().getSText().length();
+                  // create a tok to span dipl/mod/token on
+                  SToken tok = getSDocument().getSDocumentGraph().createSToken(sTextualDS, left_pos, right_pos);
+                  // span the token on the tok
+                  span_on_tok(openToken, tok);
+                  // span the last retrieved dipl on the tok
+                  span_on_tok(last_dipl, tok);
+                  // connect the dipl to line/column/... spans
+                  Collection<SSpan> layout_spans = dipl2SSpan.get(last_dipl);
+                  if (layout_spans != null) {
+                      for (SSpan layout_span : layout_spans) {
+                          SSpanningRelation layout_rel = SaltFactory.eINSTANCE.createSSpanningRelation();
+                          layout_rel.setSSpan(layout_span);
+                          layout_rel.setSToken(tok);
+                          getSDocument().getSDocumentGraph().addSRelation(layout_rel);
+                      }
+                      dipl2SSpan.removeAll(last_dipl);
                   }
 
-               }
+                  // span the last retrieved mod on the tok
+                  span_on_tok(last_mod, tok);
 
-               if (i < getOpenMods().size())
-               {
-                  SSpanningRelation sSpanRel= SaltFactory.eINSTANCE.createSSpanningRelation();
-                  sSpanRel.setSSpan(getOpenMods().get(i));
-                  sSpanRel.setSToken(sToken);
-                  getSDocument().getSDocumentGraph().addSRelation(sSpanRel);
-               }
-            }
+                  if (dipl_pos < getOpenDipls().size())
+                      ++dipl_pos;
+                  if (mod_pos < getOpenMods().size())
+                      ++mod_pos;
+              }
+
             resetOpenDipls();
             resetOpenMods();
             getSNodeStack().pop();
@@ -534,7 +532,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          else if (TAG_SUGGESTIONS.equals(qName)){
             sugLemma= 0;
             sugPos= 0;
-                                sugPosLemma = 0;
+            sugPosLemma = 0;
             sugMorph= 0;
          }
          getXMLELementStack().pop();
