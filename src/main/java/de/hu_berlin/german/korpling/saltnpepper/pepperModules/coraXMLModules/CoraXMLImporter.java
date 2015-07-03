@@ -51,6 +51,9 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	{
 		super();
 		this.setName("CoraXMLImporter");
+		setSupplierContact(URI.createURI("saltnpepper@lists.hu-berlin.de"));
+		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-CoraXMLModules"));
+		setDesc("This importer transforms data in cora xml format to a Salt model. ");
 		this.setVersion("1.0");
 		this.addSupportedFormat("coraXML", "1.0", null);
 		this.getSDocumentEndings().add(PepperImporter.ENDING_XML);
