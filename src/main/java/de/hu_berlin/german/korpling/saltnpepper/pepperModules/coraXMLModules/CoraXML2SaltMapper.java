@@ -39,6 +39,7 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpanningRelation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SOrderRelation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
@@ -133,6 +134,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
       /** name of segmentation identified by {@link CoraXMLDictionary#TAG_TOKEN}**/
       public static final String SEGMENTATION_NAME_TOKEN="token";
 
+      /** stores last segmentation units**/
+      private SSpan last_mod=null;
+      private SSpan last_dipl=null;
+      private SSpan last_token=null;
+
       /** stores current line**/
       private SSpan currentLine= null;
       /** stores current column**/
@@ -155,6 +161,15 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         getSNodeStack().peek().createSAnnotation(ns, name, attributes.getValue(ATT_TAG));
     }
 
+    private void addOrderRelation(SSpan source, SSpan target, String type) {
+        if (source != null) {
+            SOrderRelation orderRel = SaltFactory.eINSTANCE.createSOrderRelation();
+            orderRel.setSSource(source);
+            orderRel.setSTarget(target);
+            orderRel.addSType(type);
+            getSDocument().getSDocumentGraph().addSRelation(orderRel);
+        }
+    }
 
       @Override
       public void startElement(   String uri,
@@ -174,6 +189,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                                         SEGMENTATION_NAME_TOKEN,
                                         StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
             getSDocument().getSDocumentGraph().addSNode(openToken);
+            addOrderRelation(last_token, openToken, SEGMENTATION_NAME_TOKEN);
+            last_token = openToken;
             getSNodeStack().add(openToken);
 
          }
@@ -198,6 +215,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             SSpan span= SaltFactory.eINSTANCE.createSSpan();
             span.createSAnnotation(null, SEGMENTATION_NAME_MOD, StringEscapeUtils.unescapeHtml4(attributes.getValue("simple")));
             getSDocument().getSDocumentGraph().addSNode(span);
+            addOrderRelation(last_mod, span, SEGMENTATION_NAME_MOD);
+            last_mod = span;
             this.getOpenMods().add(span);
             getSNodeStack().add(span);
          }
@@ -205,6 +224,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             SSpan span= SaltFactory.eINSTANCE.createSSpan();
             span.createSAnnotation(null, SEGMENTATION_NAME_DIPL, StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_UTF)));
             getSDocument().getSDocumentGraph().addSNode(span);
+            addOrderRelation(last_dipl, span, SEGMENTATION_NAME_DIPL);
+            last_dipl = span;
             this.getOpenDipls().add(span);
             getSNodeStack().add(span);
 
