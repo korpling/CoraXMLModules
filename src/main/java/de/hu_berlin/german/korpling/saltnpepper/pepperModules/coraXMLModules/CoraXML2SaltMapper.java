@@ -198,7 +198,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             SSpan colSpan= SaltFactory.eINSTANCE.createSSpan();
             // TODO there should be a span for the page no independent of the side
             colSpan.createSAnnotation(null, ATT_SIDE, attributes.getValue(ATT_SIDE));
-            colSpan.createSAnnotation(null, "page", attributes.getValue("count"));
+            colSpan.createSAnnotation(null, "page", attributes.getValue(ATT_NO));
 
             getSDocument().getSDocumentGraph().addSNode(colSpan);
             String[] parts= attributes.getValue(ATT_RANGE).split("[.][.]");
@@ -213,7 +213,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          }
          else if (TAG_MOD.equals(qName)){
             SSpan span= SaltFactory.eINSTANCE.createSSpan();
-            span.createSAnnotation(null, SEGMENTATION_NAME_MOD, StringEscapeUtils.unescapeHtml4(attributes.getValue("simple")));
+            span.createSAnnotation(null, SEGMENTATION_NAME_MOD, StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_ASCII)));
             getSDocument().getSDocumentGraph().addSNode(span);
             addOrderRelation(last_mod, span, SEGMENTATION_NAME_MOD);
             last_mod = span;
@@ -293,7 +293,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          }
          else if (TAG_LINE.equals(qName)){
             SSpan sSpan= SaltFactory.eINSTANCE.createSSpan();
-            sSpan.createSAnnotation(null, TAG_LINE, attributes.getValue("count"));
+            sSpan.createSAnnotation(null, TAG_LINE, attributes.getValue(ATT_NAME));
             getSDocument().getSDocumentGraph().addSNode(sSpan);
             String[] parts= attributes.getValue(ATT_RANGE).split("[.][.]");
             String start= null;
