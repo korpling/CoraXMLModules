@@ -36,8 +36,12 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
  *
  */
 @Component(name="CoraXMLImporterComponent", factory="PepperImporterComponentFactory")
-public class CoraXMLImporter extends PepperImporterImpl implements PepperImporter
+public class CoraXMLImporter extends PepperImporterImpl implements PepperImporter, CoraXMLDictionary
 {
+
+    //** customization properties */
+    private String mod_tok_textlayer = ATT_ASCII;
+    private String dipl_tok_textlayer = ATT_UTF;
 
 // =================================================== mandatory ===================================================
 	/**
@@ -50,6 +54,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	public CoraXMLImporter()
 	{
 		super();
+		setProperties(new CoraXMLImporterProperties());
 		this.setName("CoraXMLImporter");
 		setSupplierContact(URI.createURI("saltnpepper@lists.hu-berlin.de"));
 		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-CoraXMLModules"));
@@ -62,6 +67,8 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	public PepperMapper createPepperMapper(SElementId sElementId)
 	{
 		CoraXML2SaltMapper mapper = new CoraXML2SaltMapper();
+		mapper.setModTokTextlayer(mod_tok_textlayer);
+		mapper.setDiplTokTextlayer(dipl_tok_textlayer);
 		return(mapper);
 	}
 	
@@ -92,6 +99,10 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	@Override
 	public boolean isReadyToStart() throws PepperModuleNotReadyException
 	{
+	    if (this.getProperties() != null) {
+		mod_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getModTokTextlayer();
+		dipl_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getDiplTokTextlayer();
+	    }
 		//TODO make some initializations if necessary
 		return(super.isReadyToStart());
 	}

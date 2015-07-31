@@ -45,6 +45,11 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
 public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper, CoraXMLDictionary
 {
+
+   /** defines which textual representation is used for the dipl and mod tokens **/
+   private String mod_tok_textlayer = ATT_ASCII; // one of "trans", "utf" and "ascii"
+   private String dipl_tok_textlayer = ATT_UTF;  // one of "trans" and "utf"
+
    /**
     * {@inheritDoc PepperMapper#setSDocument(SDocument)}
     *
@@ -213,7 +218,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          }
          else if (TAG_MOD.equals(qName)){
             SSpan span= SaltFactory.eINSTANCE.createSSpan();
-            span.createSAnnotation(null, SEGMENTATION_NAME_MOD, StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_ASCII)));
+            span.createSAnnotation(null, SEGMENTATION_NAME_MOD, StringEscapeUtils.unescapeHtml4(attributes.getValue(mod_tok_textlayer)));
             getSDocument().getSDocumentGraph().addSNode(span);
             addOrderRelation(last_mod, span, SEGMENTATION_NAME_MOD);
             last_mod = span;
@@ -222,7 +227,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          }
          else if (TAG_DIPL.equals(qName)){
             SSpan span= SaltFactory.eINSTANCE.createSSpan();
-            span.createSAnnotation(null, SEGMENTATION_NAME_DIPL, StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_UTF)));
+            span.createSAnnotation(null, SEGMENTATION_NAME_DIPL, StringEscapeUtils.unescapeHtml4(attributes.getValue(dipl_tok_textlayer)));
             getSDocument().getSDocumentGraph().addSNode(span);
             addOrderRelation(last_dipl, span, SEGMENTATION_NAME_DIPL);
             last_dipl = span;
@@ -550,5 +555,17 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          }
          getXMLELementStack().pop();
       }
+   }
+
+   // TODO: deal with invalid values for textlayer
+   public void setModTokTextlayer(String textlayer) {
+       if (textlayer.equals(ATT_ASCII) || textlayer.equals(ATT_UTF) || textlayer.equals(ATT_TRANS)) {
+           this.mod_tok_textlayer = textlayer;
+       }
+   }
+   public void setDiplTokTextlayer(String textlayer) {
+       if (textlayer.equals(ATT_UTF) || textlayer.equals(ATT_TRANS)) {
+           this.dipl_tok_textlayer = textlayer;
+       }
    }
 }
