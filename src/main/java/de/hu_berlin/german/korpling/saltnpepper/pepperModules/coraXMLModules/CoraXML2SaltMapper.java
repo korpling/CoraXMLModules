@@ -264,13 +264,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             //switch page links to column identifier
          }
          else if (TAG_COLUMN.equals(qName)){
-            SSpan colSpan= SaltFactory.eINSTANCE.createSSpan();
-            //colSpan.createSAnnotation(null, TAG_COLUMN, attributes.getValue(ATT_ID));
-            // ATT_ID contains the id of the column element (e.g. "c1"), but this has to be changed
-            // to alphabetic numbering ("c1" -> "a")
-            colSpan.createSAnnotation(null, TAG_COLUMN, Character.toString(current_column++));
-
-            getSDocument().getSDocumentGraph().addSNode(colSpan);
             String[] parts= attributes.getValue(ATT_RANGE).split("[.][.]");
             String start= null;
             String end= null;
@@ -280,8 +273,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                   end= parts[1];
                else end= parts[0];
             }
-            columnStart.put(start, colSpan);
-            columnEnd.put(end, colSpan);
 
             String id= attributes.getValue(ATT_ID);
             //switch page links to column identifier
@@ -290,6 +281,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                {
                   pageStart.remove(id);
                   pageStart.put(start, pageSpan);
+		  // reset column count
+		  current_column = 'a';
                }
                pageSpan= pageEnd.get(id);
                if (pageSpan!= null)
@@ -298,6 +291,17 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                   pageEnd.put(end, pageSpan);
                }
             //switch page links to column identifier
+
+            SSpan colSpan= SaltFactory.eINSTANCE.createSSpan();
+            //colSpan.createSAnnotation(null, TAG_COLUMN, attributes.getValue(ATT_ID));
+            // ATT_ID contains the id of the column element (e.g. "c1"), but this has to be changed
+            // to alphabetic numbering ("c1" -> "a")
+            colSpan.createSAnnotation(null, TAG_COLUMN, Character.toString(current_column++));
+
+            getSDocument().getSDocumentGraph().addSNode(colSpan);
+
+            columnStart.put(start, colSpan);
+            columnEnd.put(end, colSpan);
          }
          else if (TAG_LINE.equals(qName)){
             SSpan sSpan= SaltFactory.eINSTANCE.createSSpan();
