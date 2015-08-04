@@ -50,6 +50,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
    private String mod_tok_textlayer = ATT_ASCII; // one of "trans", "utf" and "ascii"
    private String dipl_tok_textlayer = ATT_UTF;  // one of "trans" and "utf"
 
+   /** defines whether the token layer should be exported **/
+   private boolean exportTokenLayer = true;
+
    /**
     * {@inheritDoc PepperMapper#setSDocument(SDocument)}
     *
@@ -188,7 +191,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          }
          else if (TAG_TEXT.equals(qName)){
          }
-         else if (TAG_TOKEN.equals(qName)){
+         else if (exportTokenLayer && TAG_TOKEN.equals(qName)){
             openToken= SaltFactory.eINSTANCE.createSSpan();
             openToken.createSAnnotation(null,
                                         SEGMENTATION_NAME_TOKEN,
@@ -523,7 +526,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                  // create a tok to span dipl/mod/token on
                  SToken tok = getSDocument().getSDocumentGraph().createSToken(sTextualDS, left_pos, right_pos);
                  // span the token on the tok
-                 span_on_tok(openToken, tok);
+                 if (exportTokenLayer) {
+                     span_on_tok(openToken, tok);
+                 }
                  // span the last retrieved dipl on the tok
                  span_on_tok(last_dipl, tok);
                  // connect the dipl to line/column/... spans
@@ -537,7 +542,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
             resetOpenDipls();
             resetOpenMods();
-            getSNodeStack().pop();
+            if (exportTokenLayer) {
+                getSNodeStack().pop();
+            }
          }// tag is TAG_TOKEN
          else if (TAG_DIPL.equals(qName))
          {// tag is TAG_DIPL
@@ -568,4 +575,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
            this.dipl_tok_textlayer = textlayer;
        }
    }
+
+   public void setExportTokenLayer(boolean exportTokenLayer) {
+       this.exportTokenLayer = exportTokenLayer;
+   }
+
 }

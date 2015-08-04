@@ -17,14 +17,8 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.coraXMLModules;
 
-// import java.util.regex.Matcher;
-// import java.util.regex.Pattern;
-
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperties;
 import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperty;
-// import java.util.ArrayList;
-// import java.util.concurrent.ConcurrentHashMap;
-// import java.util.concurrent.ConcurrentMap;
 
 /**
  * Defines the properties to be used for the {@link CoraXMLImporter}.
@@ -35,6 +29,8 @@ import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModulePrope
 public class CoraXMLImporterProperties extends PepperModuleProperties implements CoraXMLDictionary {
 
   public static final String PREFIX_TOKTEXT = "toktext.";
+  public static final String PREFIX_EXPORT = "export.";
+
 
   /**
    * Name of properties which set the feature used for the token text.
@@ -42,9 +38,16 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
   public static final String PROP_TOKTEXT_MOD =  PREFIX_TOKTEXT + "mod";
   public static final String PROP_TOKTEXT_DIPL =  PREFIX_TOKTEXT + "dipl";
 
+  /**
+   * Name of properties which define whether a layer is exported.
+   */
+  public static final String PROP_EXPORT_TOKEN = PREFIX_EXPORT + "token";
+
   public CoraXMLImporterProperties() {
     this.addProperty(new PepperModuleProperty<>(PROP_TOKTEXT_MOD, String.class, "This property defines which attribute of the mod-Tag is used for the token texts (trans, utf or ascii). By default, the simplified ascii version is used (value:ascii)", ATT_ASCII, false));
     this.addProperty(new PepperModuleProperty<>(PROP_TOKTEXT_DIPL, String.class, "This property defines which attribute of the dipl-Tag is used for the token texts (trans or utf). By default, the unicode version is used (value:utf)", ATT_UTF, false));
+    this.addProperty(new PepperModuleProperty<>(PROP_EXPORT_TOKEN, Boolean.class, "This property defines whether the token layer is exported. By default, it is exported (value:true)", Boolean.TRUE, false));
+
   }
 
   /** Returns the attribute to be used for the text of the dipl-Token
@@ -63,5 +66,12 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
     return ((String) this.getProperty(PROP_TOKTEXT_MOD).getValue());
   }
 
+   /** Returns whether the token-layer should be exported
+   *
+   * @return
+   */
+  public boolean getExportTokenLayer() {
+    return ((Boolean) this.getProperty(PROP_EXPORT_TOKEN).getValue());
+  }
 
 }

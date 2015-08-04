@@ -42,6 +42,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
     //** customization properties */
     private String mod_tok_textlayer = ATT_ASCII;
     private String dipl_tok_textlayer = ATT_UTF;
+    private boolean export_token_layer = true;
 
 // =================================================== mandatory ===================================================
 	/**
@@ -69,6 +70,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		CoraXML2SaltMapper mapper = new CoraXML2SaltMapper();
 		mapper.setModTokTextlayer(mod_tok_textlayer);
 		mapper.setDiplTokTextlayer(dipl_tok_textlayer);
+		mapper.setExportTokenLayer(export_token_layer);
 		return(mapper);
 	}
 	
@@ -102,6 +104,8 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	    if (this.getProperties() != null) {
 		mod_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getModTokTextlayer();
 		dipl_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getDiplTokTextlayer();
+		export_token_layer = ((CoraXMLImporterProperties) this.getProperties()).getExportTokenLayer();
+
 	    }
 		//TODO make some initializations if necessary
 		return(super.isReadyToStart());
