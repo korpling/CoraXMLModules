@@ -21,6 +21,8 @@ import java.util.Hashtable;
 import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -52,6 +54,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
    /** defines whether the token layer should be exported **/
    private boolean exportTokenLayer = true;
+
+   /** defines whether dipl and mod are only segmentations of token **/
+   private boolean tokenization_is_segmentation = false;
 
    /**
     * {@inheritDoc PepperMapper#setSDocument(SDocument)}
@@ -108,6 +113,44 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
       }
       private void resetOpenMods(){
          openMods= null;
+      }
+
+      /** stores offsets of dipl-Tokens in the current token**/
+      private List<Integer> open_dipl_offsets = null;
+      private List<Integer> getDiplOffsets(){
+	  if (open_dipl_offsets == null)
+	      open_dipl_offsets = new Vector<Integer>();
+	  return open_dipl_offsets;
+      }
+      private void resetDiplOffsets(){
+	  open_dipl_offsets = null;
+      }
+      private Integer getLastDiplOffest(){
+	if (getDiplOffsets().isEmpty()) {
+	    return 0;
+	}
+	else {
+	    return getDiplOffsets().get(getDiplOffsets().size()-1);
+	}
+      }
+
+      /** stores offsets of mod-Tokens in the current token**/
+      private List<Integer> open_mod_offsets = null;
+      private List<Integer> getModOffsets(){
+	  if (open_mod_offsets == null)
+	      open_mod_offsets = new Vector<Integer>();
+	  return open_mod_offsets;
+      }
+      private void resetModOffsets(){
+	  open_mod_offsets = null;
+      }
+      private Integer getLastModOffest(){
+	if (getModOffsets().isEmpty()) {
+	    return 0;
+	}
+	else {
+	    return getModOffsets().get(getModOffsets().size()-1);
+	}
       }
 
       private SSpan openToken= null;
@@ -226,6 +269,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             addOrderRelation(last_mod, span, SEGMENTATION_NAME_MOD);
             last_mod = span;
             this.getOpenMods().add(span);
+	    this.getModOffsets().add(this.getLastModOffest() + attributes.getValue(ATT_TRANS).length());
             getSNodeStack().add(span);
          }
          else if (TAG_DIPL.equals(qName)){
@@ -235,6 +279,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             addOrderRelation(last_dipl, span, SEGMENTATION_NAME_DIPL);
             last_dipl = span;
             this.getOpenDipls().add(span);
+	    this.getDiplOffsets().add(this.getLastDiplOffest() + attributes.getValue(ATT_TRANS).length());
             getSNodeStack().add(span);
 
             String id= attributes.getValue(ATT_ID);
@@ -501,51 +546,123 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
           getSDocument().getSDocumentGraph().addSRelation(rel);
       }
 
+      private void create_stokens_simple() {
+	  int dipl_pos = 0, mod_pos = 0;
+	  // initialization is actually unnecessary, but if i don't do it,
+	  // eclipse gives warnings
+	  SSpan last_dipl = null,
+	        last_mod = null;
+	  Collection<SSpan> layout_spans = null;
+	  // dipl/mod/token creation works like this:
+	  // a dummy SToken is created with textual " " at the current text position
+	  // dipl/mod/token are all connected to this dummy SToken with an SRelation
+	  // all layout spans are retrieved from dipl2sspans and also connected to the SToken
+	  while (dipl_pos < getOpenDipls().size() || mod_pos < getOpenMods().size()) {
+	      if (dipl_pos < getOpenDipls().size()) {
+		  dipl2SSpan.removeAll(last_dipl);
+		  last_dipl = getOpenDipls().get(dipl_pos++);
+		  layout_spans = dipl2SSpan.get(last_dipl);
+	      }
+	      if (mod_pos < getOpenMods().size())
+		  last_mod = getOpenMods().get(mod_pos++);
+	      // increment the length of the (dummy) text object
+	      int left_pos = getSTextualDS().getSText().length();
+	      getSTextualDS().setSText(getSTextualDS().getSText() + " ");
+	      int right_pos = getSTextualDS().getSText().length();
+	      // create a tok to span dipl/mod/token on
+	      SToken tok = getSDocument().getSDocumentGraph().createSToken(sTextualDS, left_pos, right_pos);
+	      // span the token on the tok
+	      if (exportTokenLayer) {
+		  span_on_tok(openToken, tok);
+	      }
+	      // span the last retrieved dipl on the tok
+	      span_on_tok(last_dipl, tok);
+	      // connect the dipl to line/column/... spans
+	      if (layout_spans != null)
+		  for (SSpan layout_span : layout_spans)
+		      span_on_tok(layout_span, tok);
+
+	      // span the last retrieved mod on the tok
+	      span_on_tok(last_mod, tok);
+	  }
+      }
+
+      private void create_stokens_aligned() {
+
+	  // dipl/mod/token creation works like this:
+	  // the set tok_offsets contains all offsets where a dipl or a mod ends
+	  // for each of these offsets:
+	  //     a dummy SToken is created with textual " " at the current text position
+	  //     current dipl/mod/token are all connected to this dummy SToken with an SRelation
+	  //     all layout spans are retrieved from dipl2sspans and also connected to the SToken
+	  //     when the current dipl or mod ends at the offset the next one is selected
+
+	  SortedSet<Integer> tok_offsets = new TreeSet<Integer>();
+	  tok_offsets.addAll(getDiplOffsets());
+	  tok_offsets.addAll(getModOffsets());
+
+	  int dipl_pos = 1, mod_pos = 1;
+	  SSpan last_dipl = getOpenDipls().get(0);
+	  SSpan last_mod = getOpenMods().get(0);
+	  Collection<SSpan> layout_spans = dipl2SSpan.get(last_dipl);
+
+	  Integer dipl_offset = 0;
+	  Integer mod_offset = 0;
+
+	  for (Integer tok_offset: tok_offsets) {
+
+	      // increment the length of the (dummy) text object
+	      int left_pos = getSTextualDS().getSText().length();
+	      getSTextualDS().setSText(getSTextualDS().getSText() + " ");
+	      int right_pos = getSTextualDS().getSText().length();
+	      // create a tok to span dipl/mod/token on
+	      SToken tok = getSDocument().getSDocumentGraph().createSToken(sTextualDS, left_pos, right_pos);
+
+	      // span the token on the tok
+	      if (exportTokenLayer) {
+		  span_on_tok(openToken, tok);
+	      }
+	      // span the last retrieved dipl on the tok
+	      span_on_tok(last_dipl, tok);
+	      // connect the dipl to line/column/... spans
+	      if (layout_spans != null)
+		  for (SSpan layout_span : layout_spans)
+		      span_on_tok(layout_span, tok);
+
+	      // span the last retrieved mod on the tok
+	      span_on_tok(last_mod, tok);
+
+	      // get next dipl and mod
+	      dipl_offset = getDiplOffsets().get(dipl_pos-1);
+	      mod_offset = getModOffsets().get(mod_pos-1);
+
+	      if ((dipl_offset == tok_offset) && (dipl_pos < getOpenDipls().size())) {
+		  dipl2SSpan.removeAll(last_dipl);
+		  last_dipl = getOpenDipls().get(dipl_pos++);
+		  layout_spans = dipl2SSpan.get(last_dipl);
+	      }
+	      if ((mod_offset == tok_offset) && (mod_pos < getOpenMods().size()))
+		  last_mod = getOpenMods().get(mod_pos++);
+
+	  }
+      }
+
       @Override
       public void endElement(String uri, String localName, String qName)
               throws SAXException {
          if (TAG_TOKEN.equals(qName)) {
-             int dipl_pos = 0, mod_pos = 0;
-             // initialization is actually unnecessary, but if i don't do it,
-             // eclipse gives warnings
-             SSpan last_dipl = null,
-                   last_mod = null;
-             Collection<SSpan> layout_spans = null;
-             // dipl/mod/token creation works like this:
-             // a dummy SToken is created with textual " " at the current text position
-             // dipl/mod/token are all connected to this dummy SToken with an SRelation
-             // all layout spans are retrieved from dipl2sspans and also connected to the SToken
-             while (dipl_pos < getOpenDipls().size() || mod_pos < getOpenMods().size()) {
-                 if (dipl_pos < getOpenDipls().size()) {
-                     dipl2SSpan.removeAll(last_dipl);
-                     last_dipl = getOpenDipls().get(dipl_pos++);
-                     layout_spans = dipl2SSpan.get(last_dipl);
-                 }
-                 if (mod_pos < getOpenMods().size())
-                     last_mod = getOpenMods().get(mod_pos++);
-                 // increment the length of the (dummy) text object
-                 int left_pos = getSTextualDS().getSText().length();
-                 getSTextualDS().setSText(getSTextualDS().getSText() + " ");
-                 int right_pos = getSTextualDS().getSText().length();
-                 // create a tok to span dipl/mod/token on
-                 SToken tok = getSDocument().getSDocumentGraph().createSToken(sTextualDS, left_pos, right_pos);
-                 // span the token on the tok
-                 if (exportTokenLayer) {
-                     span_on_tok(openToken, tok);
-                 }
-                 // span the last retrieved dipl on the tok
-                 span_on_tok(last_dipl, tok);
-                 // connect the dipl to line/column/... spans
-                 if (layout_spans != null)
-                     for (SSpan layout_span : layout_spans)
-                         span_on_tok(layout_span, tok);
 
-                 // span the last retrieved mod on the tok
-                 span_on_tok(last_mod, tok);
-             }
+	    if (tokenization_is_segmentation)
+		// TODO: check whether the dipls and mods really contain the same text
+		//       otherwise warn and call create_stokens_simple
+		create_stokens_aligned();
+	    else
+		create_stokens_simple();
 
-            resetOpenDipls();
+	    resetOpenDipls();
+	    resetDiplOffsets();
             resetOpenMods();
+	    resetModOffsets();
             if (exportTokenLayer) {
                 getSNodeStack().pop();
             }
@@ -583,5 +700,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
    public void setExportTokenLayer(boolean exportTokenLayer) {
        this.exportTokenLayer = exportTokenLayer;
    }
+
+   public void setTokenizationIsSegmentation(boolean tokenization_is_segmentation) {
+       this.tokenization_is_segmentation = tokenization_is_segmentation;
+   }
+
 
 }
