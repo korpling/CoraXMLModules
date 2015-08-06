@@ -234,15 +234,17 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          }
          else if (TAG_TEXT.equals(qName)){
          }
-         else if (exportTokenLayer && TAG_TOKEN.equals(qName)){
+         else if (TAG_TOKEN.equals(qName)){
             openToken= SaltFactory.eINSTANCE.createSSpan();
             openToken.createSAnnotation(null,
                                         SEGMENTATION_NAME_TOKEN,
                                         StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
-            getSDocument().getSDocumentGraph().addSNode(openToken);
-            addOrderRelation(last_token, openToken, SEGMENTATION_NAME_TOKEN);
-            last_token = openToken;
-            getSNodeStack().add(openToken);
+	    if (exportTokenLayer) {
+		getSDocument().getSDocumentGraph().addSNode(openToken);
+		addOrderRelation(last_token, openToken, SEGMENTATION_NAME_TOKEN);
+		last_token = openToken;
+		getSNodeStack().add(openToken);
+	    }
 
          }
          else if (TAG_PAGE.equals(qName)){
