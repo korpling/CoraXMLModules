@@ -592,10 +592,12 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	  // dipl/mod/token creation works like this:
 	  // the set tok_offsets contains all offsets where a dipl or a mod ends
 	  // for each of these offsets:
-	  //     a dummy SToken is created with textual " " at the current text position
-	  //     current dipl/mod/token are all connected to this dummy SToken with an SRelation
+	  //     a SToken is created with textual content of the relevant token part at the current text position
+	  //     current dipl/mod/token are all connected to this SToken with an SRelation
 	  //     all layout spans are retrieved from dipl2sspans and also connected to the SToken
 	  //     when the current dipl or mod ends at the offset the next one is selected
+
+	  String token_text = openToken.getSAnnotation(SEGMENTATION_NAME_TOKEN).getSValueSTEXT();
 
 	  SortedSet<Integer> tok_offsets = new TreeSet<Integer>();
 	  tok_offsets.addAll(getDiplOffsets());
@@ -608,15 +610,18 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 	  Integer dipl_offset = 0;
 	  Integer mod_offset = 0;
+	  Integer last_tok_offset = 0;
 
 	  for (Integer tok_offset: tok_offsets) {
 
-	      // increment the length of the (dummy) text object
+	      // increment the length of the text object
 	      int left_pos = getSTextualDS().getSText().length();
-	      getSTextualDS().setSText(getSTextualDS().getSText() + " ");
+	      getSTextualDS().setSText(getSTextualDS().getSText() + token_text.substring(last_tok_offset, tok_offset));
 	      int right_pos = getSTextualDS().getSText().length();
 	      // create a tok to span dipl/mod/token on
 	      SToken tok = getSDocument().getSDocumentGraph().createSToken(sTextualDS, left_pos, right_pos);
+
+	      last_tok_offset = tok_offset;
 
 	      // span the token on the tok
 	      if (exportTokenLayer) {
@@ -640,11 +645,14 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		  dipl2SSpan.removeAll(last_dipl);
 		  last_dipl = getOpenDipls().get(dipl_pos++);
 		  layout_spans = dipl2SSpan.get(last_dipl);
+		  // add space to the text, as there was a space (or linebreak) in the manuscript
+		  getSTextualDS().setSText(getSTextualDS().getSText() + " ");
 	      }
 	      if ((mod_offset == tok_offset) && (mod_pos < getOpenMods().size()))
 		  last_mod = getOpenMods().get(mod_pos++);
 
 	  }
+	  getSTextualDS().setSText(getSTextualDS().getSText() + " ");
       }
 
       @Override
