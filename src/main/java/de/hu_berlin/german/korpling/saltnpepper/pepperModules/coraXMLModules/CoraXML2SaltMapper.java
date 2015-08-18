@@ -42,6 +42,8 @@ import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructu
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SOrderRelation;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STimeline;
+import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STimelineRelation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotation;
 import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
@@ -80,9 +82,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
       Hashtable<String, SSpan> lineStart= new Hashtable<String, SSpan>();
       /** stores start for line **/
       Hashtable<String, SSpan> lineEnd= new Hashtable<String, SSpan>();
-      /** stores all {@link SSpan} objects to be linked to given dipl {@link SSpan} (key= dipl, value, list of open {@link SSpan}s)**/
-      Multimap<SSpan, SSpan> dipl2SSpan= HashMultimap.create();
-
 
       /** stores start for column **/
       Hashtable<String, SSpan> columnStart= new Hashtable<String, SSpan>();
@@ -94,21 +93,21 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
       /** stores start for page **/
       Hashtable<String, SSpan> pageEnd= new Hashtable<String, SSpan>();
 
-      private List<SSpan> openDipls= null;
+      private List<SToken> openDipls= null;
       /** returns all open {@link CoraXMLDictionary#TAG_DIPL} which are related to a {@link SSpan} and are not connected with {@link SToken} objects so far **/
-      private List<SSpan> getOpenDipls(){
+      private List<SToken> getOpenDipls(){
          if (openDipls== null)
-            openDipls= new Vector<SSpan>();
+            openDipls= new Vector<SToken>();
          return(openDipls);
       }
       private void resetOpenDipls(){
          openDipls= null;
       }
-      private List<SSpan> openMods= null;
+      private List<SToken> openMods= null;
       /** returns all open {@link CoraXMLDictionary#TAG_MOD} which are related to a {@link SSpan} and are not connected with {@link SToken} objects so far **/
-      private List<SSpan> getOpenMods(){
+      private List<SToken> getOpenMods(){
          if (openMods== null)
-            openMods= new Vector<SSpan>();
+            openMods= new Vector<SToken>();
          return(openMods);
       }
       private void resetOpenMods(){
@@ -118,42 +117,40 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
       /** stores offsets of dipl-Tokens in the current token**/
       private List<Integer> open_dipl_offsets = null;
       private List<Integer> getDiplOffsets(){
-	  if (open_dipl_offsets == null)
-	      open_dipl_offsets = new Vector<Integer>();
-	  return open_dipl_offsets;
+          if (open_dipl_offsets == null)
+              open_dipl_offsets = new Vector<Integer>();
+          return open_dipl_offsets;
       }
       private void resetDiplOffsets(){
-	  open_dipl_offsets = null;
+          open_dipl_offsets = null;
       }
       private Integer getLastDiplOffest(){
-	if (getDiplOffsets().isEmpty()) {
-	    return 0;
-	}
-	else {
-	    return getDiplOffsets().get(getDiplOffsets().size()-1);
-	}
+        if (getDiplOffsets().isEmpty()) {
+            return 0;
+        }
+        else {
+            return getDiplOffsets().get(getDiplOffsets().size()-1);
+        }
       }
 
       /** stores offsets of mod-Tokens in the current token**/
       private List<Integer> open_mod_offsets = null;
       private List<Integer> getModOffsets(){
-	  if (open_mod_offsets == null)
-	      open_mod_offsets = new Vector<Integer>();
-	  return open_mod_offsets;
+          if (open_mod_offsets == null)
+              open_mod_offsets = new Vector<Integer>();
+          return open_mod_offsets;
       }
       private void resetModOffsets(){
-	  open_mod_offsets = null;
+          open_mod_offsets = null;
       }
       private Integer getLastModOffest(){
-	if (getModOffsets().isEmpty()) {
-	    return 0;
-	}
-	else {
-	    return getModOffsets().get(getModOffsets().size()-1);
-	}
+        if (getModOffsets().isEmpty()) {
+            return 0;
+        }
+        else {
+            return getModOffsets().get(getModOffsets().size()-1);
+        }
       }
-
-      private SSpan openToken= null;
 
       private Stack<SNode> sNodeStack= null;
       /** returns stack containing node hierarchie**/
@@ -186,9 +183,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
       public static final String SEGMENTATION_NAME_TOKEN="token";
 
       /** stores last segmentation units**/
-      private SSpan last_mod=null;
-      private SSpan last_dipl=null;
-      private SSpan last_token=null;
+      private SToken last_mod=null;
+      private SToken last_dipl=null;
+      private SToken last_token=null;
 
       /** stores current line**/
       private SSpan currentLine= null;
@@ -212,7 +209,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         getSNodeStack().peek().createSAnnotation(ns, name, attributes.getValue(ATT_TAG));
     }
 
-    private void addOrderRelation(SSpan source, SSpan target, String type) {
+    private void addOrderRelation(SToken source, SToken target, String type) {
         if (source != null) {
             SOrderRelation orderRel = SaltFactory.eINSTANCE.createSOrderRelation();
             orderRel.setSSource(source);
@@ -235,17 +232,21 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          else if (TAG_TEXT.equals(qName)){
          }
          else if (TAG_TOKEN.equals(qName)){
-            openToken= SaltFactory.eINSTANCE.createSSpan();
-            openToken.createSAnnotation(null,
-                                        SEGMENTATION_NAME_TOKEN,
-                                        StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
-	    if (exportTokenLayer) {
-		getSDocument().getSDocumentGraph().addSNode(openToken);
-		addOrderRelation(last_token, openToken, SEGMENTATION_NAME_TOKEN);
-		last_token = openToken;
-		getSNodeStack().add(openToken);
-	    }
 
+             if (exportTokenLayer) {
+                 // increment the length of the text object
+                 int left_pos = getSTextualDS_trans().getSText().length();
+                 getSTextualDS_trans().setSText(getSTextualDS_trans().getSText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
+                 int right_pos = getSTextualDS_trans().getSText().length();
+                 // create a tok
+                 SToken tok = getSDocument().getSDocumentGraph().createSToken(getSTextualDS_trans(), left_pos, right_pos);
+                 addOrderRelation(last_token, tok, SEGMENTATION_NAME_TOKEN);
+                 last_token = tok;
+                 getSNodeStack().add(tok);
+
+                 // add Space
+                 getSTextualDS_trans().setSText(getSTextualDS_trans().getSText() + " ");
+             }
          }
          else if (TAG_PAGE.equals(qName)){
             SSpan colSpan= SaltFactory.eINSTANCE.createSSpan();
@@ -265,49 +266,58 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          else if (TAG_SHIFTTAGS.equals(qName)){
          }
          else if (TAG_MOD.equals(qName)){
-            SSpan span= SaltFactory.eINSTANCE.createSSpan();
-            span.createSAnnotation(null, SEGMENTATION_NAME_MOD, StringEscapeUtils.unescapeHtml4(attributes.getValue(mod_tok_textlayer)));
-            getSDocument().getSDocumentGraph().addSNode(span);
-            addOrderRelation(last_mod, span, SEGMENTATION_NAME_MOD);
-            last_mod = span;
-            this.getOpenMods().add(span);
-	    this.getModOffsets().add(this.getLastModOffest() + attributes.getValue(ATT_TRANS).length());
-            getSNodeStack().add(span);
+             // increment the length of the text object
+             int left_pos = getSTextualDS_mod().getSText().length();
+             getSTextualDS_mod().setSText(getSTextualDS_mod().getSText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(mod_tok_textlayer)));
+             int right_pos = getSTextualDS_mod().getSText().length();
+             // create a mod_tok
+             SToken tok = getSDocument().getSDocumentGraph().createSToken(getSTextualDS_mod(), left_pos, right_pos);
+             addOrderRelation(last_mod, tok, SEGMENTATION_NAME_MOD);
+             last_mod = tok;
+             this.getOpenMods().add(tok);
+             this.getModOffsets().add(this.getLastModOffest() + attributes.getValue(ATT_TRANS).length());
+             getSNodeStack().add(tok);
+
+             // add Space
+             getSTextualDS_mod().setSText(getSTextualDS_mod().getSText() + " ");
          }
          else if (TAG_DIPL.equals(qName)){
-            SSpan span= SaltFactory.eINSTANCE.createSSpan();
-            span.createSAnnotation(null, SEGMENTATION_NAME_DIPL, StringEscapeUtils.unescapeHtml4(attributes.getValue(dipl_tok_textlayer)));
-            getSDocument().getSDocumentGraph().addSNode(span);
-            addOrderRelation(last_dipl, span, SEGMENTATION_NAME_DIPL);
-            last_dipl = span;
-            this.getOpenDipls().add(span);
-	    this.getDiplOffsets().add(this.getLastDiplOffest() + attributes.getValue(ATT_TRANS).length());
-            getSNodeStack().add(span);
+             // increment the length of the text object
+             int left_pos = getSTextualDS_dipl().getSText().length();
+             getSTextualDS_dipl().setSText(getSTextualDS_dipl().getSText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(dipl_tok_textlayer)));
+             int right_pos = getSTextualDS_dipl().getSText().length();
+             // create a dipl_tok
+             SToken tok = getSDocument().getSDocumentGraph().createSToken(getSTextualDS_dipl(), left_pos, right_pos);
+             addOrderRelation(last_dipl, tok, SEGMENTATION_NAME_DIPL);
+             last_dipl = tok;
+             this.getOpenDipls().add(tok);
+             this.getDiplOffsets().add(this.getLastDiplOffest() + attributes.getValue(ATT_TRANS).length());
+             getSNodeStack().add(tok);
+
+             // add Space
+             getSTextualDS_dipl().setSText(getSTextualDS_dipl().getSText() + " ");
 
             String id= attributes.getValue(ATT_ID);
             if (lineStart.get(id)!= null)
                currentLine= lineStart.get(id);
-
-            dipl2SSpan.put(span, currentLine);
+            span_on_tok(currentLine, tok);
             if (lineEnd.get(id)!= null)
                currentLine= null;
 
             //switch column links to line identifier
-               if (columnStart.get(id)!= null)
-                  currentColumn= columnStart.get(id);
-
-               dipl2SSpan.put(span, currentColumn);
-               if (columnEnd.get(id)!= null)
-                  currentColumn= null;
+            if (columnStart.get(id)!= null)
+                currentColumn= columnStart.get(id);
+            span_on_tok(currentColumn, tok);
+            if (columnEnd.get(id)!= null)
+                currentColumn= null;
             //switch column links to line identifier
 
             //switch page links to column identifier
-               if (pageStart.get(id)!= null)
-                  currentPage= pageStart.get(id);
-
-               dipl2SSpan.put(span, currentPage);
-               if (pageEnd.get(id)!= null)
-                  currentPage= null;
+            if (pageStart.get(id)!= null)
+                currentPage= pageStart.get(id);
+            span_on_tok(currentPage, tok);
+            if (pageEnd.get(id)!= null)
+                currentPage= null;
             //switch page links to column identifier
          }
          else if (TAG_COLUMN.equals(qName)){
@@ -328,8 +338,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                {
                   pageStart.remove(id);
                   pageStart.put(start, pageSpan);
-		  // reset column count
-		  current_column = 'a';
+                  // reset column count
+                  current_column = 'a';
                }
                pageSpan= pageEnd.get(id);
                if (pageSpan!= null)
@@ -500,15 +510,59 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
          getXMLELementStack().push(qName);
        }
 
-      private STextualDS sTextualDS= null;
-      private STextualDS getSTextualDS(){
-         if (sTextualDS== null){
-            sTextualDS= SaltFactory.eINSTANCE.createSTextualDS();
-            sTextualDS.setSText("");
-            getSDocument().getSDocumentGraph().addSNode(sTextualDS);
+      private STextualDS sTextualDS_trans= null;
+      private STextualDS getSTextualDS_trans(){
+         if (sTextualDS_trans== null){
+            sTextualDS_trans= SaltFactory.eINSTANCE.createSTextualDS();
+            sTextualDS_trans.setSText("");
+            getSDocument().getSDocumentGraph().addSNode(sTextualDS_trans);
          }
-         return(sTextualDS);
+         return(sTextualDS_trans);
       }
+
+
+      private STextualDS sTextualDS_dipl= null;
+      private STextualDS getSTextualDS_dipl(){
+         if (sTextualDS_dipl== null){
+            sTextualDS_dipl= SaltFactory.eINSTANCE.createSTextualDS();
+            sTextualDS_dipl.setSText("");
+            getSDocument().getSDocumentGraph().addSNode(sTextualDS_dipl);
+         }
+         return(sTextualDS_dipl);
+      }
+
+      private STextualDS sTextualDS_mod= null;
+      private STextualDS getSTextualDS_mod(){
+         if (sTextualDS_mod== null){
+            sTextualDS_mod= SaltFactory.eINSTANCE.createSTextualDS();
+            sTextualDS_mod.setSText("");
+            getSDocument().getSDocumentGraph().addSNode(sTextualDS_mod);
+         }
+         return(sTextualDS_mod);
+      }
+
+      private STimeline getTimeline(){
+          if(getSDocument().getSDocumentGraph().getSTimeline()==null) {
+              STimeline sTimeline = SaltFactory.eINSTANCE.createSTimeline();
+              getSDocument().getSDocumentGraph().setSTimeline(sTimeline);
+              // add initial PointOfTime
+              sTimeline.addSPointOfTime("");
+          }
+
+          return getSDocument().getSDocumentGraph().getSTimeline();
+      }
+
+      private void addTimelineRelation(SToken sToken, Integer startPos, Integer endPos){
+          STimelineRelation sTimeRel = SaltFactory.eINSTANCE.createSTimelineRelation();
+          sTimeRel.setSTimeline(this.getTimeline());
+          sTimeRel.setSToken(sToken);
+          sTimeRel.setSStart(startPos);
+          sTimeRel.setSEnd(endPos);
+          getSDocument().getSDocumentGraph().addSRelation(sTimeRel);
+      }
+
+      private Integer currentTimelineOffset = 0;
+
 
       @Override
       public void characters(   char[] ch,
@@ -548,113 +602,96 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
           getSDocument().getSDocumentGraph().addSRelation(rel);
       }
 
-      private void create_stokens_simple() {
-	  int dipl_pos = 0, mod_pos = 0;
-	  // initialization is actually unnecessary, but if i don't do it,
-	  // eclipse gives warnings
-	  SSpan last_dipl = null,
-	        last_mod = null;
-	  Collection<SSpan> layout_spans = null;
-	  // dipl/mod/token creation works like this:
-	  // a dummy SToken is created with textual " " at the current text position
-	  // dipl/mod/token are all connected to this dummy SToken with an SRelation
-	  // all layout spans are retrieved from dipl2sspans and also connected to the SToken
-	  while (dipl_pos < getOpenDipls().size() || mod_pos < getOpenMods().size()) {
-	      if (dipl_pos < getOpenDipls().size()) {
-		  dipl2SSpan.removeAll(last_dipl);
-		  last_dipl = getOpenDipls().get(dipl_pos++);
-		  layout_spans = dipl2SSpan.get(last_dipl);
-	      }
-	      if (mod_pos < getOpenMods().size())
-		  last_mod = getOpenMods().get(mod_pos++);
-	      // increment the length of the (dummy) text object
-	      int left_pos = getSTextualDS().getSText().length();
-	      getSTextualDS().setSText(getSTextualDS().getSText() + " ");
-	      int right_pos = getSTextualDS().getSText().length();
-	      // create a tok to span dipl/mod/token on
-	      SToken tok = getSDocument().getSDocumentGraph().createSToken(sTextualDS, left_pos, right_pos);
-	      // span the token on the tok
-	      if (exportTokenLayer) {
-		  span_on_tok(openToken, tok);
-	      }
-	      // span the last retrieved dipl on the tok
-	      span_on_tok(last_dipl, tok);
-	      // connect the dipl to line/column/... spans
-	      if (layout_spans != null)
-		  for (SSpan layout_span : layout_spans)
-		      span_on_tok(layout_span, tok);
 
-	      // span the last retrieved mod on the tok
-	      span_on_tok(last_mod, tok);
-	  }
+       /// mappings onto the timeline
+      private void map_stokens_to_timeline_simple() {
+
+          int dipl_pos = 0, mod_pos = 0;
+          // // initialization is actually unnecessary, but if i don't do it,
+          // // eclipse gives warnings
+          SToken last_dipl = null;
+          SToken last_mod = null;
+
+          Integer dipl_start = getTimeline().getSPointsOfTime().size()-1;
+          Integer mod_start = getTimeline().getSPointsOfTime().size()-1;
+          Integer token_start = getTimeline().getSPointsOfTime().size()-1;
+
+          while (dipl_pos < getOpenDipls().size() || mod_pos < getOpenMods().size()) {
+
+              // create PointOfTime
+              getTimeline().addSPointOfTime("");
+              Integer end_point = getTimeline().getSPointsOfTime().size()-1;
+
+              if (dipl_pos < getOpenDipls().size()) {
+                  if (last_dipl != null) {
+                      addTimelineRelation(last_dipl,dipl_start, end_point);
+                      dipl_start = end_point;
+                  }
+                  last_dipl = getOpenDipls().get(dipl_pos++);
+              }
+              if (mod_pos < getOpenMods().size()) {
+                  if (last_mod != null) {
+                      addTimelineRelation(last_mod,mod_start, end_point);
+                      mod_start = end_point;
+                  }
+                  last_mod = getOpenMods().get(mod_pos++);
+              }
+          }
+
+          getTimeline().addSPointOfTime("");
+          Integer end_point = getTimeline().getSPointsOfTime().size()-1;
+
+          if (last_dipl != null) {
+              addTimelineRelation(last_dipl,dipl_start, end_point);
+          }
+          if (last_mod != null) {
+              addTimelineRelation(last_mod,mod_start, end_point);
+          }
+          if (exportTokenLayer) {
+              addTimelineRelation(last_token,token_start, end_point);
+          }
+
+
       }
 
-      private void create_stokens_aligned() {
+      private void map_stokens_to_timeline_aligned() {
 
-	  // dipl/mod/token creation works like this:
-	  // the set tok_offsets contains all offsets where a dipl or a mod ends
-	  // for each of these offsets:
-	  //     a SToken is created with textual content of the relevant token part at the current text position
-	  //     current dipl/mod/token are all connected to this SToken with an SRelation
-	  //     all layout spans are retrieved from dipl2sspans and also connected to the SToken
-	  //     when the current dipl or mod ends at the offset the next one is selected
+          SortedSet<Integer> tok_offsets = new TreeSet<Integer>();
+          tok_offsets.addAll(getDiplOffsets());
+          tok_offsets.addAll(getModOffsets());
 
-	  String token_text = openToken.getSAnnotation(SEGMENTATION_NAME_TOKEN).getSValueSTEXT();
+          int dipl_pos = 0, mod_pos = 0;
+          SToken last_dipl = null;
+          SToken last_mod = null;
 
-	  SortedSet<Integer> tok_offsets = new TreeSet<Integer>();
-	  tok_offsets.addAll(getDiplOffsets());
-	  tok_offsets.addAll(getModOffsets());
+          Integer dipl_start = getTimeline().getSPointsOfTime().size()-1;
+          Integer mod_start = getTimeline().getSPointsOfTime().size()-1;
+          Integer token_start = getTimeline().getSPointsOfTime().size()-1;
 
-	  int dipl_pos = 1, mod_pos = 1;
-	  SSpan last_dipl = getOpenDipls().get(0);
-	  SSpan last_mod = getOpenMods().get(0);
-	  Collection<SSpan> layout_spans = dipl2SSpan.get(last_dipl);
+          for (Integer tok_offset: tok_offsets) {
 
-	  Integer dipl_offset = 0;
-	  Integer mod_offset = 0;
-	  Integer last_tok_offset = 0;
+              // create PointOfTime
+              getTimeline().addSPointOfTime("");
+              Integer end_point = getTimeline().getSPointsOfTime().size()-1;
 
-	  for (Integer tok_offset: tok_offsets) {
+              // get next dipl and mod
+              Integer dipl_offset = getDiplOffsets().get(dipl_pos);
+              Integer mod_offset = getModOffsets().get(mod_pos);
 
-	      // increment the length of the text object
-	      int left_pos = getSTextualDS().getSText().length();
-	      getSTextualDS().setSText(getSTextualDS().getSText() + token_text.substring(last_tok_offset, tok_offset));
-	      int right_pos = getSTextualDS().getSText().length();
-	      // create a tok to span dipl/mod/token on
-	      SToken tok = getSDocument().getSDocumentGraph().createSToken(sTextualDS, left_pos, right_pos);
-
-	      last_tok_offset = tok_offset;
-
-	      // span the token on the tok
-	      if (exportTokenLayer) {
-		  span_on_tok(openToken, tok);
-	      }
-	      // span the last retrieved dipl on the tok
-	      span_on_tok(last_dipl, tok);
-	      // connect the dipl to line/column/... spans
-	      if (layout_spans != null)
-		  for (SSpan layout_span : layout_spans)
-		      span_on_tok(layout_span, tok);
-
-	      // span the last retrieved mod on the tok
-	      span_on_tok(last_mod, tok);
-
-	      // get next dipl and mod
-	      dipl_offset = getDiplOffsets().get(dipl_pos-1);
-	      mod_offset = getModOffsets().get(mod_pos-1);
-
-	      if ((dipl_offset == tok_offset) && (dipl_pos < getOpenDipls().size())) {
-		  dipl2SSpan.removeAll(last_dipl);
-		  last_dipl = getOpenDipls().get(dipl_pos++);
-		  layout_spans = dipl2SSpan.get(last_dipl);
-		  // add space to the text, as there was a space (or linebreak) in the manuscript
-		  getSTextualDS().setSText(getSTextualDS().getSText() + " ");
-	      }
-	      if ((mod_offset == tok_offset) && (mod_pos < getOpenMods().size()))
-		  last_mod = getOpenMods().get(mod_pos++);
-
-	  }
-	  getSTextualDS().setSText(getSTextualDS().getSText() + " ");
+              if (dipl_offset == tok_offset){ //} && (dipl_pos < getOpenDipls().size())) {
+                  last_dipl = getOpenDipls().get(dipl_pos++);
+                  addTimelineRelation(last_dipl,dipl_start, end_point);
+                  dipl_start = end_point;
+              }
+              if (mod_offset == tok_offset){ // && (mod_pos < getOpenMods().size())) {
+                  last_mod = getOpenMods().get(mod_pos++);
+                  addTimelineRelation(last_mod,mod_start, end_point);
+                  mod_start = end_point;
+              }
+          }
+          if (exportTokenLayer) {
+              addTimelineRelation(last_token,token_start, getTimeline().getSPointsOfTime().size()-1);
+          }
       }
 
       @Override
@@ -662,17 +699,18 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
               throws SAXException {
          if (TAG_TOKEN.equals(qName)) {
 
-	    if (tokenization_is_segmentation)
-		// TODO: check whether the dipls and mods really contain the same text
-		//       otherwise warn and call create_stokens_simple
-		create_stokens_aligned();
-	    else
-		create_stokens_simple();
+            if (tokenization_is_segmentation) {
+                // TODO: check whether the dipls and mods really contain the same text
+                //       otherwise warn and call create_stokens_simple
+                map_stokens_to_timeline_aligned();
+            }
+            else
+                map_stokens_to_timeline_simple();
 
-	    resetOpenDipls();
-	    resetDiplOffsets();
+            resetOpenDipls();
+            resetDiplOffsets();
             resetOpenMods();
-	    resetModOffsets();
+            resetModOffsets();
             if (exportTokenLayer) {
                 getSNodeStack().pop();
             }
@@ -714,6 +752,5 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
    public void setTokenizationIsSegmentation(boolean tokenization_is_segmentation) {
        this.tokenization_is_segmentation = tokenization_is_segmentation;
    }
-
 
 }
