@@ -1,5 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>de.hu_berlin.german.korpling.saltnpepper</groupId>
+		<artifactId>pepper-parentModule</artifactId>
+		<version>3.0.0-SNAPSHOT</version>
+	</parent>
 	<artifactId>pepperModules-CoraXMLModules</artifactId>
 	<name>${project.groupId}.${project.artifactId}</name>
 	<version>1.1.5-SNAPSHOT</version>
@@ -16,7 +21,6 @@
 			<id>korpling</id>
 			<name>korpling maven repo</name>
 			<url>file:///srv/www/maven2/</url>
-
 		</repository>
 	</distributionManagement>
 	<repositories>
@@ -26,14 +30,8 @@
 			<url>http://korpling.german.hu-berlin.de/maven2</url>
 		</repository>
 	</repositories>
-
-	<parent>
-		<groupId>de.hu_berlin.german.korpling.saltnpepper</groupId>
-		<artifactId>pepper-parentModule</artifactId>
-		<version>2.1.2</version>
-	</parent>
 	<description>This project provides three sample modules for Pepper. It provides an importer, an exporter and a manipulator. The project can be used as a container for creating new PepperModules. One just have to override the areas marked with TODO.</description>
-	<url>https://korpling.german.hu-berlin.de/p/projects/peppermodules-coraxmlmodules</url>
+	<url>https://github.com/korpling/CoraXMLModules</url>
 	<issueManagement>
 		<system>GitHub</system>
 		<url>https://github.com/korpling/CoraXMLModules/issues</url>
@@ -51,7 +49,6 @@
 		<developerConnection>scm:git:git@github.com:korpling/CoraXMLModules.git</developerConnection>
 		<url>https://github.com/korpling/CoraXMLModules</url>
 	</scm>
-
 	<dependencies>
 	</dependencies>
 	<build>
@@ -74,35 +71,6 @@
 				<configuration>
 					<releaseProfiles>release</releaseProfiles>
 					<goals>package assembly:single deploy</goals>
-				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>${maven-bundle-plugin.version}</version>
-				<extensions>true</extensions>
-				<executions>
-					<execution>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>bundle</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<manifestLocation>${META-INF}</manifestLocation>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-					<instructions>
-						<Bundle-Name>${project.artifactId}</Bundle-Name>
-						<Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton:=true</Bundle-SymbolicName>
-						<Bundle-Version>${project.version}</Bundle-Version>
-						<Bundle-RequiredExecutionEnvironment>JavaSE-${java.version}</Bundle-RequiredExecutionEnvironment>
-						<Service-Component>${allServiceComponents}</Service-Component>
-						<Include-Resource>{maven-resources}, LICENSE, NOTICE</Include-Resource>
-
-					</instructions>
 				</configuration>
 			</plugin>
 		</plugins>
