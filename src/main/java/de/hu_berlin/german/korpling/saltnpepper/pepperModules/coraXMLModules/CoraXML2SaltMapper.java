@@ -24,23 +24,22 @@ import java.util.TreeSet;
 import java.util.Vector;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.corpus_tools.pepper.common.DOCUMENT_STATUS;
+import org.corpus_tools.pepper.impl.PepperMapperImpl;
+import org.corpus_tools.pepper.modules.PepperMapper;
+import org.corpus_tools.salt.SaltFactory;
+import org.corpus_tools.salt.common.SOrderRelation;
+import org.corpus_tools.salt.common.SSpan;
+import org.corpus_tools.salt.common.SSpanningRelation;
+import org.corpus_tools.salt.common.STextualDS;
+import org.corpus_tools.salt.common.STimeline;
+import org.corpus_tools.salt.common.STimelineRelation;
+import org.corpus_tools.salt.common.SToken;
+import org.corpus_tools.salt.core.SAnnotation;
+import org.corpus_tools.salt.core.SNode;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
-
-import de.hu_berlin.german.korpling.saltnpepper.pepper.common.DOCUMENT_STATUS;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperMapperImpl;
-import de.hu_berlin.german.korpling.saltnpepper.salt.SaltFactory;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SOrderRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpan;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SSpanningRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STextualDS;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STimeline;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.STimelineRelation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCommon.sDocumentStructure.SToken;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SAnnotation;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SNode;
 
 public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper, CoraXMLDictionary {
 
@@ -62,8 +61,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	 */
 	@Override
 	public DOCUMENT_STATUS mapSDocument() {
-		if (this.getSDocument().getSDocumentGraph() == null) {
-			this.getSDocument().setSDocumentGraph(SaltFactory.eINSTANCE.createSDocumentGraph());
+		if (this.getDocument().getDocumentGraph() == null) {
+			this.getDocument().setDocumentGraph(SaltFactory.createSDocumentGraph());
 		}
 		CoraXMLReader reader = new CoraXMLReader();
 		this.readXMLResource(reader, this.getResourceURI());
@@ -224,48 +223,51 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		}
 
 		private void addSimpleRow(String name, Attributes attributes, String ns) {
-			getSNodeStack().peek().createSAnnotation(ns, name, attributes.getValue(ATT_TAG));
+			getSNodeStack().peek().createAnnotation(ns, name, attributes.getValue(ATT_TAG));
 		}
 
 		private void addOrderRelation(SToken source, SToken target, String type) {
 			if (source != null) {
-				SOrderRelation orderRel = SaltFactory.eINSTANCE.createSOrderRelation();
-				orderRel.setSSource(source);
-				orderRel.setSTarget(target);
-				orderRel.addSType(type);
-				getSDocument().getSDocumentGraph().addSRelation(orderRel);
+				SOrderRelation orderRel = SaltFactory.createSOrderRelation();
+				orderRel.setSource(source);
+				orderRel.setTarget(target);
+				orderRel.setType(type);
+				getDocument().getDocumentGraph().addRelation(orderRel);
 			}
 		}
 
 		@Override
 		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 			if (TAG_LAYOUTINFO.equals(qName)) {
+				//TODO anything to do here? otherwise remove this
 			} else if (TAG_FM.equals(qName)) {
+				//TODO anything to do here? otherwise remove this
 			} else if (TAG_TEXT.equals(qName)) {
+				//TODO anything to do here? otherwise remove this
 			} else if (TAG_TOKEN.equals(qName)) {
 
 				if (exportTokenLayer) {
 					// increment the length of the text object
-					int left_pos = getSTextualDS_trans().getSText().length();
-					getSTextualDS_trans().setSText(getSTextualDS_trans().getSText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
-					int right_pos = getSTextualDS_trans().getSText().length();
+					int left_pos = getSTextualDS_trans().getText().length();
+					getSTextualDS_trans().setText(getSTextualDS_trans().getText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
+					int right_pos = getSTextualDS_trans().getText().length();
 					// create a tok
-					SToken tok = getSDocument().getSDocumentGraph().createSToken(getSTextualDS_trans(), left_pos, right_pos);
+					SToken tok = getDocument().getDocumentGraph().createToken(getSTextualDS_trans(), left_pos, right_pos);
 					addOrderRelation(last_token, tok, SEGMENTATION_NAME_TOKEN);
 					last_token = tok;
 					getSNodeStack().add(tok);
 
 					// add Space
-					getSTextualDS_trans().setSText(getSTextualDS_trans().getSText() + " ");
+					getSTextualDS_trans().setText(getSTextualDS_trans().getText() + " ");
 				}
 			} else if (TAG_PAGE.equals(qName)) {
-				SSpan colSpan = SaltFactory.eINSTANCE.createSSpan();
+				SSpan colSpan = SaltFactory.createSSpan();
 				// TODO there should be a span for the page no independent of
 				// the side
-				colSpan.createSAnnotation(null, ATT_SIDE, attributes.getValue(ATT_SIDE));
-				colSpan.createSAnnotation(null, "page", attributes.getValue(ATT_NO));
+				colSpan.createAnnotation(null, ATT_SIDE, attributes.getValue(ATT_SIDE));
+				colSpan.createAnnotation(null, "page", attributes.getValue(ATT_NO));
 
-				getSDocument().getSDocumentGraph().addSNode(colSpan);
+				getDocument().getDocumentGraph().addNode(colSpan);
 				String[] parts = attributes.getValue(ATT_RANGE).split("[.][.]");
 				if (parts.length >= 1) {
 					pageStart.put(parts[0], colSpan);
@@ -277,11 +279,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			} else if (TAG_SHIFTTAGS.equals(qName)) {
 			} else if (TAG_MOD.equals(qName)) {
 				// increment the length of the text object
-				int left_pos = getSTextualDS_mod().getSText().length();
-				getSTextualDS_mod().setSText(getSTextualDS_mod().getSText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(mod_tok_textlayer)));
-				int right_pos = getSTextualDS_mod().getSText().length();
+				int left_pos = getSTextualDS_mod().getText().length();
+				getSTextualDS_mod().setText(getSTextualDS_mod().getText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(mod_tok_textlayer)));
+				int right_pos = getSTextualDS_mod().getText().length();
 				// create a mod_tok
-				SToken tok = getSDocument().getSDocumentGraph().createSToken(getSTextualDS_mod(), left_pos, right_pos);
+				SToken tok = getDocument().getDocumentGraph().createToken(getSTextualDS_mod(), left_pos, right_pos);
 				addOrderRelation(last_mod, tok, SEGMENTATION_NAME_MOD);
 				last_mod = tok;
 				this.getOpenMods().add(tok);
@@ -289,14 +291,14 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				getSNodeStack().add(tok);
 
 				// add Space
-				getSTextualDS_mod().setSText(getSTextualDS_mod().getSText() + " ");
+				getSTextualDS_mod().setText(getSTextualDS_mod().getText() + " ");
 			} else if (TAG_DIPL.equals(qName)) {
 				// increment the length of the text object
-				int left_pos = getSTextualDS_dipl().getSText().length();
-				getSTextualDS_dipl().setSText(getSTextualDS_dipl().getSText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(dipl_tok_textlayer)));
-				int right_pos = getSTextualDS_dipl().getSText().length();
+				int left_pos = getSTextualDS_dipl().getText().length();
+				getSTextualDS_dipl().setText(getSTextualDS_dipl().getText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(dipl_tok_textlayer)));
+				int right_pos = getSTextualDS_dipl().getText().length();
 				// create a dipl_tok
-				SToken tok = getSDocument().getSDocumentGraph().createSToken(getSTextualDS_dipl(), left_pos, right_pos);
+				SToken tok = getDocument().getDocumentGraph().createToken(getSTextualDS_dipl(), left_pos, right_pos);
 				addOrderRelation(last_dipl, tok, SEGMENTATION_NAME_DIPL);
 				last_dipl = tok;
 				this.getOpenDipls().add(tok);
@@ -304,7 +306,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				getSNodeStack().add(tok);
 
 				// add Space
-				getSTextualDS_dipl().setSText(getSTextualDS_dipl().getSText() + " ");
+				getSTextualDS_dipl().setText(getSTextualDS_dipl().getText() + " ");
 
 				String id = attributes.getValue(ATT_ID);
 				if (lineStart.get(id) != null)
@@ -356,22 +358,22 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				}
 				// switch page links to column identifier
 
-				SSpan colSpan = SaltFactory.eINSTANCE.createSSpan();
-				// colSpan.createSAnnotation(null, TAG_COLUMN,
+				SSpan colSpan = SaltFactory.createSSpan();
+				// colSpan.createAnnotation(null, TAG_COLUMN,
 				// attributes.getValue(ATT_ID));
 				// ATT_ID contains the id of the column element (e.g. "c1"), but
 				// this has to be changed
 				// to alphabetic numbering ("c1" -> "a")
-				colSpan.createSAnnotation(null, TAG_COLUMN, Character.toString(current_column++));
+				colSpan.createAnnotation(null, TAG_COLUMN, Character.toString(current_column++));
 
-				getSDocument().getSDocumentGraph().addSNode(colSpan);
+				getDocument().getDocumentGraph().addNode(colSpan);
 
 				columnStart.put(start, colSpan);
 				columnEnd.put(end, colSpan);
 			} else if (TAG_LINE.equals(qName)) {
-				SSpan sSpan = SaltFactory.eINSTANCE.createSSpan();
-				sSpan.createSAnnotation(null, TAG_LINE, attributes.getValue(ATT_NAME));
-				getSDocument().getSDocumentGraph().addSNode(sSpan);
+				SSpan sSpan = SaltFactory.createSSpan();
+				sSpan.createAnnotation(null, TAG_LINE, attributes.getValue(ATT_NAME));
+				getDocument().getDocumentGraph().addNode(sSpan);
 				String[] parts = attributes.getValue(ATT_RANGE).split("[.][.]");
 				String start = null;
 				String end = null;
@@ -409,14 +411,16 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					pageEnd.put(end, pageSpan);
 				}
 			} else if (TAG_COMMENT.equals(qName)) {
+				//TODO anything to do here? otherwise remove this
 			} else if (TAG_HEADER.equals(qName)) {
+				//TODO anything to do here? otherwise remove this
 			} else if (TAG_POS.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
-					SAnnotation sAnno = getSNodeStack().peek().createSAnnotation(TAG_SUGGESTIONS, TAG_POS + "_" + sugPos, unescape(attributes));
+					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_POS + "_" + sugPos, unescape(attributes));
 					if (attributes.getValue(ATT_SCORE) != null) {
-						SAnnotation scoreAnno = SaltFactory.eINSTANCE.createSAnnotation();
-						scoreAnno.setSName(ATT_SCORE);
-						scoreAnno.setSValue(attributes.getValue(ATT_SCORE));
+						SAnnotation scoreAnno = SaltFactory.createSAnnotation();
+						scoreAnno.setName(ATT_SCORE);
+						scoreAnno.setValue(attributes.getValue(ATT_SCORE));
 						sAnno.addLabel(scoreAnno);
 					}
 					sugPos++;
@@ -430,11 +434,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				addSimpleRow("inflection_intern", attributes);
 			} else if (TAG_POS_LEMMA.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
-					SAnnotation sAnno = getSNodeStack().peek().createSAnnotation(TAG_SUGGESTIONS, TAG_POS + "_" + sugPosLemma, unescape(attributes));
+					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_POS + "_" + sugPosLemma, unescape(attributes));
 					if (attributes.getValue(ATT_SCORE) != null) {
-						SAnnotation scoreAnno = SaltFactory.eINSTANCE.createSAnnotation();
-						scoreAnno.setSName(ATT_SCORE);
-						scoreAnno.setSValue(attributes.getValue(ATT_SCORE));
+						SAnnotation scoreAnno = SaltFactory.createSAnnotation();
+						scoreAnno.setName(ATT_SCORE);
+						scoreAnno.setValue(attributes.getValue(ATT_SCORE));
 						sAnno.addLabel(scoreAnno);
 					}
 					sugPosLemma++;
@@ -457,7 +461,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				 * StringBuilder sb = new StringBuilder();
 				 * sb.append("http://www.mhdwb-online.de/lemmaliste/");
 				 * sb.append(attributes.getValue(ATT_TAG));
-				 * getSNodeStack().peek().createSAnnotation(null, "lemmaId",
+				 * getSNodeStack().peek().createAnnotation(null, "lemmaId",
 				 * sb.toString());
 				 */
 				addSimpleRow("lemmaId", attributes);
@@ -465,11 +469,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				addSimpleRow("lemmaLemma", attributes);
 			} else if (TAG_LEMMA.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
-					SAnnotation sAnno = getSNodeStack().peek().createSAnnotation(TAG_SUGGESTIONS, TAG_LEMMA + "_" + sugLemma, unescape(attributes));
+					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_LEMMA + "_" + sugLemma, unescape(attributes));
 					if (attributes.getValue(ATT_SCORE) != null) {
-						SAnnotation scoreAnno = SaltFactory.eINSTANCE.createSAnnotation();
-						scoreAnno.setSName(ATT_SCORE);
-						scoreAnno.setSValue(attributes.getValue(ATT_SCORE));
+						SAnnotation scoreAnno = SaltFactory.createSAnnotation();
+						scoreAnno.setName(ATT_SCORE);
+						scoreAnno.setValue(attributes.getValue(ATT_SCORE));
 						sAnno.addLabel(scoreAnno);
 					}
 					sugLemma++;
@@ -477,11 +481,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					addSimpleRow(TAG_LEMMA, attributes);
 			} else if (TAG_MORPH.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
-					SAnnotation sAnno = getSNodeStack().peek().createSAnnotation(TAG_SUGGESTIONS, TAG_MORPH + "_" + sugMorph, attributes.getValue(ATT_TAG));
+					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_MORPH + "_" + sugMorph, attributes.getValue(ATT_TAG));
 					if (attributes.getValue(ATT_SCORE) != null) {
-						SAnnotation scoreAnno = SaltFactory.eINSTANCE.createSAnnotation();
-						scoreAnno.setSName(ATT_SCORE);
-						scoreAnno.setSValue(attributes.getValue(ATT_SCORE));
+						SAnnotation scoreAnno = SaltFactory.createSAnnotation();
+						scoreAnno.setName(ATT_SCORE);
+						scoreAnno.setValue(attributes.getValue(ATT_SCORE));
 						sAnno.addLabel(scoreAnno);
 					}
 					sugMorph++;
@@ -497,9 +501,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 		private STextualDS getSTextualDS_trans() {
 			if (sTextualDS_trans == null) {
-				sTextualDS_trans = SaltFactory.eINSTANCE.createSTextualDS();
-				sTextualDS_trans.setSText("");
-				getSDocument().getSDocumentGraph().addSNode(sTextualDS_trans);
+				sTextualDS_trans = SaltFactory.createSTextualDS();
+				sTextualDS_trans.setText("");
+				getDocument().getDocumentGraph().addNode(sTextualDS_trans);
 			}
 			return (sTextualDS_trans);
 		}
@@ -508,9 +512,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 		private STextualDS getSTextualDS_dipl() {
 			if (sTextualDS_dipl == null) {
-				sTextualDS_dipl = SaltFactory.eINSTANCE.createSTextualDS();
-				sTextualDS_dipl.setSText("");
-				getSDocument().getSDocumentGraph().addSNode(sTextualDS_dipl);
+				sTextualDS_dipl = SaltFactory.createSTextualDS();
+				sTextualDS_dipl.setText("");
+				getDocument().getDocumentGraph().addNode(sTextualDS_dipl);
 			}
 			return (sTextualDS_dipl);
 		}
@@ -519,34 +523,32 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 		private STextualDS getSTextualDS_mod() {
 			if (sTextualDS_mod == null) {
-				sTextualDS_mod = SaltFactory.eINSTANCE.createSTextualDS();
-				sTextualDS_mod.setSText("");
-				getSDocument().getSDocumentGraph().addSNode(sTextualDS_mod);
+				sTextualDS_mod = SaltFactory.createSTextualDS();
+				sTextualDS_mod.setText("");
+				getDocument().getDocumentGraph().addNode(sTextualDS_mod);
 			}
 			return (sTextualDS_mod);
 		}
 
 		private STimeline getTimeline() {
-			if (getSDocument().getSDocumentGraph().getSTimeline() == null) {
-				STimeline sTimeline = SaltFactory.eINSTANCE.createSTimeline();
-				getSDocument().getSDocumentGraph().setSTimeline(sTimeline);
+			if (getDocument().getDocumentGraph().getTimeline() == null) {
+				STimeline sTimeline = SaltFactory.createSTimeline();
+				getDocument().getDocumentGraph().setTimeline(sTimeline);
 				// add initial PointOfTime
-				sTimeline.addSPointOfTime("");
+				sTimeline.increasePointOfTime();
 			}
 
-			return getSDocument().getSDocumentGraph().getSTimeline();
+			return getDocument().getDocumentGraph().getTimeline();
 		}
 
 		private void addTimelineRelation(SToken sToken, Integer startPos, Integer endPos) {
-			STimelineRelation sTimeRel = SaltFactory.eINSTANCE.createSTimelineRelation();
-			sTimeRel.setSTimeline(this.getTimeline());
-			sTimeRel.setSToken(sToken);
-			sTimeRel.setSStart(startPos);
-			sTimeRel.setSEnd(endPos);
-			getSDocument().getSDocumentGraph().addSRelation(sTimeRel);
+			STimelineRelation sTimeRel = SaltFactory.createSTimelineRelation();
+			sTimeRel.setTarget(this.getTimeline());
+			sTimeRel.setSource(sToken);
+			sTimeRel.setStart(startPos);
+			sTimeRel.setEnd(endPos);
+			getDocument().getDocumentGraph().addRelation(sTimeRel);
 		}
-
-		private Integer currentTimelineOffset = 0;
 
 		@Override
 		public void characters(char[] ch, int start, int length) throws SAXException {
@@ -567,8 +569,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 							String sValue = null;
 							if (parts.length == 2)
 								sValue = parts[1].trim();
-							if (!getSDocument().hasLabel(sName))
-								getSDocument().createSMetaAnnotation(null, sName, sValue);
+							if (!getDocument().containsLabel(sName))
+								getDocument().createMetaAnnotation(null, sName, sValue);
 						}
 					}
 				}
@@ -576,10 +578,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		}
 
 		private void span_on_tok(SSpan span, SToken tok) {
-			SSpanningRelation rel = SaltFactory.eINSTANCE.createSSpanningRelation();
-			rel.setSSpan(span);
-			rel.setSToken(tok);
-			getSDocument().getSDocumentGraph().addSRelation(rel);
+			SSpanningRelation rel = SaltFactory.createSSpanningRelation();
+			rel.setSource(span);
+			rel.setTarget(tok);
+			getDocument().getDocumentGraph().addRelation(rel);
 		}
 
 		// / mappings onto the timeline
@@ -591,15 +593,15 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			SToken last_dipl = null;
 			SToken last_mod = null;
 
-			Integer dipl_start = getTimeline().getSPointsOfTime().size() - 1;
-			Integer mod_start = getTimeline().getSPointsOfTime().size() - 1;
-			Integer token_start = getTimeline().getSPointsOfTime().size() - 1;
+			Integer dipl_start = getTimeline().getEnd() - 1;
+			Integer mod_start = getTimeline().getEnd() - 1;
+			Integer token_start = getTimeline().getEnd() - 1;
 
 			while (dipl_pos < getOpenDipls().size() || mod_pos < getOpenMods().size()) {
 
 				// create PointOfTime
-				getTimeline().addSPointOfTime("");
-				Integer end_point = getTimeline().getSPointsOfTime().size() - 1;
+				getTimeline().increasePointOfTime();;
+				Integer end_point = getTimeline().getEnd() - 1;
 
 				if (dipl_pos < getOpenDipls().size()) {
 					if (last_dipl != null) {
@@ -617,8 +619,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				}
 			}
 
-			getTimeline().addSPointOfTime("");
-			Integer end_point = getTimeline().getSPointsOfTime().size() - 1;
+			getTimeline().increasePointOfTime();
+			Integer end_point = getTimeline().getEnd() - 1;
 
 			if (last_dipl != null) {
 				addTimelineRelation(last_dipl, dipl_start, end_point);
@@ -642,15 +644,15 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			SToken last_dipl = null;
 			SToken last_mod = null;
 
-			Integer dipl_start = getTimeline().getSPointsOfTime().size() - 1;
-			Integer mod_start = getTimeline().getSPointsOfTime().size() - 1;
-			Integer token_start = getTimeline().getSPointsOfTime().size() - 1;
+			Integer dipl_start = getTimeline().getEnd()- 1;
+			Integer mod_start = getTimeline().getEnd() - 1;
+			Integer token_start = getTimeline().getEnd() - 1;
 
 			for (Integer tok_offset : tok_offsets) {
 
 				// create PointOfTime
-				getTimeline().addSPointOfTime("");
-				Integer end_point = getTimeline().getSPointsOfTime().size() - 1;
+				getTimeline().increasePointOfTime();
+				Integer end_point = getTimeline().getEnd() - 1;
 
 				// get next dipl and mod
 				Integer dipl_offset = getDiplOffsets().get(dipl_pos);
@@ -670,7 +672,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				}
 			}
 			if (exportTokenLayer) {
-				addTimelineRelation(last_token, token_start, getTimeline().getSPointsOfTime().size() - 1);
+				addTimelineRelation(last_token, token_start, getTimeline().getEnd() - 1);
 			}
 		}
 

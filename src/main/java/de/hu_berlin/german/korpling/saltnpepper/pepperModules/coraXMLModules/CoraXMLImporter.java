@@ -17,16 +17,17 @@
  */
 package de.hu_berlin.german.korpling.saltnpepper.pepperModules.coraXMLModules;
 
+import org.corpus_tools.pepper.common.PepperConfiguration;
+import org.corpus_tools.pepper.impl.PepperImporterImpl;
+import org.corpus_tools.pepper.modules.PepperImporter;
+import org.corpus_tools.pepper.modules.PepperMapper;
+import org.corpus_tools.pepper.modules.PepperModule;
+import org.corpus_tools.pepper.modules.PepperModuleProperties;
+import org.corpus_tools.pepper.modules.exceptions.PepperModuleNotReadyException;
+import org.corpus_tools.salt.graph.Identifier;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperImporter;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperMapper;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModule;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.PepperModuleProperties;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.exceptions.PepperModuleNotReadyException;
-import de.hu_berlin.german.korpling.saltnpepper.pepper.modules.impl.PepperImporterImpl;
-import de.hu_berlin.german.korpling.saltnpepper.salt.saltCore.SElementId;
 
 /**
  * This importer imports data from the CoraXML format.
@@ -57,16 +58,16 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	public CoraXMLImporter() {
 		super();
 		setProperties(new CoraXMLImporterProperties());
-		this.setName("CoraXMLImporter");
-		setSupplierContact(URI.createURI("saltnpepper@lists.hu-berlin.de"));
+		setName("CoraXMLImporter");
+		setSupplierContact(URI.createURI(PepperConfiguration.EMAIL));
 		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-CoraXMLModules"));
 		setDesc("This importer transforms data in cora xml format to a Salt model. ");
-		this.setVersion("1.0");
-		this.addSupportedFormat("coraXML", "1.0", null);
-		this.getSDocumentEndings().add(PepperImporter.ENDING_XML);
+		setVersion("1.0");
+		addSupportedFormat("coraXML", "1.0", null);
+		getDocumentEndings().add(PepperImporter.ENDING_XML);
 	}
 
-	public PepperMapper createPepperMapper(SElementId sElementId) {
+	public PepperMapper createPepperMapper(Identifier Identifier) {
 		CoraXML2SaltMapper mapper = new CoraXML2SaltMapper();
 		mapper.setModTokTextlayer(mod_tok_textlayer);
 		mapper.setDiplTokTextlayer(dipl_tok_textlayer);
