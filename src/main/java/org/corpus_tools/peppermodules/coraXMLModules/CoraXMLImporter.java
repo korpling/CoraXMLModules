@@ -38,7 +38,7 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(name = "CoraXMLImporterComponent", factory = "PepperImporterComponentFactory")
 public class CoraXMLImporter extends PepperImporterImpl implements PepperImporter, CoraXMLDictionary {
-
+	public static final String MODULE_NAME="CoraXMLImporter";
 	// ** customization properties */
 	private String mod_tok_textlayer = ATT_ASCII;
 	private String dipl_tok_textlayer = ATT_UTF;
@@ -58,7 +58,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	public CoraXMLImporter() {
 		super();
 		setProperties(new CoraXMLImporterProperties());
-		setName("CoraXMLImporter");
+		setName(MODULE_NAME);
 		setSupplierContact(URI.createURI(PepperConfiguration.EMAIL));
 		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-CoraXMLModules"));
 		setDesc("This importer transforms data in cora xml format to a Salt model. ");

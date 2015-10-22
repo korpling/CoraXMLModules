@@ -40,9 +40,12 @@ import org.corpus_tools.salt.core.SNode;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper, CoraXMLDictionary {
-
+	private static final Logger logger= LoggerFactory.getLogger(CoraXMLImporter.MODULE_NAME);
+	
 	/** defines which textual representation is used for the dipl and mod tokens **/
 	private String mod_tok_textlayer = ATT_ASCII; // one of "trans", "utf" and
 													// "ascii"
@@ -319,6 +322,13 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (lineStart.get(id) != null) {
 					currentLine = lineStart.get(id);
 				}
+				if (currentLine== null){
+					logger.warn("Cannot add token '"+tok.getId()+"' to current line, because current line is empty. ");
+				}else if (currentColumn== null){
+					logger.warn("Cannot add token '"+tok.getId()+"' to current column, because current column is empty. ");
+				}else if (currentPage== null){
+					logger.warn("Cannot add token '"+tok.getId()+"' to current page, because current page is empty. ");
+				}else{
 				span_on_tok(currentLine, tok);
 				if (lineEnd.get(id) != null) {
 					currentLine = null;
@@ -343,6 +353,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					currentPage = null;
 				}
 				// switch page links to column identifier
+				}
 			} else if (TAG_COLUMN.equals(qName)) {
 				String[] parts = attributes.getValue(ATT_RANGE).split("[.][.]");
 				String start = null;
