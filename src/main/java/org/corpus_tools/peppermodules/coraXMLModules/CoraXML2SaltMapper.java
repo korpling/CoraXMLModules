@@ -16,12 +16,12 @@
  */
 package org.corpus_tools.peppermodules.coraXMLModules;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.Stack;
 import java.util.TreeSet;
-import java.util.Vector;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.corpus_tools.pepper.common.DOCUMENT_STATUS;
@@ -94,8 +94,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		 * so far
 		 **/
 		private List<SToken> getOpenDipls() {
-			if (openDipls == null)
-				openDipls = new Vector<SToken>();
+			if (openDipls == null) {
+				openDipls = new ArrayList<>();
+			}
 			return (openDipls);
 		}
 
@@ -111,8 +112,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		 * so far
 		 **/
 		private List<SToken> getOpenMods() {
-			if (openMods == null)
-				openMods = new Vector<SToken>();
+			if (openMods == null) {
+				openMods = new ArrayList<>();
+			}
 			return (openMods);
 		}
 
@@ -124,8 +126,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		private List<Integer> open_dipl_offsets = null;
 
 		private List<Integer> getDiplOffsets() {
-			if (open_dipl_offsets == null)
-				open_dipl_offsets = new Vector<Integer>();
+			if (open_dipl_offsets == null) {
+				open_dipl_offsets = new ArrayList<>();
+			}
 			return open_dipl_offsets;
 		}
 
@@ -145,8 +148,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		private List<Integer> open_mod_offsets = null;
 
 		private List<Integer> getModOffsets() {
-			if (open_mod_offsets == null)
-				open_mod_offsets = new Vector<Integer>();
+			if (open_mod_offsets == null) {
+				open_mod_offsets = new ArrayList<>();
+			}
 			return open_mod_offsets;
 		}
 
@@ -166,8 +170,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 		/** returns stack containing node hierarchie **/
 		private Stack<SNode> getSNodeStack() {
-			if (sNodeStack == null)
+			if (sNodeStack == null) {
 				sNodeStack = new Stack<SNode>();
+			}
 			return (sNodeStack);
 		}
 
@@ -175,8 +180,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 		/** returns stack containing xml-element hierarchie **/
 		private Stack<String> getXMLELementStack() {
-			if (xmlElementStack == null)
+			if (xmlElementStack == null) {
 				xmlElementStack = new Stack<String>();
+			}
 			return (xmlElementStack);
 		}
 
@@ -239,11 +245,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		@Override
 		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 			if (TAG_LAYOUTINFO.equals(qName)) {
-				//TODO anything to do here? otherwise remove this
+				// TODO anything to do here? otherwise remove this
 			} else if (TAG_FM.equals(qName)) {
-				//TODO anything to do here? otherwise remove this
+				// TODO anything to do here? otherwise remove this
 			} else if (TAG_TEXT.equals(qName)) {
-				//TODO anything to do here? otherwise remove this
+				// TODO anything to do here? otherwise remove this
 			} else if (TAG_TOKEN.equals(qName)) {
 
 				if (exportTokenLayer) {
@@ -277,6 +283,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 						pageEnd.put(parts[0], colSpan);
 				}
 			} else if (TAG_SHIFTTAGS.equals(qName)) {
+				// TODO anything to do here? otherwise remove this
 			} else if (TAG_MOD.equals(qName)) {
 				// increment the length of the text object
 				int left_pos = getSTextualDS_mod().getText().length();
@@ -301,34 +308,40 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				SToken tok = getDocument().getDocumentGraph().createToken(getSTextualDS_dipl(), left_pos, right_pos);
 				addOrderRelation(last_dipl, tok, SEGMENTATION_NAME_DIPL);
 				last_dipl = tok;
-				this.getOpenDipls().add(tok);
-				this.getDiplOffsets().add(this.getLastDiplOffest() + attributes.getValue(ATT_TRANS).length());
+				getOpenDipls().add(tok);
+				getDiplOffsets().add(this.getLastDiplOffest() + attributes.getValue(ATT_TRANS).length());
 				getSNodeStack().add(tok);
 
 				// add Space
 				getSTextualDS_dipl().setText(getSTextualDS_dipl().getText() + " ");
 
 				String id = attributes.getValue(ATT_ID);
-				if (lineStart.get(id) != null)
+				if (lineStart.get(id) != null) {
 					currentLine = lineStart.get(id);
+				}
 				span_on_tok(currentLine, tok);
-				if (lineEnd.get(id) != null)
+				if (lineEnd.get(id) != null) {
 					currentLine = null;
+				}
 
 				// switch column links to line identifier
-				if (columnStart.get(id) != null)
+				if (columnStart.get(id) != null) {
 					currentColumn = columnStart.get(id);
+				}
 				span_on_tok(currentColumn, tok);
-				if (columnEnd.get(id) != null)
+				if (columnEnd.get(id) != null) {
 					currentColumn = null;
+				}
 				// switch column links to line identifier
 
 				// switch page links to column identifier
-				if (pageStart.get(id) != null)
+				if (pageStart.get(id) != null) {
 					currentPage = pageStart.get(id);
+				}
 				span_on_tok(currentPage, tok);
-				if (pageEnd.get(id) != null)
+				if (pageEnd.get(id) != null) {
 					currentPage = null;
+				}
 				// switch page links to column identifier
 			} else if (TAG_COLUMN.equals(qName)) {
 				String[] parts = attributes.getValue(ATT_RANGE).split("[.][.]");
@@ -411,9 +424,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					pageEnd.put(end, pageSpan);
 				}
 			} else if (TAG_COMMENT.equals(qName)) {
-				//TODO anything to do here? otherwise remove this
+				// TODO anything to do here? otherwise remove this
 			} else if (TAG_HEADER.equals(qName)) {
-				//TODO anything to do here? otherwise remove this
+				// TODO anything to do here? otherwise remove this
 			} else if (TAG_POS.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
 					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_POS + "_" + sugPos, unescape(attributes));
@@ -457,13 +470,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			} else if (TAG_NORMALIGN.equals(qName) || TAG_NORMALIGN_VARIANT.equals(qName)) {
 				addSimpleRow("char_align", attributes);
 			} else if (TAG_LEMMA_ID.equals(qName)) {
-				/*
-				 * StringBuilder sb = new StringBuilder();
-				 * sb.append("http://www.mhdwb-online.de/lemmaliste/");
-				 * sb.append(attributes.getValue(ATT_TAG));
-				 * getSNodeStack().peek().createAnnotation(null, "lemmaId",
-				 * sb.toString());
-				 */
 				addSimpleRow("lemmaId", attributes);
 			} else if ("lemma_gen".equals(qName)) {
 				addSimpleRow("lemmaLemma", attributes);
@@ -471,14 +477,12 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
 					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_LEMMA + "_" + sugLemma, unescape(attributes));
 					if (attributes.getValue(ATT_SCORE) != null) {
-						SAnnotation scoreAnno = SaltFactory.createSAnnotation();
-						scoreAnno.setName(ATT_SCORE);
-						scoreAnno.setValue(attributes.getValue(ATT_SCORE));
-						sAnno.addLabel(scoreAnno);
+						sAnno.createAnnotation(null, ATT_SCORE, attributes.getValue(ATT_SCORE));
 					}
 					sugLemma++;
-				} else
+				} else{
 					addSimpleRow(TAG_LEMMA, attributes);
+				}
 			} else if (TAG_MORPH.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
 					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_MORPH + "_" + sugMorph, attributes.getValue(ATT_TAG));
@@ -554,9 +558,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		public void characters(char[] ch, int start, int length) throws SAXException {
 			if (TAG_HEADER.equals(getXMLELementStack().peek())) {
 				StringBuffer textBuf = new StringBuffer();
-				for (int i = start; i < start + length; i++)
+				for (int i = start; i < start + length; i++){
 					textBuf.append(ch[i]);
-
+				}
 				String text = textBuf.toString();
 
 				String[] lines = text.split("\n");
@@ -567,10 +571,12 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 						if (parts.length >= 1) {
 							String sName = parts[0].trim();
 							String sValue = null;
-							if (parts.length == 2)
+							if (parts.length == 2){
 								sValue = parts[1].trim();
-							if (!getDocument().containsLabel(sName))
+							}
+							if (!getDocument().containsLabel(sName)){
 								getDocument().createMetaAnnotation(null, sName, sValue);
+							}
 						}
 					}
 				}
@@ -588,8 +594,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		private void map_stokens_to_timeline_simple() {
 
 			int dipl_pos = 0, mod_pos = 0;
-			// // initialization is actually unnecessary, but if i don't do it,
-			// // eclipse gives warnings
+			// initialization is actually unnecessary, but if i don't do it,
+			// eclipse gives warnings
 			SToken last_dipl = null;
 			SToken last_mod = null;
 
@@ -598,9 +604,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			Integer token_start = getTimeline().getEnd() - 1;
 
 			while (dipl_pos < getOpenDipls().size() || mod_pos < getOpenMods().size()) {
-
 				// create PointOfTime
-				getTimeline().increasePointOfTime();;
+				getTimeline().increasePointOfTime();
 				Integer end_point = getTimeline().getEnd() - 1;
 
 				if (dipl_pos < getOpenDipls().size()) {
@@ -635,7 +640,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 		}
 
 		private void map_stokens_to_timeline_aligned() {
-
 			SortedSet<Integer> tok_offsets = new TreeSet<Integer>();
 			tok_offsets.addAll(getDiplOffsets());
 			tok_offsets.addAll(getModOffsets());
@@ -644,12 +648,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			SToken last_dipl = null;
 			SToken last_mod = null;
 
-			Integer dipl_start = getTimeline().getEnd()- 1;
+			Integer dipl_start = getTimeline().getEnd() - 1;
 			Integer mod_start = getTimeline().getEnd() - 1;
 			Integer token_start = getTimeline().getEnd() - 1;
 
 			for (Integer tok_offset : tok_offsets) {
-
 				// create PointOfTime
 				getTimeline().increasePointOfTime();
 				Integer end_point = getTimeline().getEnd() - 1;
@@ -658,14 +661,12 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				Integer dipl_offset = getDiplOffsets().get(dipl_pos);
 				Integer mod_offset = getModOffsets().get(mod_pos);
 
-				if (dipl_offset == tok_offset) { // } && (dipl_pos <
-													// getOpenDipls().size())) {
+				if (dipl_offset == tok_offset) {
 					last_dipl = getOpenDipls().get(dipl_pos++);
 					addTimelineRelation(last_dipl, dipl_start, end_point);
 					dipl_start = end_point;
 				}
-				if (mod_offset == tok_offset) { // && (mod_pos <
-												// getOpenMods().size())) {
+				if (mod_offset == tok_offset) {
 					last_mod = getOpenMods().get(mod_pos++);
 					addTimelineRelation(last_mod, mod_start, end_point);
 					mod_start = end_point;
@@ -714,13 +715,13 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 	// TODO: deal with invalid values for textlayer
 	public void setModTokTextlayer(String textlayer) {
-		if (textlayer.equals(ATT_ASCII) || textlayer.equals(ATT_UTF) || textlayer.equals(ATT_TRANS)) {
+		if (ATT_ASCII.equals(textlayer) || ATT_UTF.equals(textlayer) || ATT_TRANS.equals(textlayer)) {
 			this.mod_tok_textlayer = textlayer;
 		}
 	}
 
 	public void setDiplTokTextlayer(String textlayer) {
-		if (textlayer.equals(ATT_UTF) || textlayer.equals(ATT_TRANS)) {
+		if (ATT_UTF.equals(textlayer) || ATT_TRANS.equals(textlayer)) {
 			this.dipl_tok_textlayer = textlayer;
 		}
 	}
