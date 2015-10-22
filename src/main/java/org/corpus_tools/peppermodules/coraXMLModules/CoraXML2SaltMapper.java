@@ -14,7 +14,7 @@
  *
  *
  */
-package de.hu_berlin.german.korpling.saltnpepper.pepperModules.coraXMLModules;
+package org.corpus_tools.peppermodules.coraXMLModules;
 
 import java.util.Hashtable;
 import java.util.List;
