@@ -323,13 +323,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					currentLine = lineStart.get(id);
 				}
 				if (currentLine== null){
-					logger.warn("Cannot add token '"+tok.getId()+"' to current line, because current line is empty. ");
-				}else if (currentColumn== null){
-					logger.warn("Cannot add token '"+tok.getId()+"' to current column, because current column is empty. ");
-				}else if (currentPage== null){
-					logger.warn("Cannot add token '"+tok.getId()+"' to current page, because current page is empty. ");
+					logger.warn("Cannot add token '"+id+"' to current line, because current line is empty. ");
 				}else{
-				span_on_tok(currentLine, tok);
+					span_on_tok(currentLine, tok);
+				}
 				if (lineEnd.get(id) != null) {
 					currentLine = null;
 				}
@@ -338,7 +335,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (columnStart.get(id) != null) {
 					currentColumn = columnStart.get(id);
 				}
-				span_on_tok(currentColumn, tok);
+				if (currentColumn== null){
+					logger.warn("Cannot add token '"+id+"' to current column, because current column is empty. ");
+				}else{
+					span_on_tok(currentColumn, tok);
+				}
 				if (columnEnd.get(id) != null) {
 					currentColumn = null;
 				}
@@ -348,12 +349,15 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (pageStart.get(id) != null) {
 					currentPage = pageStart.get(id);
 				}
-				span_on_tok(currentPage, tok);
+				if (currentPage== null){
+					logger.warn("Cannot add token '"+id+"' to current page, because current page is empty. ");
+				}else{
+					span_on_tok(currentPage, tok);
+				}
 				if (pageEnd.get(id) != null) {
 					currentPage = null;
 				}
 				// switch page links to column identifier
-				}
 			} else if (TAG_COLUMN.equals(qName)) {
 				String[] parts = attributes.getValue(ATT_RANGE).split("[.][.]");
 				String start = null;
