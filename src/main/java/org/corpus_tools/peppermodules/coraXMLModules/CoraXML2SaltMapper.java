@@ -247,14 +247,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 		@Override
 		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-			if (TAG_LAYOUTINFO.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
-			} else if (TAG_FM.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
-			} else if (TAG_TEXT.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
-			} else if (TAG_TOKEN.equals(qName)) {
-
+			if (TAG_TOKEN.equals(qName)) {
 				if (exportTokenLayer) {
 					// increment the length of the text object
 					int left_pos = getSTextualDS_trans().getText().length();
@@ -285,8 +278,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					else
 						pageEnd.put(parts[0], colSpan);
 				}
-			} else if (TAG_SHIFTTAGS.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
 			} else if (TAG_MOD.equals(qName)) {
 				// increment the length of the text object
 				int left_pos = getSTextualDS_mod().getText().length();
@@ -438,10 +429,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					pageEnd.remove(id);
 					pageEnd.put(end, pageSpan);
 				}
-			} else if (TAG_COMMENT.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
-			} else if (TAG_HEADER.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
 			} else if (TAG_POS.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
 					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_POS + "_" + sugPos, unescape(attributes));
