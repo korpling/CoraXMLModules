@@ -44,6 +44,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	private String dipl_tok_textlayer = ATT_UTF;
 	private boolean export_token_layer = true;
 	private boolean tokenization_is_segmentation = false;
+        private boolean import_internals = false;
 
 	// =================================================== mandatory
 	// ===================================================
@@ -73,6 +74,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		mapper.setDiplTokTextlayer(dipl_tok_textlayer);
 		mapper.setExportTokenLayer(export_token_layer);
 		mapper.setTokenizationIsSegmentation(tokenization_is_segmentation);
+                mapper.setImportInternals(import_internals);
 		return (mapper);
 	}
 
@@ -115,6 +117,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			dipl_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getDiplTokTextlayer();
 			export_token_layer = ((CoraXMLImporterProperties) this.getProperties()).getExportTokenLayer();
 			tokenization_is_segmentation = ((CoraXMLImporterProperties) this.getProperties()).getTokenizationIsSegmentation();
+                        import_internals = ((CoraXMLImporterProperties) this.getProperties()).getImportInternals();
 
 		}
 		// TODO make some initializations if necessary

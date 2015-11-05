@@ -57,6 +57,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	/** defines whether dipl and mod are only segmentations of token **/
 	private boolean tokenization_is_segmentation = false;
 
+        /** defines whether internal annotations are imported **/
+        private boolean import_internals = false;
+
 	/**
 	 * {@inheritDoc PepperMapper#setSDocument(SDocument)}
 	 *
@@ -441,11 +444,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					sugPos++;
 				} else
 					addSimpleRow(TAG_POS, attributes);
-			} else if ("intern_pos_gen".equals(qName)) {
+			} else if ("intern_pos_gen".equals(qName) && import_internals) {
 				addSimpleRow("posLemma_intern", attributes);
-			} else if ("intern_pos".equals(qName)) {
+			} else if ("intern_pos".equals(qName) && import_internals) {
 				addSimpleRow("pos_intern", attributes);
-			} else if ("intern_infl".equals(qName)) {
+			} else if ("intern_infl".equals(qName) && import_internals) {
 				addSimpleRow("inflection_intern", attributes);
 			} else if (TAG_POS_LEMMA.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
@@ -735,5 +738,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	public void setTokenizationIsSegmentation(boolean tokenization_is_segmentation) {
 		this.tokenization_is_segmentation = tokenization_is_segmentation;
 	}
+
+        public void setImportInternals(boolean import_internals) {
+            this.import_internals = import_internals;
+        }
 
 }
