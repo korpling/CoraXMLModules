@@ -77,20 +77,22 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	}
 
 	class CoraXMLReader extends DefaultHandler2 {
-		/** stores start for line **/
 		Hashtable<String, SSpan> lineStart = new Hashtable<String, SSpan>();
-		/** stores start for line **/
 		Hashtable<String, SSpan> lineEnd = new Hashtable<String, SSpan>();
 
-		/** stores start for column **/
 		Hashtable<String, SSpan> columnStart = new Hashtable<String, SSpan>();
-		/** stores start for column **/
 		Hashtable<String, SSpan> columnEnd = new Hashtable<String, SSpan>();
 
-		/** stores start for page **/
 		Hashtable<String, SSpan> pageStart = new Hashtable<String, SSpan>();
-		/** stores start for page **/
 		Hashtable<String, SSpan> pageEnd = new Hashtable<String, SSpan>();
+
+                Hashtable<String, SSpan> sideStart = new Hashtable<String, SSpan>();
+                Hashtable<String, SSpan> sideEnd = new Hashtable<String, SSpan>();
+                Hashtable<String, SSpan> locStart = new Hashtable<String, SSpan>();
+                Hashtable<String, SSpan> locEnd = new Hashtable<String, SSpan>();
+                Attributes last_added_page_attributes = null;
+                String last_added_page_end = null;
+                int page_count = 0;         // we start at zero because it will be incremented before it's used
 
 		private List<SToken> openDipls = null;
 
@@ -217,10 +219,12 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
 		/** stores current line **/
 		private SSpan currentLine = null;
+                private SSpan currentLoc = null;
 		/** stores current column **/
 		private SSpan currentColumn = null;
 		/** stores current page **/
 		private SSpan currentPage = null;
+                private SSpan currentSide = null;
 		private char current_column = 'a';
 
 		// this method name is a bit misleading, it only escapes the ATT_TAG
@@ -279,21 +283,57 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                                                              null, null, null, attributes);
 				}
 			} else if (TAG_PAGE.equals(qName)) {
-				SSpan colSpan = SaltFactory.createSSpan();
-				// TODO there should be a span for the page no independent of
-				// the side
-				colSpan.createAnnotation(null, ATT_SIDE, attributes.getValue(ATT_SIDE));
-				colSpan.createAnnotation(null, "page", attributes.getValue(ATT_NO));
+                                // currently, side is an attribute of page. this might change in the future, but for now
+                                // we may need to create two spans with different lengths here
+                                SSpan pageSpan = SaltFactory.createSSpan();
+                                String[] range = attributes.getValue(ATT_RANGE).split("[.][.]");
+                                String start_id = range[0],
+                                       end_id = (range.length == 1 ? range[0] : range[1]);
+                                if (range.length < 1 || range.length > 2)
+                                    logger.warn("Could not get a valid range from the attribute of page id='" + attributes.getValue("id")
+                                               + "' - range text was: '" + attributes.getValue(ATT_RANGE) + "'");
 
-				getDocument().getDocumentGraph().addNode(colSpan);
-				String[] parts = attributes.getValue(ATT_RANGE).split("[.][.]");
-				if (parts.length >= 1) {
-					pageStart.put(parts[0], colSpan);
-					if (parts.length == 2)
-						pageEnd.put(parts[1], colSpan);
-					else
-						pageEnd.put(parts[0], colSpan);
-				}
+
+                                // unless page#no is the same as with the previous <page>, we need to make a new page span
+                                // otherwise we just have to change the last added page's range
+                                if (last_added_page_attributes == null
+                                 || !attributes.getValue("no").equals(last_added_page_attributes.getValue("no"))) {
+                                    // make new page
+                                    ++page_count;
+                                    String my_pageno = attributes.getValue("no");
+                                    // page#no can be empty, which is an error in the input but needs to be dealt with
+                                    if (my_pageno == null) {
+                                        my_pageno = Integer.toString(page_count);
+                                        logger.warn("No page#no attribute found for page " + attributes.getValue("id") + " - falling back to page count");
+                                    }
+                                    pageSpan.createAnnotation(null, "page", attributes.getValue("no"));
+                                    getDocument().getDocumentGraph().addNode(pageSpan);
+                                    pageStart.put(start_id, pageSpan);
+                                    pageEnd.put(end_id, pageSpan);
+                                } else {
+                                    // join with previous page
+                                    SSpan previous_span = null;
+                                    if (last_added_page_end != null) {
+                                        previous_span = pageEnd.get(last_added_page_end);
+                                        pageEnd.remove(last_added_page_end);
+                                    } else {
+                                        logger.warn("Trying to join two page spans because I think there's a second side, but there is no last added page! "
+                                                  + "id: " + attributes.getValue("id"));
+                                        previous_span = pageSpan;
+                                    }
+                                    pageEnd.put(end_id, previous_span);
+                                }
+                                last_added_page_attributes = attributes;
+                                last_added_page_end = end_id;
+
+                                SSpan sideSpan = SaltFactory.createSSpan();
+                                if (attributes.getValue(ATT_SIDE) != null) {
+                                    // if side exists, create side span and make connections.
+                                    sideSpan.createAnnotation(null, "side", attributes.getValue(ATT_SIDE));
+                                    getDocument().getDocumentGraph().addNode(sideSpan);
+                                    sideStart.put(start_id, sideSpan);
+                                    sideEnd.put(end_id, sideSpan);
+                                }
 			} else if (TAG_MOD.equals(qName)) {
                                 last_mod = add_tok(getSTextualDS_mod(), mod_tok_textlayer, last_mod, SEGMENTATION_NAME_MOD,
                                                    getOpenMods(), getModOffsets(), getLastModOffset(), attributes);
@@ -313,6 +353,15 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (lineEnd.get(id) != null) {
 					currentLine = null;
 				}
+                                // loc is basically a copy of line with a different content
+                                if (locStart.get(id) != null) {
+                                    currentLoc = locStart.get(id);
+                                }
+                                if (currentLoc == null) {
+                                    logger.warn("Cannot add token '" + id + "' to current location, because current location is empty.");
+                                } else {
+                                    span_on_tok(currentLoc, last_dipl);
+                                }
 
 				// switch column links to line identifier
 				if (columnStart.get(id) != null) {
@@ -327,6 +376,13 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					currentColumn = null;
 				}
 				// switch column links to line identifier
+                                if (sideStart.get(id) != null) {
+                                        currentSide = sideStart.get(id);
+                                }
+                                if (currentSide != null) {
+                                    // we can't really warn if side is null, because a lot of documents have no sides
+                                    span_on_tok(currentSide, last_dipl);
+                                }
 
 				// switch page links to column identifier
 				if (pageStart.get(id) != null) {
@@ -334,7 +390,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				}
 				if (currentPage== null){
 					logger.warn("Cannot add token '"+id+"' to current page, because current page is empty. ");
-				}else{
+				} else {
 					span_on_tok(currentPage, last_dipl);
 				}
 				if (pageEnd.get(id) != null) {
@@ -354,20 +410,34 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				}
 
 				String id = attributes.getValue(ATT_ID);
+                                SSpan layout_span = null;
+
 				// switch page links to column identifier
-				SSpan pageSpan = pageStart.get(id);
-				if (pageSpan != null) {
+                                // we need to reset the column counter below, but where exactly depends on
+                                // if we have sides or not
+				layout_span = pageStart.get(id);
+				if (layout_span != null) {
 					pageStart.remove(id);
-					pageStart.put(start, pageSpan);
-					// reset column count
-					current_column = 'a';
+					pageStart.put(start, layout_span);
+                                        if (currentSide == null)
+                                            current_column = 'a';
 				}
-				pageSpan = pageEnd.get(id);
-				if (pageSpan != null) {
+				layout_span = pageEnd.get(id);
+				if (layout_span != null) {
 					pageEnd.remove(id);
-					pageEnd.put(end, pageSpan);
+					pageEnd.put(end, layout_span);
 				}
-				// switch page links to column identifier
+                                layout_span = sideStart.get(id);
+                                if (layout_span != null) {
+                                    sideStart.remove(id);
+                                    sideStart.put(start, layout_span);
+                                    current_column = 'a';
+                                }
+                                layout_span = sideEnd.get(id);
+                                if (layout_span != null) {
+                                    sideEnd.remove(id);
+                                    sideEnd.put(end, layout_span);
+                                }
 
 				SSpan colSpan = SaltFactory.createSSpan();
 				// ATT_ID contains the id of the column element (e.g. "c1"), but
@@ -380,44 +450,63 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				columnStart.put(start, colSpan);
 				columnEnd.put(end, colSpan);
 			} else if (TAG_LINE.equals(qName)) {
-				SSpan sSpan = SaltFactory.createSSpan();
-				sSpan.createAnnotation(null, TAG_LINE, attributes.getValue(ATT_NAME));
-				getDocument().getDocumentGraph().addNode(sSpan);
+                                // here we create two spans, one for the line itself, and one that sums up
+                                // the layout info in a single span which can be used instead of the hierarchically
+                                // ordered spans
+                                SSpan lineSpan = SaltFactory.createSSpan();
+                                SSpan locSpan = SaltFactory.createSSpan();
+				lineSpan.createAnnotation(null, "line", attributes.getValue("name"));
+                                locSpan.createAnnotation(null, "reference", attributes.getValue("loc"));
+				getDocument().getDocumentGraph().addNode(lineSpan);
+				getDocument().getDocumentGraph().addNode(locSpan);
 				String[] parts = attributes.getValue(ATT_RANGE).split("[.][.]");
-				String start = null;
-				String end = null;
-				if (parts.length >= 1) {
-					start = parts[0];
-					if (parts.length == 2)
-						end = parts[1];
-					else
-						end = parts[0];
-				}
-				lineStart.put(start, sSpan);
-				lineEnd.put(end, sSpan);
+                                String start = null, end = null;
+                                if (parts.length >= 1) {
+                                    start = parts[0];
+                                    end = parts.length > 1 ? parts[1] : parts[0];
+                                } else {
+                                    logger.warn("Could not parse range string for line '" + attributes.getValue("id") + "'");
+                                }
 
+				lineStart.put(start, lineSpan);
+				lineEnd.put(end, lineSpan);
+                                locStart.put(start, locSpan);
+                                locEnd.put(end, locSpan);
+
+                                // at this point all higher layout elements should have been mapped to line ids
+                                // they need to be changed to tok_dipl id
 				String id = attributes.getValue(ATT_ID);
-
-				SSpan column = columnStart.get(id);
-				if (column != null) {
+				SSpan layout_span = columnStart.get(id);
+				if (layout_span != null) {
 					columnStart.remove(id);
-					columnStart.put(start, column);
+					columnStart.put(start, layout_span);
 				}
-				column = columnEnd.get(id);
-				if (column != null) {
+				layout_span = columnEnd.get(id);
+				if (layout_span != null) {
 					columnEnd.remove(id);
-					columnEnd.put(end, column);
+					columnEnd.put(end, layout_span);
 				}
 
-				SSpan pageSpan = pageStart.get(id);
-				if (pageSpan != null) {
+                                layout_span = sideStart.get(id);
+                                if (layout_span != null) {
+                                    sideStart.remove(id);
+                                    sideStart.put(start, layout_span);
+                                }
+                                layout_span = sideEnd.get(id);
+                                if (layout_span != null) {
+                                    sideEnd.remove(id);
+                                    sideEnd.put(end, layout_span);
+                                }
+
+				layout_span = pageStart.get(id);
+				if (layout_span != null) {
 					pageStart.remove(id);
-					pageStart.put(start, pageSpan);
+					pageStart.put(start, layout_span);
 				}
-				pageSpan = pageEnd.get(id);
-				if (pageSpan != null) {
+				layout_span = pageEnd.get(id);
+				if (layout_span != null) {
 					pageEnd.remove(id);
-					pageEnd.put(end, pageSpan);
+					pageEnd.put(end, layout_span);
 				}
 			} else if (TAG_POS.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
@@ -437,7 +526,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                         } else if ("token_type".equals(qName)) {
                                 // value can be empty, in which case it should add "--"
                                 String value = attributes.getValue(ATT_TAG) != "" ? attributes.getValue(ATT_TAG) : "--";
-                                getSNodeStack().peek().createAnnotation(null, "token_type", value);
+                                getSNodeStack().peek().createAnnotation(null, "tokenization", value);
 			} else if ("intern_pos_gen".equals(qName) && import_internals) {
 				addSimpleRow("posLemma_intern", attributes);
 			} else if ("intern_pos".equals(qName) && import_internals) {
@@ -468,8 +557,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				addSimpleRow("inflection", attributes);
 			} else if (TAG_NORMALIGN.equals(qName) || TAG_NORMALIGN_VARIANT.equals(qName)) {
 				addSimpleRow("char_align", attributes);
-			} else if (TAG_LEMMA_ID.equals(qName)) {
-				addSimpleRow("lemmaId", attributes);
+			} else if ("lemma_idmwb".equals(qName)) {
+                                String lemma_id = attributes.getValue(ATT_TAG);
+                                //lemma_id = "<a href='http://www.mhdwb-online.de/lemmaliste/" + lemma_id + "'>" + lemma_id + "</a>";
+                                getSNodeStack().peek().createAnnotation(null, "lemmaId", lemma_id);
 			} else if ("lemma_gen".equals(qName)) {
 				addSimpleRow("lemmaLemma", attributes);
 			} else if (TAG_LEMMA.equals(qName)) {
