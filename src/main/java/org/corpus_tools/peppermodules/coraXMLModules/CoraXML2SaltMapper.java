@@ -90,7 +90,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                 Hashtable<String, SSpan> sideEnd = new Hashtable<String, SSpan>();
                 Hashtable<String, SSpan> locStart = new Hashtable<String, SSpan>();
                 Hashtable<String, SSpan> locEnd = new Hashtable<String, SSpan>();
-                Attributes last_added_page_attributes = null;
+                String last_added_page_no = null;
                 String last_added_page_end = null;
                 int page_count = 0;         // we start at zero because it will be incremented before it's used
 
@@ -296,8 +296,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
                                 // unless page#no is the same as with the previous <page>, we need to make a new page span
                                 // otherwise we just have to change the last added page's range
-                                if (last_added_page_attributes == null
-                                 || !attributes.getValue("no").equals(last_added_page_attributes.getValue("no"))) {
+                                if (last_added_page_no == null
+                                 || !attributes.getValue("no").equals(last_added_page_no)) {
                                     // make new page
                                     ++page_count;
                                     String my_pageno = attributes.getValue("no");
@@ -323,7 +323,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                                     }
                                     pageEnd.put(end_id, previous_span);
                                 }
-                                last_added_page_attributes = attributes;
+                                last_added_page_no = attributes.getValue("no");
                                 last_added_page_end = end_id;
 
                                 SSpan sideSpan = SaltFactory.createSSpan();
