@@ -57,6 +57,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	/** defines whether dipl and mod are only segmentations of token **/
 	private boolean tokenization_is_segmentation = false;
 
+        /** defines whether internal annotations are imported **/
+        private boolean import_internals = false;
+
 	/**
 	 * {@inheritDoc PepperMapper#setSDocument(SDocument)}
 	 *
@@ -139,7 +142,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			open_dipl_offsets = null;
 		}
 
-		private Integer getLastDiplOffest() {
+		private Integer getLastDiplOffset() {
 			if (getDiplOffsets().isEmpty()) {
 				return 0;
 			} else {
@@ -161,7 +164,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			open_mod_offsets = null;
 		}
 
-		private Integer getLastModOffest() {
+		private Integer getLastModOffset() {
 			if (getModOffsets().isEmpty()) {
 				return 0;
 			} else {
@@ -245,29 +248,35 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 			}
 		}
 
+                /// add a dipl or mod tok and return the SToken just added
+                private SToken add_tok(STextualDS textualds, String textlayer, SToken last_added, String seg_name,
+                                       List<SToken> opens, List<Integer> offsets, Integer last_offset, Attributes attr) {
+                        // increment the length of the text object
+                        int left_pos = textualds.getText().length();
+                        textualds.setText(textualds.getText() + StringEscapeUtils.unescapeHtml4(attr.getValue(textlayer)));
+                        int right_pos = textualds.getText().length();
+                        // create a SToken
+                        SToken tok = getDocument().getDocumentGraph().createToken(textualds, left_pos, right_pos);
+                        addOrderRelation(last_added, tok, seg_name);
+
+                        if (opens != null && offsets != null) {
+                            opens.add(tok);
+                            offsets.add(last_offset + attr.getValue(ATT_TRANS).length());
+                        }
+                        getSNodeStack().add(tok);
+
+                        // add Space
+                        textualds.setText(textualds.getText() + " ");
+
+                        return tok;
+                }
+
 		@Override
 		public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-			if (TAG_LAYOUTINFO.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
-			} else if (TAG_FM.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
-			} else if (TAG_TEXT.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
-			} else if (TAG_TOKEN.equals(qName)) {
-
+			if (TAG_TOKEN.equals(qName)) {
 				if (exportTokenLayer) {
-					// increment the length of the text object
-					int left_pos = getSTextualDS_trans().getText().length();
-					getSTextualDS_trans().setText(getSTextualDS_trans().getText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(ATT_TRANS)));
-					int right_pos = getSTextualDS_trans().getText().length();
-					// create a tok
-					SToken tok = getDocument().getDocumentGraph().createToken(getSTextualDS_trans(), left_pos, right_pos);
-					addOrderRelation(last_token, tok, SEGMENTATION_NAME_TOKEN);
-					last_token = tok;
-					getSNodeStack().add(tok);
-
-					// add Space
-					getSTextualDS_trans().setText(getSTextualDS_trans().getText() + " ");
+                                        last_token = add_tok(getSTextualDS_trans(), ATT_TRANS, last_token, SEGMENTATION_NAME_TOKEN,
+                                                             null, null, null, attributes);
 				}
 			} else if (TAG_PAGE.equals(qName)) {
 				SSpan colSpan = SaltFactory.createSSpan();
@@ -285,38 +294,12 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					else
 						pageEnd.put(parts[0], colSpan);
 				}
-			} else if (TAG_SHIFTTAGS.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
 			} else if (TAG_MOD.equals(qName)) {
-				// increment the length of the text object
-				int left_pos = getSTextualDS_mod().getText().length();
-				getSTextualDS_mod().setText(getSTextualDS_mod().getText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(mod_tok_textlayer)));
-				int right_pos = getSTextualDS_mod().getText().length();
-				// create a mod_tok
-				SToken tok = getDocument().getDocumentGraph().createToken(getSTextualDS_mod(), left_pos, right_pos);
-				addOrderRelation(last_mod, tok, SEGMENTATION_NAME_MOD);
-				last_mod = tok;
-				this.getOpenMods().add(tok);
-				this.getModOffsets().add(this.getLastModOffest() + attributes.getValue(ATT_TRANS).length());
-				getSNodeStack().add(tok);
-
-				// add Space
-				getSTextualDS_mod().setText(getSTextualDS_mod().getText() + " ");
+                                last_mod = add_tok(getSTextualDS_mod(), mod_tok_textlayer, last_mod, SEGMENTATION_NAME_MOD,
+                                                   getOpenMods(), getModOffsets(), getLastModOffset(), attributes);
 			} else if (TAG_DIPL.equals(qName)) {
-				// increment the length of the text object
-				int left_pos = getSTextualDS_dipl().getText().length();
-				getSTextualDS_dipl().setText(getSTextualDS_dipl().getText() + StringEscapeUtils.unescapeHtml4(attributes.getValue(dipl_tok_textlayer)));
-				int right_pos = getSTextualDS_dipl().getText().length();
-				// create a dipl_tok
-				SToken tok = getDocument().getDocumentGraph().createToken(getSTextualDS_dipl(), left_pos, right_pos);
-				addOrderRelation(last_dipl, tok, SEGMENTATION_NAME_DIPL);
-				last_dipl = tok;
-				getOpenDipls().add(tok);
-				getDiplOffsets().add(this.getLastDiplOffest() + attributes.getValue(ATT_TRANS).length());
-				getSNodeStack().add(tok);
-
-				// add Space
-				getSTextualDS_dipl().setText(getSTextualDS_dipl().getText() + " ");
+                                last_dipl = add_tok(getSTextualDS_dipl(), dipl_tok_textlayer, last_dipl, SEGMENTATION_NAME_DIPL,
+                                                    getOpenDipls(), getDiplOffsets(), getLastDiplOffset(), attributes);
 
 				String id = attributes.getValue(ATT_ID);
 				if (lineStart.get(id) != null) {
@@ -325,7 +308,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (currentLine== null){
 					logger.warn("Cannot add token '"+id+"' to current line, because current line is empty. ");
 				}else{
-					span_on_tok(currentLine, tok);
+					span_on_tok(currentLine, last_dipl);
 				}
 				if (lineEnd.get(id) != null) {
 					currentLine = null;
@@ -338,7 +321,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (currentColumn== null){
 					logger.warn("Cannot add token '"+id+"' to current column, because current column is empty. ");
 				}else{
-					span_on_tok(currentColumn, tok);
+					span_on_tok(currentColumn, last_dipl);
 				}
 				if (columnEnd.get(id) != null) {
 					currentColumn = null;
@@ -352,7 +335,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				if (currentPage== null){
 					logger.warn("Cannot add token '"+id+"' to current page, because current page is empty. ");
 				}else{
-					span_on_tok(currentPage, tok);
+					span_on_tok(currentPage, last_dipl);
 				}
 				if (pageEnd.get(id) != null) {
 					currentPage = null;
@@ -387,8 +370,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				// switch page links to column identifier
 
 				SSpan colSpan = SaltFactory.createSSpan();
-				// colSpan.createAnnotation(null, TAG_COLUMN,
-				// attributes.getValue(ATT_ID));
 				// ATT_ID contains the id of the column element (e.g. "c1"), but
 				// this has to be changed
 				// to alphabetic numbering ("c1" -> "a")
@@ -438,10 +419,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					pageEnd.remove(id);
 					pageEnd.put(end, pageSpan);
 				}
-			} else if (TAG_COMMENT.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
-			} else if (TAG_HEADER.equals(qName)) {
-				// TODO anything to do here? otherwise remove this
 			} else if (TAG_POS.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
 					SAnnotation sAnno = getSNodeStack().peek().createAnnotation(TAG_SUGGESTIONS, TAG_POS + "_" + sugPos, unescape(attributes));
@@ -454,11 +431,18 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 					sugPos++;
 				} else
 					addSimpleRow(TAG_POS, attributes);
-			} else if ("intern_pos_gen".equals(qName)) {
+                        } else if ("punc".equals(qName)) {
+                                if (attributes.getValue(ATT_TAG) != "")
+                                    addSimpleRow("punc", attributes);
+                        } else if ("token_type".equals(qName)) {
+                                // value can be empty, in which case it should add "--"
+                                String value = attributes.getValue(ATT_TAG) != "" ? attributes.getValue(ATT_TAG) : "--";
+                                getSNodeStack().peek().createAnnotation(null, "token_type", value);
+			} else if ("intern_pos_gen".equals(qName) && import_internals) {
 				addSimpleRow("posLemma_intern", attributes);
-			} else if ("intern_pos".equals(qName)) {
+			} else if ("intern_pos".equals(qName) && import_internals) {
 				addSimpleRow("pos_intern", attributes);
-			} else if ("intern_infl".equals(qName)) {
+			} else if ("intern_infl".equals(qName) && import_internals) {
 				addSimpleRow("inflection_intern", attributes);
 			} else if (TAG_POS_LEMMA.equals(qName)) {
 				if (TAG_SUGGESTIONS.equals(getXMLELementStack().peek())) {
@@ -748,5 +732,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 	public void setTokenizationIsSegmentation(boolean tokenization_is_segmentation) {
 		this.tokenization_is_segmentation = tokenization_is_segmentation;
 	}
+
+        public void setImportInternals(boolean import_internals) {
+            this.import_internals = import_internals;
+        }
 
 }
