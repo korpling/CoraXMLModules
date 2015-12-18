@@ -357,9 +357,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                                 if (locStart.get(id) != null) {
                                     currentLoc = locStart.get(id);
                                 }
-                                if (currentLoc == null) {
-                                    logger.warn("Cannot add token '" + id + "' to current location, because current location is empty.");
-                                } else {
+                                if (currentLoc != null) {
+                                	// we can't really warn at the moment if loc is null, 
+                                	// because a lot of documents have no loc attribute
                                     span_on_tok(currentLoc, last_dipl);
                                 }
 
@@ -450,31 +450,36 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 				columnStart.put(start, colSpan);
 				columnEnd.put(end, colSpan);
 			} else if (TAG_LINE.equals(qName)) {
-                                // here we create two spans, one for the line itself, and one that sums up
-                                // the layout info in a single span which can be used instead of the hierarchically
-                                // ordered spans
-                                SSpan lineSpan = SaltFactory.createSSpan();
-                                SSpan locSpan = SaltFactory.createSSpan();
-				lineSpan.createAnnotation(null, "line", attributes.getValue("name"));
-                                locSpan.createAnnotation(null, "reference", attributes.getValue("loc"));
-				getDocument().getDocumentGraph().addNode(lineSpan);
-				getDocument().getDocumentGraph().addNode(locSpan);
+				
 				String[] parts = attributes.getValue(ATT_RANGE).split("[.][.]");
-                                String start = null, end = null;
-                                if (parts.length >= 1) {
-                                    start = parts[0];
-                                    end = parts.length > 1 ? parts[1] : parts[0];
-                                } else {
-                                    logger.warn("Could not parse range string for line '" + attributes.getValue("id") + "'");
-                                }
+				String start = null, end = null;
+				if (parts.length >= 1) {
+					start = parts[0];
+					end = parts.length > 1 ? parts[1] : parts[0];
+				} else {
+					logger.warn("Could not parse range string for line '" + attributes.getValue("id") + "'");
+				}
 
+				// here we create two spans, one for the line itself, and one that sums up
+				// the layout info in a single span which can be used instead of the hierarchically
+				// ordered spans
+				SSpan lineSpan = SaltFactory.createSSpan();
+				lineSpan.createAnnotation(null, "line", attributes.getValue("name"));
+				getDocument().getDocumentGraph().addNode(lineSpan);
 				lineStart.put(start, lineSpan);
 				lineEnd.put(end, lineSpan);
-                                locStart.put(start, locSpan);
-                                locEnd.put(end, locSpan);
+				
+				// only create loc span, if attribute exists
+				if (attributes.getValue("loc") != null) {
+					SSpan locSpan = SaltFactory.createSSpan();
+					locSpan.createAnnotation(null, "reference", attributes.getValue("loc"));
+					getDocument().getDocumentGraph().addNode(locSpan);
+					locStart.put(start, locSpan);
+                    locEnd.put(end, locSpan);
+				}		
 
-                                // at this point all higher layout elements should have been mapped to line ids
-                                // they need to be changed to tok_dipl id
+				// at this point all higher layout elements should have been mapped to line ids
+				// they need to be changed to tok_dipl id
 				String id = attributes.getValue(ATT_ID);
 				SSpan layout_span = columnStart.get(id);
 				if (layout_span != null) {
