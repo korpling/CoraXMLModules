@@ -9,13 +9,13 @@
 	<nodes xsi:type="sCorpusStructure:SDocument">
 		<labels xsi:type="saltCore:SElementId" namespace="salt" name="id" value="T::salt:/ren/text2"/>
 		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SDOCUMENT_GRAPH"/>
-		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SDOCUMENT_GRAPH_LOCATION" value="T::file:/tmp/pepper_barteld/workspace/ljcladsb/text29134149656089428972.salt"/>
+		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SDOCUMENT_GRAPH_LOCATION" value="T::file:/tmp/pepper_barteld/workspace/35c2fk5a/text22242986095097210873.salt"/>
 		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SNAME" value="T::text2"/>
 	</nodes>
 	<nodes xsi:type="sCorpusStructure:SDocument">
 		<labels xsi:type="saltCore:SElementId" namespace="salt" name="id" value="T::salt:/ren/text1"/>
 		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SDOCUMENT_GRAPH"/>
-		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SDOCUMENT_GRAPH_LOCATION" value="T::file:/tmp/pepper_barteld/workspace/ljcladsb/text18679011067822178783.salt"/>
+		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SDOCUMENT_GRAPH_LOCATION" value="T::file:/tmp/pepper_barteld/workspace/35c2fk5a/text12449890043470804340.salt"/>
 		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SNAME" value="T::text1"/>
 	</nodes>
 	<edges xsi:type="sCorpusStructure:SCorpusDocumentRelation" source="//@nodes.0" target="//@nodes.1">
