@@ -108,7 +108,7 @@ class Text {
     /// key is segmentation name, i.e. how the row will be named in annis
     private Map<String, TextLayer> sub_layers
         = new Hashtable<>();
-    private TextLayer tok_layer;
+
     private STimeline timeline;
 
     private TextLayer make_layer(String layer_name) {
@@ -117,12 +117,14 @@ class Text {
     private Text() {}
     public Text(SDocumentGraph the_graph,
                 String tok_dipl_textlayer,
-                String tok_mod_textlayer) {
+                String tok_mod_textlayer, boolean export_token_layer) {
         graph = the_graph;
-        tok_layer = make_layer("trans").set_seg("token");
-        tok_layer.seg_name = "token";
-        tok_layer.open_tokens = null;
-        tok_layer.offsets = null;
+        
+        if (export_token_layer) {
+        	TextLayer tok_layer = make_layer("trans").set_seg("token");
+        	sub_layers.put("token", tok_layer);
+        }
+        
         //           cora tagname        layername         seg_name
         sub_layers.put("dipl", make_layer(tok_dipl_textlayer).set_seg("tok_dipl"));
         sub_layers.put("mod", make_layer(tok_mod_textlayer).set_seg("tok_mod"));
@@ -135,10 +137,6 @@ class Text {
     public TextLayer layer(String coraxml_name) {
         return sub_layers.get(coraxml_name);
     }
-    public void do_export_tokenlayer(boolean what) {
-        does_export_tokenlayer = what;
-    }
-    private boolean does_export_tokenlayer = false;
 
     public void annotate(String name, Attributes attr) {
         layer("mod").annotate(name, attr.getValue("tag"));
@@ -166,9 +164,9 @@ class Text {
         }
         timeline.increasePointOfTime();
         int end = timeline.getEnd() - 1;
-        if (does_export_tokenlayer) {
-            tok_layer.set_start(start);
-            tok_layer.tok_to_timeline(timeline, end);
+        if (layer("token") != null) {
+            layer("token").set_start(start);
+            layer("token").tok_to_timeline(timeline, end);
         }
     }
     public void map_tokens_to_timeline_aligned() {
@@ -192,9 +190,9 @@ class Text {
                 layer("mod").offsets.remove();
             }
         }
-        if (does_export_tokenlayer) {
-            tok_layer.set_start(start);
-            tok_layer.tok_to_timeline(timeline,
+        if (layer("token") != null) {
+        	layer("token").set_start(start);
+            layer("token").tok_to_timeline(timeline,
                                       timeline.getEnd() - 1);
         }
     }
