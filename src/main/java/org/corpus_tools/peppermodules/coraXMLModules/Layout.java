@@ -78,13 +78,17 @@ class Layout {
     }
     public Layout make_line(Attributes attr) {
         LayoutElement line = make_element(3, "line").set_range(attr)
-                                                    .set_value(attr.getValue("name")),
-                      loc = make_element(4, "reference").set_range(attr)
-                                                        .set_value(attr.getValue("loc"));
+                                                    .set_value(attr.getValue("name"));
         update(attr.getValue("id"), line);
         add(line);
-        update(loc.from(), loc);
-        add(loc);
+
+        if (attr.getValue("loc") != null) {
+        	LayoutElement loc = make_element(4, "reference").set_range(attr)
+                                                            .set_value(attr.getValue("loc"));
+        	update(loc.from(), loc);
+        	add(loc);
+        }
+        
         return this;
     }
     public Layout render(String id, SToken tok) {
