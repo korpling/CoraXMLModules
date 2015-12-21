@@ -98,7 +98,8 @@ class Text {
         public SAnnotation annotate(String name, String value) {
             if (nodestack.peek() == null)
                 return null;
-            return nodestack.peek().createAnnotation("annotation", name, value);
+            // return nodestack.peek().createAnnotation("annotation", name, value);
+            return nodestack.peek().createAnnotation(null, name, value);
         }
         /// finish annotating last added token
         public void finalize() {

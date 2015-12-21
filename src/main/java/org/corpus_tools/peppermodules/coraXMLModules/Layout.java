@@ -160,7 +160,8 @@ class Layout {
             // we don't know the value yet there
             if (span == null) {
                 span = SaltFactory.createSSpan();
-                span.createAnnotation(namespace, name, value);
+                //span.createAnnotation(namespace, name, value);
+              span.createAnnotation(null, name, value);
                 graph.addNode(span);
             }
             return span;
