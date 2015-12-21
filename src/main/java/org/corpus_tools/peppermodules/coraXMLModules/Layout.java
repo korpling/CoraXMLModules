@@ -1,7 +1,5 @@
 package org.corpus_tools.peppermodules.coraXMLModules;
 
-import java.util.Set;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Hashtable;
 
@@ -27,17 +25,14 @@ class Layout {
 
     private void update(String id, LayoutElement elem) {
         if (element_starts.get(id) != null) {
-            if (current_element == null || current_element.name != elem.name) { // XXX last part of the condition should be unnecessary
-                current_element = element_starts.get(id);
-            }
-            element_starts.remove(id);
+            current_element = element_starts.get(id);
+            element_starts.remove(current_element);
         }
         elem.set_connection(current_element);
     }
 
     private void add(LayoutElement element) {
         element_starts.put(element.from(), element);
-        current_element = element;
     }
 
     private LayoutElement make_element(int level, String annis_name) {
