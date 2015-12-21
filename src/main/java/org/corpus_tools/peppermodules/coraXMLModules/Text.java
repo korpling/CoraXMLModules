@@ -2,6 +2,7 @@ package org.corpus_tools.peppermodules.coraXMLModules;
 
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Hashtable;
 import java.util.Stack;
@@ -32,7 +33,7 @@ class Text {
         /// are not connected with other SToken objects so far
         protected Queue<SToken> open_tokens = new LinkedList<>();
         /// stores offsets of mod/dipl-Tokens in the current token
-        protected Queue<Integer> offsets = new LinkedList<>();
+        protected List<Integer> offsets = new LinkedList<>();
 
         protected TextLayer(String l, SDocumentGraph my_graph) {
             layer_name = l;
@@ -50,9 +51,11 @@ class Text {
         protected int last_offset() {
             if (offsets.isEmpty())
                 return 0;
-            return offsets.size() - 1;
+            return offsets.get(offsets.size()-1);
         }
+
         public SToken last_token() { return last_added; }
+
         public TextLayer add_token(Attributes attr) {
             int left_pos = textual.getText().length();
             String value
@@ -63,7 +66,7 @@ class Text {
             order(last_added, tok);
             if (open_tokens != null && offsets != null) {
                 open_tokens.add(tok);
-                offsets.add(last_offset() + value.length());
+                offsets.add(last_offset() + attr.getValue("trans").length());
             }
             last_added = tok;
             nodestack.add(last_added);
@@ -181,13 +184,13 @@ class Text {
         for (Integer tok_offset : tok_offsets) {
             timeline.increasePointOfTime();
             int end = timeline.getEnd() - 1;
-            if (tok_offset == layer("dipl").offsets.peek()) {
+            if (tok_offset == layer("dipl").offsets.get(0)) {
                 layer("dipl").tok_to_timeline(timeline, end);
-                layer("dipl").offsets.remove();
+                layer("dipl").offsets.remove(0);
             }
-            if (tok_offset == layer("mod").offsets.peek()) {
+            if (tok_offset == layer("mod").offsets.get(0)) {
                 layer("mod").tok_to_timeline(timeline, end);
-                layer("mod").offsets.remove();
+                layer("mod").offsets.remove(0);
             }
         }
         if (layer("token") != null) {
