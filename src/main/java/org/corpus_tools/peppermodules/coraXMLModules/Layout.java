@@ -62,12 +62,16 @@ class Layout {
         return this;
     }
     public Layout make_column(Attributes attr) {
+
+        if (element_starts.get(attr.getValue("id")) != null) {
+            current_column = 'a';
+        }
+
         LayoutElement column
             = make_element(2, "column").set_range(attr)
                                        .set_value(Character.toString(current_column++));
         update(attr.getValue("id"), column);
-        //if (update(attr.getValue("id"), column))
-            //current_column = 'a';
+
         add(column);
         return this;
     }
