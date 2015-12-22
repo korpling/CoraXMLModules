@@ -42,9 +42,9 @@ import org.junit.Test;
 public class CoraXMLImporterRENTest {
 
 	private CoraXMLImporter fixture = null;
-	
+
 	String filePath = new File("").getAbsolutePath();
-	
+
 	public CoraXMLImporter getFixture() {
 		return fixture;
 	}
@@ -53,71 +53,69 @@ public class CoraXMLImporterRENTest {
 		this.fixture = fixture;
 
 	}
-	
+
 	@Before
-	public void setUp(){
+	public void setUp() {
 		setFixture(new CoraXMLImporter());
 
 		getFixture().setSaltProject(SaltFactory.createSaltProject());
 		getFixture().getSaltProject().addCorpusGraph(SaltFactory.createSCorpusGraph());
 
 		getFixture().setProperties(new CoraXMLImporterProperties());
-		
+
 		filePath = filePath.concat("/src/test/resources/sample_ren/");
-		
+
 		File pepperParams = new File(filePath.concat("pepper.params"));
 		getFixture().getProperties().addProperties(URI.createFileURI(pepperParams.getAbsolutePath()));
-		
+
 	}
-	
 
 	/**
 	 * Test import against Gold import
 	 */
 	@Test
 	public void testExampleCorpus() {
-		
+
 		File coraDir = new File(filePath.concat("cora/ren/"));
 		File saltDir = new File(filePath.concat("salt/"));
-		
+
 		this.getFixture().setCorpusDesc(new CorpusDesc());
 		getFixture().getCorpusDesc().setCorpusPath(URI.createFileURI(coraDir.getAbsolutePath()));
 		getFixture().getCorpusDesc().setFormatDesc(new FormatDesc());
 		getFixture().getCorpusDesc().getFormatDesc().setFormatName("coraXML").setFormatVersion("1.0");
-						
+
 		// import CorpusGraph
-		SCorpusGraph importedCorpusGraph = SaltFactory.createSCorpusGraph(); 
-		
+		SCorpusGraph importedCorpusGraph = SaltFactory.createSCorpusGraph();
+
 		getFixture().getSaltProject().addCorpusGraph(importedCorpusGraph);
 		getFixture().importCorpusStructure(importedCorpusGraph);
-		
+
 		this.start();
-		
+
 		importedCorpusGraph = getFixture().getCorpusGraph();
-		
+
 		// load gold CorpusGraph
 		SaltProject goldProject = SaltFactory.createSaltProject();
 		goldProject.loadSaltProject(URI.createFileURI(saltDir.getAbsolutePath()));
 		SCorpusGraph goldCorpusGraph = goldProject.getCorpusGraphs().get(0);
-		
+
 		// compare number of Documents
 		assertEquals(goldCorpusGraph.getDocuments().size(), importedCorpusGraph.getDocuments().size());
-				
+
 		// compare all Documents
-		for (int i=0; i < importedCorpusGraph.getDocuments().size(); i++) {
+		for (int i = 0; i < importedCorpusGraph.getDocuments().size(); i++) {
 			SDocument goldDoc = goldCorpusGraph.getDocuments().get(i);
 			SDocument impDoc = importedCorpusGraph.getDocument(goldDoc.getIdentifier());
 			assertNotNull(impDoc);
-			assertTrue(goldDoc.getDocumentGraph().isIsomorph(impDoc.getDocumentGraph()));			
+			assertTrue(goldDoc.getDocumentGraph().isIsomorph(impDoc.getDocumentGraph()));
 		}
-		
-	}
 
+	}
 
 	public void start() {
 		Collection<PepperModule> modules = new ArrayList<PepperModule>();
 		modules.add(getFixture());
 		PepperTestUtil.start(modules);
 	}
-	
+
 }

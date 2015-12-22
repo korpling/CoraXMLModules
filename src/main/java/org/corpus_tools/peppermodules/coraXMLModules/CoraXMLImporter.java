@@ -28,7 +28,6 @@ import org.corpus_tools.salt.graph.Identifier;
 import org.eclipse.emf.common.util.URI;
 import org.osgi.service.component.annotations.Component;
 
-
 /**
  * This importer imports data from the CoraXML format.
  * 
@@ -38,13 +37,13 @@ import org.osgi.service.component.annotations.Component;
  */
 @Component(name = "CoraXMLImporterComponent", factory = "PepperImporterComponentFactory")
 public class CoraXMLImporter extends PepperImporterImpl implements PepperImporter, CoraXMLDictionary {
-	public static final String MODULE_NAME="CoraXMLImporter";
+	public static final String MODULE_NAME = "CoraXMLImporter";
 	// ** customization properties */
 	private String mod_tok_textlayer = ATT_ASCII;
 	private String dipl_tok_textlayer = ATT_UTF;
 	private boolean export_token_layer = true;
 	private boolean tokenization_is_segmentation = false;
-        private boolean import_internals = false;
+	private boolean import_internals = false;
 
 	// =================================================== mandatory
 	// ===================================================
@@ -74,7 +73,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		mapper.setDiplTokTextlayer(dipl_tok_textlayer);
 		mapper.setExportTokenLayer(export_token_layer);
 		mapper.setTokenizationIsSegmentation(tokenization_is_segmentation);
-                mapper.setImportInternals(import_internals);
+		mapper.setImportInternals(import_internals);
 		return (mapper);
 	}
 
@@ -117,7 +116,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			dipl_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getDiplTokTextlayer();
 			export_token_layer = ((CoraXMLImporterProperties) this.getProperties()).getExportTokenLayer();
 			tokenization_is_segmentation = ((CoraXMLImporterProperties) this.getProperties()).getTokenizationIsSegmentation();
-                        import_internals = ((CoraXMLImporterProperties) this.getProperties()).getImportInternals();
+			import_internals = ((CoraXMLImporterProperties) this.getProperties()).getImportInternals();
 
 		}
 		// TODO make some initializations if necessary

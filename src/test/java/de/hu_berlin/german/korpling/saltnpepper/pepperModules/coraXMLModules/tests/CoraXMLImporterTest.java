@@ -28,22 +28,22 @@ import org.junit.Before;
 public class CoraXMLImporterTest extends PepperImporterTest {
 
 	String filePath = new File("").getAbsolutePath();
-	
+
 	@Before
-	public void setUp(){
-		
+	public void setUp() {
+
 		setFixture(new CoraXMLImporter());
 		getFixture().setProperties(new CoraXMLImporterProperties());
-		
+
 		filePath = filePath.concat("/src/test/resources/");
-		
-		FormatDesc formatDef= new FormatDesc();
+
+		FormatDesc formatDef = new FormatDesc();
 		formatDef.setFormatName("coraXML");
 		formatDef.setFormatVersion("1.0");
 		this.supportedFormatsCheck.add(formatDef);
-		
+
 	}
-	
+
 	// TODO: test CustomizationProperties
-	
+
 }
