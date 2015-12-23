@@ -148,29 +148,30 @@ class Text {
         layer("mod").annotate(name, value);
     }
 
-    /// returns true when both subordinate sub_layers are empty
-    private boolean no_opens() {
-        for (TextLayer layer : sub_layers.values())
-            if (layer.open_tokens.peek() != null)
-                return false;
-        return true;
-    }
     public void map_tokens_to_timeline_simple() {
         Integer start = timeline.getEnd() - 1;
-        for (TextLayer l : sub_layers.values())
+
+        // set initial start points and get maximal number of tokens
+        int number_of_tokens = 0;
+        for (TextLayer l : sub_layers.values()) {
+            if (number_of_tokens < l.open_tokens.size()) {
+                number_of_tokens = l.open_tokens.size();
+            }
             l.set_start(start);
-        while (!no_opens()) {
-            timeline.increasePointOfTime();
-            Integer end = timeline.getEnd() - 1;
-            for (TextLayer l : sub_layers.values())
-                l.tok_to_timeline(timeline, end);
         }
-        timeline.increasePointOfTime();
-        int end = timeline.getEnd() - 1;
-        if (layer("token") != null) {
-            layer("token").set_start(start);
-            layer("token").tok_to_timeline(timeline, end);
+        timeline.increasePointOfTime(number_of_tokens);
+
+        // map all tokens except for the last
+        for (TextLayer l : sub_layers.values()) {
+            while (l.open_tokens.size() > 1) {
+                l.tok_to_timeline(timeline, l.current_position + 1);
+            }
         }
+
+        // map the last tokens to the timeline (spanning all remaining points)
+        Integer end = timeline.getEnd() - 1;
+        for (TextLayer l : sub_layers.values())
+            l.tok_to_timeline(timeline, end);
     }
     public void map_tokens_to_timeline_aligned() {
         SortedSet<Integer> tok_offsets = new TreeSet<Integer>();
