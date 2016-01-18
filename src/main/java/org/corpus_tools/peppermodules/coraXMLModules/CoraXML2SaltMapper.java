@@ -213,7 +213,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                         line = line.trim();
                         if (line.isEmpty())
                             continue;
-                        String[] parts = line.split(":");
+                        String[] parts = line.split(":", 2);
                         if (parts.length >= 1) {
                             String name = parts[0].trim();
                             String value = null;
