@@ -48,19 +48,23 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	 */
 	public static final String PROP_TOK_IS_SEG = "mod/dipl_eq_token";
 
-	public static final String PROP_IMPORT_INTERNALS = "import_internals";
+
+	/**
+	 * Property that excludes annotations form being imported
+	 */
+	public static final String PROP_EXCLUDE_ANNOTATIONS = "exclude_from_import";
 
 	public CoraXMLImporterProperties() {
 		this.addProperty(new PepperModuleProperty<>(PROP_TOKTEXT_MOD, String.class, "This property defines which attribute of the mod-Tag is used for the token texts (trans, utf or ascii). By default, the simplified ascii version is used (value:ascii)", ATT_ASCII, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_TOKTEXT_DIPL, String.class, "This property defines which attribute of the dipl-Tag is used for the token texts (trans or utf). By default, the unicode version is used (value:utf)", ATT_UTF, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_EXPORT_TOKEN, Boolean.class, "This property defines whether the token layer is exported. By default, it is exported (value:true)", Boolean.TRUE, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_TOK_IS_SEG, Boolean.class, "This property defines whether mod and dipl each are strict segmentations of token, i.e. the combined values of trans for each are equal with the trans-value of token. By default, this is not assumed (value:false)", Boolean.FALSE, false));
-		this.addProperty(new PepperModuleProperty<>(PROP_IMPORT_INTERNALS, Boolean.class, "This property defines whether internal annotations are imported (pos_intern, etc.)", Boolean.FALSE, false));
+		this.addProperty(new PepperModuleProperty<>(PROP_EXCLUDE_ANNOTATIONS, String.class, "This property defines a semicolon separated list of annotations that are ignored. By default all annotations are imported (value:\"\").", "", false));
 
 	}
 
-	public boolean getImportInternals() {
-		return ((Boolean) this.getProperty(PROP_IMPORT_INTERNALS).getValue());
+	public String getExcludeAnnotations() {
+		return ((String) this.getProperty(PROP_EXCLUDE_ANNOTATIONS).getValue());
 	}
 
 	/**

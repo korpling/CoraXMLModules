@@ -16,7 +16,10 @@
  */
 package org.corpus_tools.peppermodules.coraXMLModules;
 
+import java.util.Arrays;
+import java.util.Set;
 import java.util.Stack;
+import java.util.TreeSet;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.corpus_tools.pepper.common.DOCUMENT_STATUS;
@@ -41,8 +44,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     private boolean exportTokenLayer = true;
     /** defines whether dipl and mod are only segmentations of token **/
     private boolean tokenization_is_segmentation = true;
-    /** defines whether internal annotations are imported **/
-    private boolean import_internals = false;
+    /** defines a list of annotation types that are not imported **/
+    private Set<String> annotations_to_ignore = new TreeSet<String>();
     // TODO: deal with invalid values for textlayer
     public void setModTokTextlayer(String textlayer) {
         if (ATT_ASCII.equals(textlayer) || ATT_UTF.equals(textlayer) || ATT_TRANS.equals(textlayer)) {
@@ -60,8 +63,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     public void setTokenizationIsSegmentation(boolean tokenization_is_segmentation) {
         this.tokenization_is_segmentation = tokenization_is_segmentation;
     }
-    public void setImportInternals(boolean import_internals) {
-        this.import_internals = import_internals;
+    public void setExcludeAnnotations(String annotations_to_exclude) {
+        this.annotations_to_ignore.addAll(Arrays.asList(annotations_to_exclude.split(";")));
     }
 
     /**
@@ -79,6 +82,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     }
 
     class CoraXMLReader extends DefaultHandler2 {
+
+        boolean in_mod = false;
+
         StringBuffer header_text = new StringBuffer();
         private Stack<String> xmlElementStack = null;
         private Stack<String> getXMLELementStack() {
@@ -110,28 +116,35 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         public void startElement(String uri, String localName,
                                  String qName, Attributes attributes)
         throws SAXException {
-            if (TAG_TOKEN.equals(qName)) {
+
+            // layout tags
+            if (TAG_PAGE.equals(qName)) {
+            layout().make_page(attributes)
+                    .make_side(attributes);
+            } else if (TAG_COLUMN.equals(qName)) {
+                layout().make_column(attributes);
+            } else if (TAG_LINE.equals(qName)) {
+                layout().make_line(attributes);
+            }
+
+            // token tags
+            else if (TAG_TOKEN.equals(qName)) {
                 if (exportTokenLayer)
                     text().layer("token")
                           .add_token(attributes);
-            } else if (TAG_PAGE.equals(qName)) {
-                layout().make_page(attributes)
-                        .make_side(attributes);
             } else if (TAG_MOD.equals(qName)) {
                 text().layer("mod")
                       .add_token(attributes);
+                this.in_mod = true;
             } else if (TAG_DIPL.equals(qName)) {
                 text().layer(qName)
                       .add_token(attributes);
                 layout().render(attributes.getValue(ATT_ID),
                                 text().layer(qName).last_token());
-            } else if (TAG_COLUMN.equals(qName)) {
-                layout().make_column(attributes);
-            } else if (TAG_LINE.equals(qName)) {
-                layout().make_line(attributes);
-            } else if (TAG_POS.equals(qName)) {
-                text().annotate(TAG_POS, attributes);
-            } else if ("punc".equals(qName)) {
+            }
+
+            // annotations with special treatment
+            else if ("punc".equals(qName)) {
                 if (attributes.getValue(ATT_TAG) != ""
                  && attributes.getValue(ATT_TAG) != "--")
                     text().annotate("punc", attributes);
@@ -140,12 +153,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                 String value = attributes.getValue(ATT_TAG) != ""
                                ? attributes.getValue(ATT_TAG) : "--";
                 text().annotate("tokenization", value);
-            } else if ("intern_pos_gen".equals(qName) && import_internals) {
-                text().annotate("posLemma_intern", attributes);
-            } else if ("intern_pos".equals(qName) && import_internals) {
-                text().annotate("pos_intern", attributes);
-            } else if ("intern_infl".equals(qName) && import_internals) {
-                text().annotate("inflection_intern", attributes);
             } else if (TAG_POS_LEMMA.equals(qName)) {
                 text().annotate("posLemma", attributes);
             } else if (TAG_NORM.equals(qName) || TAG_NORMBROAD.equals(qName)) {
@@ -166,10 +173,14 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                 text().annotate("lemmaId", attributes);
             } else if ("lemma_gen".equals(qName)) {
                 text().annotate("lemmaLemma", attributes);
-            } else if (TAG_LEMMA.equals(qName)) {
-                text().annotate(TAG_LEMMA, attributes);
-            } else if (TAG_MORPH.equals(qName)) {
-                text().annotate(TAG_MORPH, attributes);
+
+            }
+
+            // all other annotations
+            else if (this.in_mod &&
+                    (attributes.getValue("tag") != null) &&
+                    !annotations_to_ignore.contains(qName)) {
+                text().annotate(qName, attributes);
             }
             // must be at the end, that one before last is always on top when
             // processing
@@ -207,6 +218,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                 }
                 else if (TAG_MOD.equals(qName)) {// tag is TAG_DIPL
                     text().layer("mod").finalize();
+                    this.in_mod = false;
                 } else if (TAG_HEADER.equals(qName)) {
                     String[] lines = header_text.toString().split(System.getProperty("line.separator"));
                     for (String line : lines) {
