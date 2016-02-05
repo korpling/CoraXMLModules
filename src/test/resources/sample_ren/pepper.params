@@ -2,4 +2,3 @@ mod/dipl_eq_token=true
 toktext.mod=utf
 export.token=true
 toktext.dipl=ascii
-exclude_from_import=boundary
