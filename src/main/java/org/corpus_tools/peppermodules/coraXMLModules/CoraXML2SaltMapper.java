@@ -147,7 +147,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             if (this.in_mod && !annotations_to_ignore.contains(qName)) {
 
                 // annotations with special treatment
-                if ("punc".equals(qName)) {
+                if (TAG_BOUNDARY.equals(qName)) {
+                    // boundary annotations are realized as spans between them
+                    text().annotate_boundary(TAG_BOUNDARY, attributes);
+                }
+                else if ("punc".equals(qName)) {
                     if (attributes.getValue(ATT_TAG) != "" &&
                             attributes.getValue(ATT_TAG) != "--")
                         text().annotate("punc", attributes);
@@ -176,7 +180,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                     text().annotate("lemmaId", attributes);
                 } else if ("lemma_gen".equals(qName)) {
                     text().annotate("lemmaLemma", attributes);
-
                 }
 
                 // all other annotations

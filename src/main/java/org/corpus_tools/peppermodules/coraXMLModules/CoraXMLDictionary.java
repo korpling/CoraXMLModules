@@ -52,6 +52,8 @@ public interface CoraXMLDictionary {
 	public static final String TAG_POS = "pos";
 	/** constant to address the xml-element 'tokenization'. **/
 	public static final String TAG_TOKENIZATION = "token_type";
+	/** constant to address the xml-element 'boundary'. **/
+	public static final String TAG_BOUNDARY = "boundary";
 
 	public static final String TAG_POS_LEMMA = "pos_gen";
 	public static final String TAG_INFL = "infl";

@@ -31,6 +31,8 @@ import org.corpus_tools.salt.SaltFactory;
 import org.corpus_tools.salt.common.STextualDS;
 import org.corpus_tools.salt.common.SToken;
 import org.corpus_tools.salt.common.SOrderRelation;
+import org.corpus_tools.salt.common.SSpan;
+import org.corpus_tools.salt.common.SSpanningRelation;
 import org.corpus_tools.salt.common.STimeline;
 import org.corpus_tools.salt.common.STimelineRelation;
 import org.corpus_tools.salt.common.SDocumentGraph;
@@ -116,8 +118,36 @@ class Text {
     // a TextLayer that allows annotating the tokens
     protected class ModLayer extends TextLayer {
 
+        private List<SToken> open_tokens = new LinkedList<>();
+
         protected ModLayer(String l, SDocumentGraph my_graph) {
             super(l, my_graph);
+        }
+
+        @Override
+        public ModLayer add_token(Attributes attr) {
+
+            super.add_token(attr);
+            open_tokens.add(this.last_token());
+
+            return this;
+        }
+
+        public void annotate_boundary(String name, String value) {
+
+            SSpan span = SaltFactory.createSSpan();
+            span.createAnnotation("annotation", name, value);
+            graph.addNode(span);
+
+            for (SToken tok: open_tokens) {
+                SSpanningRelation rel = SaltFactory.createSSpanningRelation();
+                rel.setSource(span);
+                rel.setTarget(tok);
+                graph.addRelation(rel);
+            }
+
+            open_tokens.clear();
+
         }
 
         public SAnnotation annotate(String name, String value) {
@@ -125,6 +155,7 @@ class Text {
                 return null;
             return last_token().createAnnotation("annotation", name, value);
         }
+
     }
 
     private SDocumentGraph graph;
@@ -179,10 +210,23 @@ class Text {
     }
 
     public void annotate(String name, Attributes attr) {
-        mod_layer.annotate(name, attr.getValue("tag"));
+        this.annotate(name, attr.getValue("tag"));
     }
     public void annotate(String name, String value) {
         mod_layer.annotate(name, value);
+    }
+
+    public void annotate_boundary(String name, Attributes attr) {
+        this.annotate_boundary(name, attr.getValue("tag"));
+    }
+    /**
+     * Creates a span annotation from the token after the last boundary
+     * (or the first token) to the last added token.
+     * @param name
+     * @param value
+     */
+    public void annotate_boundary(String name, String value) {
+        mod_layer.annotate_boundary(name, value);
     }
 
     public void map_tokens_to_timeline_simple() {
