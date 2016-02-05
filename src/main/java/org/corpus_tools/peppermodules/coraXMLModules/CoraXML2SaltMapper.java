@@ -143,45 +143,48 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                                 text().layer(qName).last_token());
             }
 
-            // annotations with special treatment
-            else if ("punc".equals(qName)) {
-                if (attributes.getValue(ATT_TAG) != ""
-                 && attributes.getValue(ATT_TAG) != "--")
-                    text().annotate("punc", attributes);
-            } else if (TAG_TOKENIZATION.equals(qName)) {
-                // value can be empty, in which case it should add "--"
-                String value = attributes.getValue(ATT_TAG) != ""
-                               ? attributes.getValue(ATT_TAG) : "--";
-                text().annotate("tokenization", value);
-            } else if (TAG_POS_LEMMA.equals(qName)) {
-                text().annotate("posLemma", attributes);
-            } else if (TAG_NORM.equals(qName) || TAG_NORMBROAD.equals(qName)) {
-                String ann_name = TAG_NORM.equals(qName)
-                                  ? "norm" : "modern";
-                text().annotate(ann_name, attributes);
-            } else if (TAG_INFLCLASS.equals(qName)) {
-                text().annotate("inflectionClass", attributes);
-            } else if (TAG_INFLCLASS_LEMMA.equals(qName)) {
-                text().annotate("inflectionClassLemma",
-                                             attributes);
-            } else if (TAG_INFL.equals(qName)) {
-                text().annotate("inflection", attributes);
-            } else if (TAG_NORMALIGN.equals(qName)
-                    || TAG_NORMALIGN_VARIANT.equals(qName)) {
-                text().annotate("char_align", attributes);
-            } else if ("lemma_idmwb".equals(qName)) {
-                text().annotate("lemmaId", attributes);
-            } else if ("lemma_gen".equals(qName)) {
-                text().annotate("lemmaLemma", attributes);
+            // annotations on mod
+            if (this.in_mod && !annotations_to_ignore.contains(qName)) {
 
+                // annotations with special treatment
+                if ("punc".equals(qName)) {
+                    if (attributes.getValue(ATT_TAG) != "" &&
+                            attributes.getValue(ATT_TAG) != "--")
+                        text().annotate("punc", attributes);
+                } else if (TAG_TOKENIZATION.equals(qName)) {
+                    // value can be empty, in which case it should add "--"
+                    String value = attributes.getValue(ATT_TAG) != ""
+                            ? attributes.getValue(ATT_TAG) : "--";
+                            text().annotate("tokenization", value);
+                } else if (TAG_POS_LEMMA.equals(qName)) {
+                    text().annotate("posLemma", attributes);
+                } else if (TAG_NORM.equals(qName) || TAG_NORMBROAD.equals(qName)) {
+                    String ann_name = TAG_NORM.equals(qName)
+                            ? "norm" : "modern";
+                    text().annotate(ann_name, attributes);
+                } else if (TAG_INFLCLASS.equals(qName)) {
+                    text().annotate("inflectionClass", attributes);
+                } else if (TAG_INFLCLASS_LEMMA.equals(qName)) {
+                    text().annotate("inflectionClassLemma",
+                            attributes);
+                } else if (TAG_INFL.equals(qName)) {
+                    text().annotate("inflection", attributes);
+                } else if (TAG_NORMALIGN.equals(qName)
+                        || TAG_NORMALIGN_VARIANT.equals(qName)) {
+                    text().annotate("char_align", attributes);
+                } else if ("lemma_idmwb".equals(qName)) {
+                    text().annotate("lemmaId", attributes);
+                } else if ("lemma_gen".equals(qName)) {
+                    text().annotate("lemmaLemma", attributes);
+
+                }
+
+                // all other annotations
+                else if (attributes.getValue("tag") != null) {
+                    text().annotate(qName, attributes);
+                }
             }
 
-            // all other annotations
-            else if (this.in_mod &&
-                    (attributes.getValue("tag") != null) &&
-                    !annotations_to_ignore.contains(qName)) {
-                text().annotate(qName, attributes);
-            }
             // must be at the end, that one before last is always on top when
             // processing
             getXMLELementStack().push(qName);
