@@ -39,12 +39,13 @@ import org.corpus_tools.salt.core.SAnnotation;
 import org.xml.sax.Attributes;
 
 class Text {
+
     protected class TextLayer {
         private STextualDS textual;
         private SDocumentGraph graph;
         private String layer_name;
         protected String seg_name;
-        private SToken last_added;
+        private SToken last_added = null;
         private Integer current_position = 0;
         /// all open dipl/mod which are related to a link and
         /// are not connected with other SToken objects so far
@@ -59,9 +60,8 @@ class Text {
             textual.setText("");
             graph.addNode(textual);
         }
-        public TextLayer set_seg(String name) {
+        public void set_seg(String name) {
             seg_name = name;
-            return this;
         }
         void set_start(Integer pos) { current_position = pos; }
 
@@ -86,7 +86,6 @@ class Text {
                 offsets.add(last_offset() + attr.getValue("trans").length());
             }
             last_added = tok;
-            nodestack.add(last_added);
             textual.setText(textual.getText() + " ");
 
             return this;
@@ -112,42 +111,63 @@ class Text {
             graph.addRelation(rel);
             current_position = end;
         }
-        public SAnnotation annotate(String name, String value) {
-            if (nodestack.peek() == null)
-                return null;
-            return nodestack.peek().createAnnotation("annotation", name, value);
+    }
+
+    // a TextLayer that allows annotating the tokens
+    protected class ModLayer extends TextLayer {
+
+        protected ModLayer(String l, SDocumentGraph my_graph) {
+            super(l, my_graph);
         }
-        /// finish annotating last added token
-        public void finalize() {
-            nodestack.pop();
+
+        public SAnnotation annotate(String name, String value) {
+            if (this.last_token() == null)
+                return null;
+            return last_token().createAnnotation("annotation", name, value);
         }
     }
 
     private SDocumentGraph graph;
-    private Stack<SNode> nodestack = new Stack<>();
     /// key is segmentation name, i.e. how the row will be named in annis
     private Map<String, TextLayer> sub_layers
         = new Hashtable<>();
+    private ModLayer mod_layer;
+
 
     private STimeline timeline;
 
     private TextLayer make_layer(String layer_name) {
         return new TextLayer(layer_name, graph);
     }
+    private ModLayer make_annotatable_layer(String layer_name) {
+        return new ModLayer(layer_name, graph);
+    }
+
     private Text() {}
     public Text(SDocumentGraph the_graph,
                 String tok_dipl_textlayer,
                 String tok_mod_textlayer, boolean export_token_layer) {
+
         graph = the_graph;
-        
+
+        // create the text layers:
+        // make_layer("cora_tagname")
+        // set_seg("seg_name")
         if (export_token_layer) {
-        	TextLayer tok_layer = make_layer("trans").set_seg("token");
-        	sub_layers.put("token", tok_layer);
+            TextLayer tok_layer = make_layer("trans");
+            tok_layer.set_seg("token");
+            sub_layers.put("token", tok_layer);
         }
         
-        //           cora tagname        layername         seg_name
-        sub_layers.put("dipl", make_layer(tok_dipl_textlayer).set_seg("tok_dipl"));
-        sub_layers.put("mod", make_layer(tok_mod_textlayer).set_seg("tok_mod"));
+        TextLayer dipl_layer = make_layer(tok_dipl_textlayer);
+        dipl_layer.set_seg("tok_dipl");
+        mod_layer = make_annotatable_layer(tok_mod_textlayer);
+        mod_layer.set_seg("tok_mod");
+
+        sub_layers.put("dipl", dipl_layer);
+        sub_layers.put("mod", mod_layer);
+
+        // initialize the timeline
         timeline = SaltFactory.createSTimeline();
         graph.setTimeline(timeline);
         // add initial PointOfTime
@@ -159,10 +179,10 @@ class Text {
     }
 
     public void annotate(String name, Attributes attr) {
-        layer("mod").annotate(name, attr.getValue("tag"));
+        mod_layer.annotate(name, attr.getValue("tag"));
     }
     public void annotate(String name, String value) {
-        layer("mod").annotate(name, value);
+        mod_layer.annotate(name, value);
     }
 
     public void map_tokens_to_timeline_simple() {

@@ -209,15 +209,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                         text().map_tokens_to_timeline_aligned();
                     } else
                         text().map_tokens_to_timeline_simple();
-                    if (exportTokenLayer) {
-                        text().layer("token").finalize();
-                    }
                 }
-                else if (TAG_DIPL.equals(qName)) {// tag is TAG_DIPL
-                    text().layer("dipl").finalize();
-                }
-                else if (TAG_MOD.equals(qName)) {// tag is TAG_DIPL
-                    text().layer("mod").finalize();
+                else if (TAG_MOD.equals(qName)) {// tag is TAG_MOD
                     this.in_mod = false;
                 } else if (TAG_HEADER.equals(qName)) {
                     String[] lines = header_text.toString().split(System.getProperty("line.separator"));
