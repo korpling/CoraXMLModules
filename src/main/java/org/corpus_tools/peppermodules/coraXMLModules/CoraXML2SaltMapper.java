@@ -144,7 +144,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             }
 
             // annotations on mod
-            if (this.in_mod && !annotations_to_ignore.contains(qName)) {
+            else if (this.in_mod && !annotations_to_ignore.contains(qName)) {
 
                 // annotations with special treatment
                 if (TAG_BOUNDARY.equals(qName)) {
