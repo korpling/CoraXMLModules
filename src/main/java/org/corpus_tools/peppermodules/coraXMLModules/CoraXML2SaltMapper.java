@@ -182,6 +182,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                     text().annotate("lemmaLemma", attributes);
                 }
 
+                // span annotations
+                else if (attributes.getValue("span-id") != null) {
+                    text().add_tok_to_span(qName, attributes);
+                }
+
                 // all other annotations
                 else if (attributes.getValue("tag") != null) {
                     text().annotate(qName, attributes);

@@ -21,6 +21,7 @@ import java.util.Queue;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Stack;
 import java.util.SortedSet;
@@ -119,6 +120,7 @@ class Text {
     protected class ModLayer extends TextLayer {
 
         private List<SToken> open_tokens = new LinkedList<>();
+        private Map<String, SSpan> span_annotations = new HashMap<String, SSpan>();
 
         protected ModLayer(String l, SDocumentGraph my_graph) {
             super(l, my_graph);
@@ -131,6 +133,34 @@ class Text {
             open_tokens.add(this.last_token());
 
             return this;
+        }
+
+        public void add_to_span(String id) {
+
+            if (this.last_token() == null)
+                return;
+
+            SSpan span;
+            if(this.span_annotations.containsKey(id)) {
+                span = this.span_annotations.get(id);
+            }
+            else {
+                span = SaltFactory.createSSpan();
+                graph.addNode(span);
+                this.span_annotations.put(id, span);
+            }
+
+            SSpanningRelation rel = SaltFactory.createSSpanningRelation();
+            rel.setSource(span);
+            rel.setTarget(this.last_token());
+            graph.addRelation(rel);
+
+        }
+
+        public void annotate_span(String id, String name, String value) {
+            if (this.span_annotations.containsKey(id)) {
+                this.span_annotations.get(id).createAnnotation("annotation", name, value);
+            }
         }
 
         public void annotate_boundary(String name, String value) {
@@ -219,6 +249,15 @@ class Text {
     public void annotate_boundary(String name, Attributes attr) {
         this.annotate_boundary(name, attr.getValue("tag"));
     }
+
+
+    public void add_tok_to_span(String name, Attributes attr) {
+        mod_layer.add_to_span(attr.getValue("span-id"));
+        if (attr.getValue("tag") != null) {
+            mod_layer.annotate_span(attr.getValue("span-id"), name, attr.getValue("tag"));
+        }
+    }
+
     /**
      * Creates a span annotation from the token after the last boundary
      * (or the first token) to the last added token.
