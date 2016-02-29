@@ -42,6 +42,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     private String dipl_tok_textlayer = ATT_UTF; // one of "trans" and "utf"
     /** defines whether the token layer should be exported **/
     private boolean exportTokenLayer = true;
+    /** defines whether transcription markup should be turned into annotations **/
+    /** the content of the string gives the type of the markup convention **/
+    private String exportSubtokenannotation = "";
     /** defines whether dipl and mod are only segmentations of token **/
     private boolean tokenization_is_segmentation = true;
     /** defines a list of annotation types that are not imported **/
@@ -59,6 +62,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     }
     public void setExportTokenLayer(boolean exportTokenLayer) {
         this.exportTokenLayer = exportTokenLayer;
+    }
+    public void setExportSubtokenannotation(String subtokannot) {
+        this.exportSubtokenannotation = subtokannot;
     }
     public void setTokenizationIsSegmentation(boolean tokenization_is_segmentation) {
         this.tokenization_is_segmentation = tokenization_is_segmentation;
@@ -108,7 +114,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             if (text == null) {
                 text = new Text(getDocument().getDocumentGraph(),
                                 dipl_tok_textlayer,
-                                mod_tok_textlayer, exportTokenLayer);
+                                mod_tok_textlayer, exportTokenLayer, !exportSubtokenannotation.isEmpty());
             }
             return text;
         }
@@ -141,6 +147,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                       .add_token(attributes);
                 layout().render(attributes.getValue(ATT_ID),
                                 text().layer(qName).last_token());
+                if (!exportSubtokenannotation.isEmpty()) {
+                    text().layer("sub").add_token(attributes, exportSubtokenannotation);
+                }
             }
 
             // annotations on mod

@@ -18,6 +18,7 @@
 package org.corpus_tools.peppermodules.coraXMLModules;
 
 import java.util.Queue;
+import java.util.Set;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,8 @@ import java.util.Hashtable;
 import java.util.Stack;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.corpus_tools.salt.SaltFactory;
@@ -76,23 +79,174 @@ class Text {
 
         public SToken last_token() { return last_added; }
 
-        public TextLayer add_token(Attributes attr) {
+        private SToken add_text(String value) {
             int left_pos = textual.getText().length();
-            String value
-                = StringEscapeUtils.unescapeHtml4(attr.getValue(layer_name));
+            value = StringEscapeUtils.unescapeHtml4(value);
             textual.setText(textual.getText() + value);
             int right_pos = left_pos + value.length();
-            SToken tok = graph.createToken(textual, left_pos, right_pos);
+            return graph.createToken(textual, left_pos, right_pos);
+        }
+
+        public TextLayer add_token(String value, Integer len) {
+            SToken tok = this.add_text(value);
             order(last_added, tok);
             if (open_tokens != null && offsets != null) {
                 open_tokens.add(tok);
-                offsets.add(last_offset() + attr.getValue("trans").length());
+                offsets.add(last_offset() + len);
             }
             last_added = tok;
             textual.setText(textual.getText() + " ");
 
             return this;
         }
+        public TextLayer add_token(Attributes attr) {
+            return this.add_token(attr.getValue(layer_name), attr.getValue("trans").length());
+        }
+
+        class Subtokenspan {
+            private int start;
+            private int end;
+            private SSpan span;
+
+            Subtokenspan(int start, int end, String type, String text) {
+                this.setStart(start);
+                this.setEnd(end);
+                this.span = SaltFactory.createSSpan();
+                graph.addNode(getSpan());
+                getSpan().createAnnotation("annotation", type, text);
+            }
+
+      public int getStart() {
+        return start;
+      }
+
+      public void setStart(int start) {
+        this.start = start;
+      }
+
+      public int getEnd() {
+        return end;
+      }
+
+      public void setEnd(int end) {
+        this.end = end;
+      }
+
+      public SSpan getSpan() {
+        return span;
+      }
+
+        }
+
+        abstract class Subtokenizer {
+            Map<String, String> markup_types = new HashMap<String, String>();
+
+            public abstract String remove_special(String text);
+
+            public void add_subtoken_spans(String transcription, Set<Integer> splitpoints, List<Subtokenspan> spans) {
+            for(Map.Entry<String, String> type: markup_types.entrySet()) {
+              add_subtoken_span(transcription, type.getValue(), type.getKey(), splitpoints, spans);
+            }
+          }
+
+          private void add_subtoken_span(String transcription, String regex, String type,
+              Set<Integer> splitpoints, List<Subtokenspan> spans) {
+              Matcher m = Pattern.compile(regex).matcher(transcription);
+              while(m.find()) {
+                splitpoints.add(m.start(0));
+                splitpoints.add(m.end(0));
+
+                spans.add(new Subtokenspan(m.start(0), m.end(0), type, this.remove_special(m.group(0))));
+              }
+          }
+      }
+
+      class RENSubtokenizer extends Subtokenizer {
+
+        public RENSubtokenizer() {
+            markup_types.put("unreadable", "\\[[^\\]]+\\]");
+            markup_types.put("deleted", "ǂ[^ǂ]+ǂ");
+            markup_types.put("expanded", "\\{._[^}]+\\}");
+        }
+
+        @Override
+          public String remove_special(String text) {
+            return text.replaceAll("[\\[\\]}ǂ#§]", "")
+                .replaceAll("\\{._", "");
+          }
+
+
+      }
+
+      private Subtokenizer subtokenizerFactory(String style) {
+        if (style.equals("REN")) {
+          return new RENSubtokenizer();
+        }
+        return null;
+      }
+
+        public TextLayer add_token(Attributes attr, String subtok_ann_style) {
+
+        Subtokenizer subtok = subtokenizerFactory(subtok_ann_style);
+        if (subtok==null) {
+          throw new RuntimeException("Transcription-style " + subtok_ann_style + " is not implemented.");
+        }
+
+        // get positions for splits and create annoation spans
+        String transcription = attr.getValue("trans");
+        Set<Integer> splitpoints = new TreeSet<Integer>();
+        List<Subtokenspan> spans = new LinkedList<Subtokenspan>();
+
+        subtok.add_subtoken_spans(transcription, splitpoints, spans);
+
+        splitpoints.add(transcription.length());
+        splitpoints.remove(0);
+
+        // split string into subtokens
+        List<String> parts = new LinkedList<String>();
+        Integer last_split = 0;
+        for (Integer split: splitpoints) {
+          // join parts that are only contain markup with previous text
+          if(!subtok.remove_special(transcription.substring(last_split, split)).isEmpty()) {
+            parts.add(transcription.substring(last_split, split));
+            last_split = split;
+          }
+        }
+        // add the end of the token to the last part, if it only contains markup
+        if(last_split < transcription.length()) {
+          parts.set(parts.size()-1, parts.get(parts.size()-1) +
+              transcription.substring(last_split, transcription.length()));
+        }
+
+        // add subtokens to corresponding spans
+        int position = 0;
+        for (int i=0; i < parts.size(); i++) {
+
+          int len = parts.get(i).length();
+          String text = subtok.remove_special(parts.get(i));
+          this.add_token(text, len);
+
+          // find the position of the start of the text
+          int pos0 = position;
+          position = position + parts.get(i).indexOf(text);
+
+          for (Subtokenspan span: spans) {
+            if (position >=  span.getStart() && position < span.getEnd()) {
+              SSpanningRelation rel = SaltFactory.createSSpanningRelation();
+              rel.setSource(span.getSpan());
+              rel.setTarget(this.last_token());
+              graph.addRelation(rel);
+            }
+          }
+
+          position = pos0 + len;
+
+        }
+
+          return this;
+         }
+
+
         private void order(SToken source, SToken target) {
             if (source == null)
                 return;
@@ -207,7 +361,7 @@ class Text {
     private Text() {}
     public Text(SDocumentGraph the_graph,
                 String tok_dipl_textlayer,
-                String tok_mod_textlayer, boolean export_token_layer) {
+                String tok_mod_textlayer, boolean export_token_layer, boolean export_subtoken_annotation) {
 
         graph = the_graph;
 
@@ -219,7 +373,7 @@ class Text {
             tok_layer.set_seg("token");
             sub_layers.put("token", tok_layer);
         }
-        
+
         TextLayer dipl_layer = make_layer(tok_dipl_textlayer);
         dipl_layer.set_seg("tok_dipl");
         mod_layer = make_annotatable_layer(tok_mod_textlayer);
@@ -227,6 +381,13 @@ class Text {
 
         sub_layers.put("dipl", dipl_layer);
         sub_layers.put("mod", mod_layer);
+
+        if (export_subtoken_annotation) {
+          TextLayer subtok_layer = make_layer("trans");
+          subtok_layer.set_seg("tok_sub");
+            sub_layers.put("sub", subtok_layer);
+        }
+
 
         // initialize the timeline
         timeline = SaltFactory.createSTimeline();
@@ -294,31 +455,30 @@ class Text {
             l.tok_to_timeline(timeline, end);
     }
     public void map_tokens_to_timeline_aligned() {
-        SortedSet<Integer> tok_offsets = new TreeSet<Integer>();
-        tok_offsets.addAll(layer("dipl").offsets);
-        tok_offsets.addAll(layer("mod").offsets);
 
-        int start = timeline.getEnd() - 1;
-        layer("dipl").set_start(start);
-        layer("mod").set_start(start);
+      int start = timeline.getEnd() - 1;
+
+        SortedSet<Integer> tok_offsets = new TreeSet<Integer>();
+        for(String layer: sub_layers.keySet()) {
+          layer(layer).set_start(start);
+          if (!layer.equals("token")) {
+            tok_offsets.addAll(layer(layer).offsets);
+          }
+        }
 
         for (Integer tok_offset : tok_offsets) {
             timeline.increasePointOfTime();
             int end = timeline.getEnd() - 1;
-            if (tok_offset == layer("dipl").offsets.get(0)) {
-                layer("dipl").tok_to_timeline(timeline, end);
-                layer("dipl").offsets.remove(0);
-            }
-            if (tok_offset == layer("mod").offsets.get(0)) {
-                layer("mod").tok_to_timeline(timeline, end);
-                layer("mod").offsets.remove(0);
+            for(String layer: sub_layers.keySet()) {
+              if ((!layer.equals("token")) && (tok_offset == layer(layer).offsets.get(0))) {
+                layer(layer).tok_to_timeline(timeline, end);
+                layer(layer).offsets.remove(0);
+              }
             }
         }
         if (layer("token") != null) {
-        	layer("token").set_start(start);
             layer("token").tok_to_timeline(timeline,
                                       timeline.getEnd() - 1);
         }
     }
 }
-

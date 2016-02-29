@@ -42,6 +42,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	private String mod_tok_textlayer = ATT_ASCII;
 	private String dipl_tok_textlayer = ATT_UTF;
 	private boolean export_token_layer = true;
+	private String export_subtoken_annotation = "";
 	private boolean tokenization_is_segmentation = false;
 	private String annotations_to_exclude = "";
 
@@ -72,6 +73,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		mapper.setModTokTextlayer(mod_tok_textlayer);
 		mapper.setDiplTokTextlayer(dipl_tok_textlayer);
 		mapper.setExportTokenLayer(export_token_layer);
+		mapper.setExportSubtokenannotation(export_subtoken_annotation);
 		mapper.setTokenizationIsSegmentation(tokenization_is_segmentation);
 		mapper.setExcludeAnnotations(annotations_to_exclude);
 		return (mapper);
@@ -115,6 +117,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			mod_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getModTokTextlayer();
 			dipl_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getDiplTokTextlayer();
 			export_token_layer = ((CoraXMLImporterProperties) this.getProperties()).getExportTokenLayer();
+			export_subtoken_annotation = ((CoraXMLImporterProperties) this.getProperties()).getExportSubtokenannotation();
 			tokenization_is_segmentation = ((CoraXMLImporterProperties) this.getProperties()).getTokenizationIsSegmentation();
 			annotations_to_exclude = ((CoraXMLImporterProperties) this.getProperties()).getExcludeAnnotations();
 
