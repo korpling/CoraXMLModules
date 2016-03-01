@@ -1,5 +1,6 @@
 mod/dipl_eq_token=true
 toktext.mod=utf
 export.token=true
+export.layer_for_comments=token
 export.subtoken_markup=REN
 toktext.dipl=ascii

@@ -5,6 +5,7 @@
 			<property key="mod/dipl_eq_token">true</property>
 			<property key="toktext.mod">utf</property>
 			<property key="export.token">true</property>
+			<property key="export.layer_for_comments">token</property>
 			<property key="export.subtoken_markup">REN</property>
 			<property key="toktext.dipl">ascii</property>
 		</customization>

@@ -103,6 +103,12 @@ class Text {
             return this.add_token(attr.getValue(layer_name), attr.getValue("trans").length());
         }
 
+        public TextLayer add_comment(String text, String type) {
+            this.add_token(text, 1);
+            last_token().createAnnotation("annotation", "editorial_comment", type);
+            return this;
+        }
+
         class Subtokenspan {
             private int start;
             private int end;
@@ -245,7 +251,6 @@ class Text {
 
           return this;
          }
-
 
         private void order(SToken source, SToken target) {
             if (source == null)
@@ -477,6 +482,9 @@ class Text {
             }
         }
         if (layer("token") != null) {
+            if(start == timeline.getEnd()-1) {
+                timeline.increasePointOfTime();
+            }
             layer("token").tok_to_timeline(timeline,
                                       timeline.getEnd() - 1);
         }

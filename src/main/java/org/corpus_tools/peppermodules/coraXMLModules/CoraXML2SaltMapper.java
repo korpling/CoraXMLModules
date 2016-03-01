@@ -42,6 +42,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     private String dipl_tok_textlayer = ATT_UTF; // one of "trans" and "utf"
     /** defines whether the token layer should be exported **/
     private boolean exportTokenLayer = true;
+    /** defines to which layer top-level comments are added; none, if empty **/
+    private String exportCommentsToLayer = "";
     /** defines whether transcription markup should be turned into annotations **/
     /** the content of the string gives the type of the markup convention **/
     private String exportSubtokenannotation = "";
@@ -62,6 +64,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     }
     public void setExportTokenLayer(boolean exportTokenLayer) {
         this.exportTokenLayer = exportTokenLayer;
+    }
+    public void setExportCommentsToLayer(String layerName) {
+        this.exportCommentsToLayer = layerName;
     }
     public void setExportSubtokenannotation(String subtokannot) {
         this.exportSubtokenannotation = subtokannot;
@@ -92,6 +97,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         boolean in_mod = false;
 
         StringBuffer header_text = new StringBuffer();
+        StringBuffer comment_text = new StringBuffer();
+        String comment_type;
         private Stack<String> xmlElementStack = null;
         private Stack<String> getXMLELementStack() {
             if (xmlElementStack == null) {
@@ -202,6 +209,13 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                 }
             }
 
+            // top level comments
+            // (mod-level comments have been consumed by previous else if)
+            else if ("comment".equals(qName)) {
+                comment_text = new StringBuffer();
+                comment_type = attributes.getValue("type");
+            }
+
             // must be at the end, that one before last is always on top when
             // processing
             getXMLELementStack().push(qName);
@@ -214,6 +228,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             // after an amount if it's buffers are full
             if (TAG_HEADER.equals(getXMLELementStack().peek())) {
                 header_text.append(c_str, start, length);
+            }
+            else if ("comment".equals(getXMLELementStack().peek())) {
+                comment_text.append(c_str, start, length);
             }
         }
 
@@ -251,6 +268,18 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                                 logger.warn("Attempting to create a meta that is already present!\n"
                                         +   "Name: '" + name + "', value: '" + value + "'");
                             }
+                        }
+                    }
+                }
+                else if ("comment".equals(qName)) {
+                    // if comment_text is not empty, this is a top level comment
+                    if (comment_text.length() > 0) {
+                        if(!exportCommentsToLayer.isEmpty()) {
+                            text().layer(exportCommentsToLayer).add_comment(comment_text.toString(), comment_type);
+                            if (tokenization_is_segmentation) {
+                                text().map_tokens_to_timeline_aligned();
+                            } else
+                                text().map_tokens_to_timeline_simple();
                         }
                     }
                 }
