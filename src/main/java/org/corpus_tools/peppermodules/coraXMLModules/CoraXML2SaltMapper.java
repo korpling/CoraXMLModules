@@ -212,7 +212,6 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             // top level comments
             // (mod-level comments have been consumed by previous else if)
             else if ("comment".equals(qName)) {
-                comment_text = new StringBuffer();
                 comment_type = attributes.getValue("type");
             }
 
@@ -281,6 +280,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                             } else
                                 text().map_tokens_to_timeline_simple();
                         }
+                        comment_text = new StringBuffer();
                     }
                 }
                 getXMLELementStack().pop();
