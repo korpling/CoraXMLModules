@@ -17,6 +17,7 @@
 package org.corpus_tools.peppermodules.coraXMLModules;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
@@ -51,6 +52,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     private boolean tokenization_is_segmentation = true;
     /** defines a list of annotation types that are not imported **/
     private Set<String> annotations_to_ignore = new TreeSet<String>();
+    /** defines a list of annotation types that are treated as boundary annotations **/
+    private Set<String> boundary_annotations = new HashSet<String>();
     // TODO: deal with invalid values for textlayer
     public void setModTokTextlayer(String textlayer) {
         if (ATT_ASCII.equals(textlayer) || ATT_UTF.equals(textlayer) || ATT_TRANS.equals(textlayer)) {
@@ -76,6 +79,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     }
     public void setExcludeAnnotations(String annotations_to_exclude) {
         this.annotations_to_ignore.addAll(Arrays.asList(annotations_to_exclude.split(";")));
+    }
+    public void setBoundaryAnnotations(String boundary_annotations) {
+        this.boundary_annotations.addAll(Arrays.asList(boundary_annotations.split(";")));
     }
 
     /**
@@ -120,8 +126,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         Text text() {
             if (text == null) {
                 text = new Text(getDocument().getDocumentGraph(),
-                                dipl_tok_textlayer,
-                                mod_tok_textlayer, exportTokenLayer, !exportSubtokenannotation.isEmpty());
+                                dipl_tok_textlayer, mod_tok_textlayer,
+                                exportTokenLayer, !exportSubtokenannotation.isEmpty(), boundary_annotations);
             }
             return text;
         }
@@ -163,9 +169,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             else if (this.in_mod && !annotations_to_ignore.contains(qName)) {
 
                 // annotations with special treatment
-                if (TAG_BOUNDARY.equals(qName)) {
+                if (boundary_annotations.contains(qName)) {
                     // boundary annotations are realized as spans between them
-                    text().annotate_boundary(TAG_BOUNDARY, attributes);
+                    text().annotate_boundary(qName, attributes);
                 }
                 else if ("punc".equals(qName)) {
                     if (attributes.getValue(ATT_TAG) != "" &&

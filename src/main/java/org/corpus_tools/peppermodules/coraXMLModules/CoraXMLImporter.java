@@ -46,6 +46,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	private String export_subtoken_annotation = "";
 	private boolean tokenization_is_segmentation = false;
 	private String annotations_to_exclude = "";
+	private String boundary_tags = TAG_BOUNDARY;
 
 	// =================================================== mandatory
 	// ===================================================
@@ -78,6 +79,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		mapper.setExportSubtokenannotation(export_subtoken_annotation);
 		mapper.setTokenizationIsSegmentation(tokenization_is_segmentation);
 		mapper.setExcludeAnnotations(annotations_to_exclude);
+		mapper.setBoundaryAnnotations(boundary_tags);
 		return (mapper);
 	}
 
@@ -123,6 +125,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			export_subtoken_annotation = ((CoraXMLImporterProperties) this.getProperties()).getExportSubtokenannotation();
 			tokenization_is_segmentation = ((CoraXMLImporterProperties) this.getProperties()).getTokenizationIsSegmentation();
 			annotations_to_exclude = ((CoraXMLImporterProperties) this.getProperties()).getExcludeAnnotations();
+			boundary_tags = ((CoraXMLImporterProperties) this.getProperties()).getBoundaryAnnotations();
 
 		}
 		// TODO make some initializations if necessary

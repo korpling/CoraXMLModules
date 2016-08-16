@@ -53,6 +53,11 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	public static final String PROP_EXPORT_SUBTOKEN = PREFIX_EXPORT + "subtoken_markup";
 
 	/**
+	 * Property that marks tags as boundary annotations which mapped to spans
+	 */
+	public static final String PROP_BOUNDARY_ANNOTATIONS = PREFIX_EXPORT + "boundary_tags";
+
+	/**
 	 * Name of the property which defines whether mod and dipl are segmentations
 	 * of token
 	 */
@@ -64,6 +69,7 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	 */
 	public static final String PROP_EXCLUDE_ANNOTATIONS = "exclude_from_import";
 
+
 	public CoraXMLImporterProperties() {
 		this.addProperty(new PepperModuleProperty<>(PROP_TOKTEXT_MOD, String.class, "This property defines which attribute of the mod-Tag is used for the token texts (trans, utf or ascii). By default, the simplified ascii version is used (value:ascii)", ATT_ASCII, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_TOKTEXT_DIPL, String.class, "This property defines which attribute of the dipl-Tag is used for the token texts (trans or utf). By default, the unicode version is used (value:utf)", ATT_UTF, false));
@@ -72,6 +78,7 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 		this.addProperty(new PepperModuleProperty<>(PROP_EXPORT_SUBTOKEN, String.class, "This property defines whether markup in the transcription is turned into subtoken-annotations. The content of the string gives the name of the markup rules used. By default, no subtoken-annotations are created (value:\"\")", "", false));
 		this.addProperty(new PepperModuleProperty<>(PROP_TOK_IS_SEG, Boolean.class, "This property defines whether mod and dipl each are strict segmentations of token, i.e. the combined values of trans for each are equal with the trans-value of token. By default, this is not assumed (value:false)", Boolean.FALSE, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_EXCLUDE_ANNOTATIONS, String.class, "This property defines a semicolon separated list of annotations that are ignored. By default all annotations are imported (value:\"\").", "", false));
+		this.addProperty(new PepperModuleProperty<>(PROP_BOUNDARY_ANNOTATIONS, String.class, "This property defines a semicolon separated list of annotations that are treated as boundary annotatotions. By default this is the tag boundary (value:boundary)", TAG_BOUNDARY, false));
 
 	}
 
@@ -133,6 +140,15 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	 */
 	public boolean getTokenizationIsSegmentation() {
 		return ((Boolean) this.getProperty(PROP_TOK_IS_SEG).getValue());
+	}
+
+	/**
+	 * Returns the tags that are treated as boundaries
+	 *
+	 * @return
+	 */
+	public String getBoundaryAnnotations() {
+		return ((String) this.getProperty(PROP_BOUNDARY_ANNOTATIONS).getValue());
 	}
 
 }

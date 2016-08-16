@@ -278,18 +278,23 @@ class Text {
     // a TextLayer that allows annotating the tokens
     protected class ModLayer extends TextLayer {
 
-        private List<SToken> open_tokens = new LinkedList<>();
+        private Map<String, List<SToken>> open_boundary_tokens = new HashMap<String, List<SToken>>();
         private Map<String, SSpan> span_annotations = new HashMap<String, SSpan>();
 
-        protected ModLayer(String l, SDocumentGraph my_graph) {
+        protected ModLayer(String l, SDocumentGraph my_graph, Set<String> boundary_types) {
             super(l, my_graph);
+            for (String b_type: boundary_types) {
+                open_boundary_tokens.put(b_type, new LinkedList<SToken>());
+            }
         }
 
         @Override
         public ModLayer add_token(Attributes attr) {
 
             super.add_token(attr);
-            open_tokens.add(this.last_token());
+            for(String b_type: open_boundary_tokens.keySet()) {
+                open_boundary_tokens.get(b_type).add(this.last_token());
+            }
 
             return this;
         }
@@ -324,18 +329,25 @@ class Text {
 
         public void annotate_boundary(String name, String value) {
 
-            SSpan span = SaltFactory.createSSpan();
-            span.createAnnotation("annotation", name, value);
-            graph.addNode(span);
+            List<SToken> boundary_tokens = open_boundary_tokens.get(name);
 
-            for (SToken tok: open_tokens) {
-                SSpanningRelation rel = SaltFactory.createSSpanningRelation();
-                rel.setSource(span);
-                rel.setTarget(tok);
-                graph.addRelation(rel);
+            if (boundary_tokens != null) {
+
+                // ignore boundaries with value "None"
+                if(!value.equals("None")) {
+                    SSpan span = SaltFactory.createSSpan();
+                    span.createAnnotation("annotation", name, value);
+                    graph.addNode(span);
+
+                    for (SToken tok: boundary_tokens) {
+                        SSpanningRelation rel = SaltFactory.createSSpanningRelation();
+                        rel.setSource(span);
+                        rel.setTarget(tok);
+                        graph.addRelation(rel);
+                    }
+                }
+                boundary_tokens.clear();
             }
-
-            open_tokens.clear();
 
         }
 
@@ -359,14 +371,14 @@ class Text {
     private TextLayer make_layer(String layer_name) {
         return new TextLayer(layer_name, graph);
     }
-    private ModLayer make_annotatable_layer(String layer_name) {
-        return new ModLayer(layer_name, graph);
+    private ModLayer make_annotatable_layer(String layer_name, Set<String> boundary_types) {
+        return new ModLayer(layer_name, graph, boundary_types);
     }
 
     private Text() {}
     public Text(SDocumentGraph the_graph,
-                String tok_dipl_textlayer,
-                String tok_mod_textlayer, boolean export_token_layer, boolean export_subtoken_annotation) {
+                String tok_dipl_textlayer, String tok_mod_textlayer,
+                boolean export_token_layer, boolean export_subtoken_annotation, Set<String> boundary_types) {
 
         graph = the_graph;
 
@@ -381,7 +393,7 @@ class Text {
 
         TextLayer dipl_layer = make_layer(tok_dipl_textlayer);
         dipl_layer.set_seg("tok_dipl");
-        mod_layer = make_annotatable_layer(tok_mod_textlayer);
+        mod_layer = make_annotatable_layer(tok_mod_textlayer, boundary_types);
         mod_layer.set_seg("tok_mod");
 
         sub_layers.put("dipl", dipl_layer);
