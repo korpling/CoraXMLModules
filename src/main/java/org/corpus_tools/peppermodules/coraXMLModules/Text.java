@@ -173,12 +173,14 @@ class Text {
             markup_types.put("unreadable", "\\[[^\\]]+\\]");
             markup_types.put("deleted", "ǂ[^ǂ]+ǂ");
             markup_types.put("expanded", "\\{._[^}]+\\}");
+            markup_types.put("para", "\\*[ILROUT][NKE]_[^*]+\\*");
         }
 
         @Override
           public String remove_special(String text) {
             return text.replaceAll("[\\[\\]}ǂ#§]", "")
-                .replaceAll("\\{._", "");
+                .replaceAll("\\{._", "")
+                .replaceAll("\\*[ILROUT][NKE]_", "").replaceAll("\\*", "");
           }
 
 
