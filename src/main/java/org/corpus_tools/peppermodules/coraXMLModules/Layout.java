@@ -84,9 +84,18 @@ class Layout {
             current_column = 'a';
         }
 
+        String col_name;
+        if (attr.getValue("name") != null) {
+            col_name = attr.getValue("name");
+        }
+        else {
+            col_name = Character.toString(current_column);
+        }
+        current_column++;
+
         LayoutElement column
             = make_element(2, "column").set_range(attr)
-                                       .set_value(Character.toString(current_column++));
+                                       .set_value(col_name);
         update(attr.getValue("id"), column);
 
         add(column);
