@@ -68,7 +68,7 @@ class Layout {
         return this;
     }
     public Layout make_side(Attributes attr) {
-        if (attr.getValue("side") == null)
+        if (attr.getValue("side") == null || attr.getValue("side").isEmpty())
             return this;
 
         LayoutElement side
