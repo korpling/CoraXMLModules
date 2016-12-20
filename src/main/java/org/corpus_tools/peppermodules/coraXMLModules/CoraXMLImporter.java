@@ -30,7 +30,7 @@ import org.osgi.service.component.annotations.Component;
 
 /**
  * This importer imports data from the CoraXML format.
- * 
+ *
  * @author Florian Zipser
  * @version 1.0
  *
@@ -41,6 +41,8 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	// ** customization properties */
 	private String mod_tok_textlayer = ATT_ASCII;
 	private String dipl_tok_textlayer = ATT_UTF;
+        private String tok_anno = TAG_MOD;
+        private String tok_dipl = TAG_DIPL;
 	private boolean export_token_layer = true;
 	private String comment_layer_name = "";
 	private String export_subtoken_annotation = "";
@@ -52,7 +54,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	// ===================================================
 	/**
 	 * <strong>OVERRIDE THIS METHOD FOR CUSTOMIZATION</strong>
-	 * 
+	 *
 	 * A constructor for your module. Set the coordinates, with which your
 	 * module shall be registered. The coordinates (modules name, version and
 	 * supported formats) are a kind of a fingerprint, which should make your
@@ -80,18 +82,19 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		mapper.setTokenizationIsSegmentation(tokenization_is_segmentation);
 		mapper.setExcludeAnnotations(annotations_to_exclude);
 		mapper.setBoundaryAnnotations(boundary_tags);
+                mapper.setTokNames(tok_anno, tok_dipl);
 		return (mapper);
 	}
 
 	/**
 	 * <strong>OVERRIDE THIS METHOD FOR CUSTOMIZATION</strong>
-	 * 
+	 *
 	 * This method is called by the pepper framework and returns if a corpus
 	 * located at the given {@link URI} is importable by this importer. If yes,
 	 * 1 must be returned, if no 0 must be returned. If it is not quite sure, if
 	 * the given corpus is importable by this importer any value between 0 and 1
 	 * can be returned. If this method is not overridden, null is returned.
-	 * 
+	 *
 	 * @return 1 if corpus is importable, 0 if corpus is not importable, 0 < X <
 	 *         1, if no definitiv answer is possible, null if method is not
 	 *         overridden
@@ -105,13 +108,13 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	// ===================================================
 	/**
 	 * <strong>OVERRIDE THIS METHOD FOR CUSTOMIZATION</strong>
-	 * 
+	 *
 	 * This method is called by the pepper framework after initializing this
 	 * object and directly before start processing. Initializing means setting
 	 * properties {@link PepperModuleProperties}, setting temprorary files,
 	 * resources etc. . returns false or throws an exception in case of
 	 * {@link PepperModule} instance is not ready for any reason.
-	 * 
+	 *
 	 * @return false, {@link PepperModule} instance is not ready for any reason,
 	 *         true, else.
 	 */
@@ -126,6 +129,8 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			tokenization_is_segmentation = ((CoraXMLImporterProperties) this.getProperties()).getTokenizationIsSegmentation();
 			annotations_to_exclude = ((CoraXMLImporterProperties) this.getProperties()).getExcludeAnnotations();
 			boundary_tags = ((CoraXMLImporterProperties) this.getProperties()).getBoundaryAnnotations();
+                        tok_anno = ((CoraXMLImporterProperties) this.getProperties()).getTokName("anno");
+                        tok_dipl = ((CoraXMLImporterProperties) this.getProperties()).getTokName("dipl");
 
 		}
 		// TODO make some initializations if necessary

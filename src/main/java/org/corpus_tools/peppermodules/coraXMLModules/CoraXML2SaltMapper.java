@@ -41,6 +41,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     /** defines which textual representation is used for the dipl and mod tokens **/
     private String mod_tok_textlayer = ATT_ASCII; // one of "trans", "utf" and
     private String dipl_tok_textlayer = ATT_UTF; // one of "trans" and "utf"
+    private String tok_anno = TAG_MOD;
+    private String tok_dipl = TAG_DIPL;
     /** defines whether the token layer should be exported **/
     private boolean exportTokenLayer = true;
     /** defines to which layer top-level comments are added; none, if empty **/
@@ -54,6 +56,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     private Set<String> annotations_to_ignore = new TreeSet<String>();
     /** defines a list of annotation types that are treated as boundary annotations **/
     private Set<String> boundary_annotations = new HashSet<String>();
+    public void setTokNames(String anno, String dipl) {
+        this.tok_anno = anno;
+        this.tok_dipl = dipl;
+    }
     // TODO: deal with invalid values for textlayer
     public void setModTokTextlayer(String textlayer) {
         if (ATT_ASCII.equals(textlayer) || ATT_UTF.equals(textlayer) || ATT_TRANS.equals(textlayer)) {
@@ -149,13 +155,13 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             // token tags
             else if (TAG_TOKEN.equals(qName)) {
                 if (exportTokenLayer)
-                    text().layer("token")
+                    text().layer(qName)
                           .add_token(attributes);
-            } else if (TAG_MOD.equals(qName)) {
-                text().layer("mod")
+            } else if (tok_anno.equals(qName)) {
+                text().layer(qName)
                       .add_token(attributes);
                 this.in_mod = true;
-            } else if (TAG_DIPL.equals(qName)) {
+            } else if (tok_dipl.equals(qName)) {
                 text().layer(qName)
                       .add_token(attributes);
                 layout().render(attributes.getValue(ATT_ID),
