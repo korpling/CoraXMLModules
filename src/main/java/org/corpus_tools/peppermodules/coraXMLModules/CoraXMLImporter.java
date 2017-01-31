@@ -17,6 +17,9 @@
  */
 package org.corpus_tools.peppermodules.coraXMLModules;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.corpus_tools.pepper.common.PepperConfiguration;
 import org.corpus_tools.pepper.impl.PepperImporterImpl;
 import org.corpus_tools.pepper.modules.PepperImporter;
@@ -38,11 +41,13 @@ import org.osgi.service.component.annotations.Component;
 @Component(name = "CoraXMLImporterComponent", factory = "PepperImporterComponentFactory")
 public class CoraXMLImporter extends PepperImporterImpl implements PepperImporter, CoraXMLDictionary {
 	public static final String MODULE_NAME = "CoraXMLImporter";
+	private static final Pattern CORAXML_PATTERN1 = Pattern.compile("<?xml version=(\"|')1[.]0(\"|')");
+	private static final Pattern CORAXML_PATTERN2 = Pattern.compile("<cora-header");
 	// ** customization properties */
 	private String mod_tok_textlayer = ATT_ASCII;
 	private String dipl_tok_textlayer = ATT_UTF;
-        private String tok_anno = TAG_MOD;
-        private String tok_dipl = TAG_DIPL;
+	private String tok_anno = TAG_MOD;
+	private String tok_dipl = TAG_DIPL;
 	private boolean export_token_layer = true;
 	private String comment_layer_name = "";
 	private String export_subtoken_annotation = "";
@@ -82,26 +87,22 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		mapper.setTokenizationIsSegmentation(tokenization_is_segmentation);
 		mapper.setExcludeAnnotations(annotations_to_exclude);
 		mapper.setBoundaryAnnotations(boundary_tags);
-                mapper.setTokNames(tok_anno, tok_dipl);
+		mapper.setTokNames(tok_anno, tok_dipl);
 		return (mapper);
 	}
 
-	/**
-	 * <strong>OVERRIDE THIS METHOD FOR CUSTOMIZATION</strong>
-	 *
-	 * This method is called by the pepper framework and returns if a corpus
-	 * located at the given {@link URI} is importable by this importer. If yes,
-	 * 1 must be returned, if no 0 must be returned. If it is not quite sure, if
-	 * the given corpus is importable by this importer any value between 0 and 1
-	 * can be returned. If this method is not overridden, null is returned.
-	 *
-	 * @return 1 if corpus is importable, 0 if corpus is not importable, 0 < X <
-	 *         1, if no definitiv answer is possible, null if method is not
-	 *         overridden
-	 */
+	@Override
 	public Double isImportable(URI corpusPath) {
-		// TODO some code to analyze the given corpus-structure
-		return (null);
+		Double retValue = 0.0;
+		for (String content : sampleFileContent(corpusPath, PepperImporter.ENDING_XML)) {
+			Matcher matcher = CORAXML_PATTERN1.matcher(content);
+			Matcher matcher2 = CORAXML_PATTERN2.matcher(content);
+			if (matcher.find() && matcher2.find()) {
+				retValue = 1.0;
+				break;
+			}
+		}
+		return retValue;
 	}
 
 	// =================================================== optional
@@ -125,12 +126,14 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			dipl_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getDiplTokTextlayer();
 			export_token_layer = ((CoraXMLImporterProperties) this.getProperties()).getExportTokenLayer();
 			comment_layer_name = ((CoraXMLImporterProperties) this.getProperties()).getExportCommentsToLayer();
-			export_subtoken_annotation = ((CoraXMLImporterProperties) this.getProperties()).getExportSubtokenannotation();
-			tokenization_is_segmentation = ((CoraXMLImporterProperties) this.getProperties()).getTokenizationIsSegmentation();
+			export_subtoken_annotation = ((CoraXMLImporterProperties) this.getProperties())
+					.getExportSubtokenannotation();
+			tokenization_is_segmentation = ((CoraXMLImporterProperties) this.getProperties())
+					.getTokenizationIsSegmentation();
 			annotations_to_exclude = ((CoraXMLImporterProperties) this.getProperties()).getExcludeAnnotations();
 			boundary_tags = ((CoraXMLImporterProperties) this.getProperties()).getBoundaryAnnotations();
-                        tok_anno = ((CoraXMLImporterProperties) this.getProperties()).getTokName("anno");
-                        tok_dipl = ((CoraXMLImporterProperties) this.getProperties()).getTokName("dipl");
+			tok_anno = ((CoraXMLImporterProperties) this.getProperties()).getTokName("anno");
+			tok_dipl = ((CoraXMLImporterProperties) this.getProperties()).getTokName("dipl");
 
 		}
 		// TODO make some initializations if necessary
