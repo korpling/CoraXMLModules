@@ -21,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.corpus_tools.pepper.common.PepperConfiguration;
+import org.corpus_tools.pepper.core.SelfTestDesc;
 import org.corpus_tools.pepper.impl.PepperImporterImpl;
 import org.corpus_tools.pepper.modules.PepperImporter;
 import org.corpus_tools.pepper.modules.PepperMapper;
@@ -43,6 +44,8 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	public static final String MODULE_NAME = "CoraXMLImporter";
 	private static final Pattern CORAXML_PATTERN1 = Pattern.compile("<?xml version=(\"|')1[.]0(\"|')");
 	private static final Pattern CORAXML_PATTERN2 = Pattern.compile("<cora-header");
+	public static final String FORMAT_NAME = "coraXML";
+	public static final String FORMAT_VERSION = "1.0";
 	// ** customization properties */
 	private String mod_tok_textlayer = ATT_ASCII;
 	private String dipl_tok_textlayer = ATT_UTF;
@@ -72,8 +75,8 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		setSupplierContact(URI.createURI(PepperConfiguration.EMAIL));
 		setSupplierHomepage(URI.createURI("https://github.com/korpling/pepperModules-CoraXMLModules"));
 		setDesc("This importer transforms data in cora xml format to a Salt model. ");
-		setVersion("1.0");
-		addSupportedFormat("coraXML", "1.0", null);
+		setVersion(FORMAT_VERSION);
+		addSupportedFormat(FORMAT_NAME, FORMAT_VERSION, null);
 		getDocumentEndings().add(PepperImporter.ENDING_XML);
 	}
 
@@ -103,6 +106,14 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			}
 		}
 		return retValue;
+	}
+
+	@Override
+	public SelfTestDesc getSelfTestDesc() {
+		return new SelfTestDesc(
+				getResources().appendSegment("selfTests").appendSegment("coraXmlImporter").appendSegment("in")
+						.appendSegment("ren"),
+				getResources().appendSegment("selfTests").appendSegment("coraXmlImporter").appendSegment("expected"));
 	}
 
 	// =================================================== optional
