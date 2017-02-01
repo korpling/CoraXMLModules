@@ -17,6 +17,11 @@
  */
 package org.corpus_tools.peppermodules.coraXMLModules;
 
+import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterProperties.PROP_COMMENT_LAYER_NAME;
+import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterProperties.PROP_EXPORT_SUBTOKEN;
+import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterProperties.PROP_TOKTEXT_MOD;
+import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterProperties.PROP_TOK_IS_SEG;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -110,10 +115,16 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 
 	@Override
 	public SelfTestDesc getSelfTestDesc() {
-		return new SelfTestDesc(
-				getResources().appendSegment("selfTests").appendSegment("coraXmlImporter").appendSegment("in")
-						.appendSegment("ren"),
-				getResources().appendSegment("selfTests").appendSegment("coraXmlImporter").appendSegment("expected"));
+		final PepperModuleProperties props = getProperties();
+		props.setPropertyValue(PROP_EXPORT_SUBTOKEN, "REN");
+		props.setPropertyValue(PROP_TOKTEXT_MOD, "utf");
+		props.setPropertyValue(PROP_TOK_IS_SEG, true);
+		props.setPropertyValue(PROP_COMMENT_LAYER_NAME, "token");
+		final URI inputPath = getResources().appendSegment("selfTests").appendSegment("coraXmlImporter")
+				.appendSegment("in").appendSegment("ren");
+		final URI expectedPath = getResources().appendSegment("selfTests").appendSegment("coraXmlImporter")
+				.appendSegment("expected");
+		return new SelfTestDesc.Builder().withInputCorpusPath(inputPath).withExpectedCorpusPath(expectedPath).build();
 	}
 
 	// =================================================== optional
