@@ -36,9 +36,9 @@ public interface CoraXMLDictionary {
 	public static final String TAG_PAGE = "page";
 	/** constant to address the xml-element 'shifttags'. **/
 	public static final String TAG_SHIFTTAGS = "shifttags";
-	/** constant to address the xml-element 'mod'. **/
+	/** constant to address the xml-element containing the 'mod-token'. **/
 	public static final String TAG_MOD = "mod";
-	/** constant to address the xml-element 'dipl'. **/
+	/** constant to address the xml-element containing the 'dipl-token'. **/
 	public static final String TAG_DIPL = "dipl";
 	/** constant to address the xml-element 'column'. **/
 	public static final String TAG_COLUMN = "column";

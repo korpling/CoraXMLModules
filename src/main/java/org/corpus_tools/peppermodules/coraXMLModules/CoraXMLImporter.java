@@ -154,8 +154,8 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 					.getTokenizationIsSegmentation();
 			annotations_to_exclude = ((CoraXMLImporterProperties) this.getProperties()).getExcludeAnnotations();
 			boundary_tags = ((CoraXMLImporterProperties) this.getProperties()).getBoundaryAnnotations();
-			tok_anno = ((CoraXMLImporterProperties) this.getProperties()).getTokName("anno");
-			tok_dipl = ((CoraXMLImporterProperties) this.getProperties()).getTokName("dipl");
+			tok_anno = ((CoraXMLImporterProperties) this.getProperties()).getTokName(TAG_MOD);
+			tok_dipl = ((CoraXMLImporterProperties) this.getProperties()).getTokName(TAG_DIPL);
 
 		}
 		// TODO make some initializations if necessary

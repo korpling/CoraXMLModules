@@ -132,6 +132,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         Text text() {
             if (text == null) {
                 text = new Text(getDocument().getDocumentGraph(),
+                                tok_dipl, tok_anno,
+                                "tok_" + tok_dipl, "tok_" + tok_anno,
                                 dipl_tok_textlayer, mod_tok_textlayer,
                                 exportTokenLayer, !exportSubtokenannotation.isEmpty(), boundary_annotations);
             }

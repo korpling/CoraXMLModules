@@ -40,7 +40,7 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
         /**
          * Name of CoraXML mod/dipl elements
          */
-        public static final String PROP_TOK_ANNO = TAG_MOD;
+        public static final String PROP_TOK_MOD = TAG_MOD;
         public static final String PROP_TOK_DIPL = TAG_DIPL;
 
 	/**
@@ -85,8 +85,8 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 		this.addProperty(new PepperModuleProperty<>(PROP_TOK_IS_SEG, Boolean.class, "This property defines whether mod and dipl each are strict segmentations of token, i.e. the combined values of trans for each are equal with the trans-value of token. By default, this is not assumed (value:false)", Boolean.FALSE, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_EXCLUDE_ANNOTATIONS, String.class, "This property defines a semicolon separated list of annotations that are ignored. By default all annotations are imported (value:\"\").", "", false));
 		this.addProperty(new PepperModuleProperty<>(PROP_BOUNDARY_ANNOTATIONS, String.class, "This property defines a semicolon separated list of annotations that are treated as boundary annotatotions. By default this is the tag boundary (value:boundary)", TAG_BOUNDARY, false));
-                this.addProperty(new PepperModuleProperty<>(PROP_TOK_ANNO, String.class, "Name of the tok_anno element in CoraXML", TAG_MOD, false));
-                this.addProperty(new PepperModuleProperty<>(PROP_TOK_DIPL, String.class, "Name of the tok_dipl element in CoraXML", TAG_DIPL, false));
+                this.addProperty(new PepperModuleProperty<>(PROP_TOK_MOD , String.class, "Name of the element in CoraXML containing the 'mod-token'", TAG_MOD, false));
+                this.addProperty(new PepperModuleProperty<>(PROP_TOK_DIPL, String.class, "Name of the element in CoraXML containing the 'dipl-token'", TAG_DIPL, false));
 
 	}
 
@@ -95,12 +95,12 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	}
 
         public String getTokName(String type) {
-            if ("anno".equals(type))
-                return ((String) this.getProperty(PROP_TOK_ANNO).getValue());
-            else if ("dipl".equals(type))
+            if (TAG_MOD.equals(type))
+                return ((String) this.getProperty(PROP_TOK_MOD).getValue());
+            else if (TAG_DIPL.equals(type))
                 return ((String) this.getProperty(PROP_TOK_DIPL).getValue());
             else
-                throw new Error("argument must be either anno or mod");
+                throw new Error("argument must be either " + TAG_DIPL + " or " + TAG_MOD);
         }
 	/**
 	 * Returns the attribute to be used for the text of the dipl-Token

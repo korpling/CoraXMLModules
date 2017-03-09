@@ -379,6 +379,8 @@ class Text {
 
     private Text() {}
     public Text(SDocumentGraph the_graph,
+                String tok_dipl_name, String tok_mod_name,
+                String dipl_seg_name, String mod_seg_name,
                 String tok_dipl_textlayer, String tok_mod_textlayer,
                 boolean export_token_layer, boolean export_subtoken_annotation, Set<String> boundary_types) {
 
@@ -394,12 +396,12 @@ class Text {
         }
 
         TextLayer dipl_layer = make_layer(tok_dipl_textlayer);
-        dipl_layer.set_seg("tok_dipl");
+        dipl_layer.set_seg(dipl_seg_name);
         mod_layer = make_annotatable_layer(tok_mod_textlayer, boundary_types);
-        mod_layer.set_seg("tok_mod");
+        mod_layer.set_seg(mod_seg_name);
 
-        sub_layers.put("dipl", dipl_layer);
-        sub_layers.put("mod", mod_layer);
+        sub_layers.put(tok_dipl_name, dipl_layer);
+        sub_layers.put(tok_mod_name, mod_layer);
 
         if (export_subtoken_annotation) {
           TextLayer subtok_layer = make_layer("trans");
