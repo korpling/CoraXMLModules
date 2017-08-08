@@ -396,10 +396,10 @@ class Text {
         TextLayer dipl_layer = make_layer(tok_dipl_textlayer);
         dipl_layer.set_seg("tok_dipl");
         mod_layer = make_annotatable_layer(tok_mod_textlayer, boundary_types);
-        mod_layer.set_seg("tok_mod");
+        mod_layer.set_seg("tok_anno");
 
-        sub_layers.put("dipl", dipl_layer);
-        sub_layers.put("mod", mod_layer);
+        sub_layers.put("tok_dipl", dipl_layer);
+        sub_layers.put("tok_anno", mod_layer);
 
         if (export_subtoken_annotation) {
           TextLayer subtok_layer = make_layer("trans");

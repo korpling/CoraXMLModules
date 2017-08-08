@@ -40,8 +40,8 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
         /**
          * Name of CoraXML mod/dipl elements
          */
-        public static final String PROP_TOK_ANNO = TAG_MOD;
-        public static final String PROP_TOK_DIPL = TAG_DIPL;
+        public static final String PROP_TOK_ANNO = "mod";
+        public static final String PROP_TOK_DIPL = "dipl";
 
 	/**
 	 * Name of properties which define whether a layer is exported.
