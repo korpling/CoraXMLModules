@@ -309,7 +309,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             } else if (this.in_header) {
                 // header contains subelements -- it is xml
                 this.meta_is_xml = true;
-                getDocument().createMetaAnnotation(null, this.meta_name, this.meta_value);
+                getDocument().createMetaAnnotation(null, this.meta_name, this.meta_value.toString().trim());
                 this.meta_value = new StringBuffer();
             } else if ("comment".equals(qName)) {
                 // if comment_text is not empty, this is a top level comment
