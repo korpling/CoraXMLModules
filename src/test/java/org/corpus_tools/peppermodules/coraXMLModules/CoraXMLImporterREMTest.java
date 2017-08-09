@@ -18,13 +18,13 @@
 package org.corpus_tools.peppermodules.coraXMLModules;
 
 /**
- * Test import against REN-Gold import
+ * Test import against REM-Gold import
  */
-public class CoraXMLImporterRENTest extends CoraXMLImporterExampleTest {
+public class CoraXMLImporterREMTest extends CoraXMLImporterExampleTest {
 
 	@Override
 	public String getSampleName() {
-		return "ren";
+		return "rem";
 	}
 
 }

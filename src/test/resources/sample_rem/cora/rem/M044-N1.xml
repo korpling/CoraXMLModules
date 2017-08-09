@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+This file is part of the "Reference Corpus of Middle High German".
+
+Klein, Thomas; Wegera, Klaus-Peter; Dipper, Stefanie; Wich-Reif, Claudia
+(2016). Referenzkorpus Mittelhochdeutsch (1050–1350), Version 1.0,
+https://www.linguistics.ruhr-uni-bochum.de/rem/. ISLRN 332-536-136-099-5.
+-->
+<text id="M044">
+  <header>
+    <text>Osterlied 'Christ ist erstanden'</text>
+    <abbr_ddd>-</abbr_ddd>
+    <abbr_mwb>-</abbr_mwb>
+    <topic>Religion, Poesie</topic>
+    <text-type>Lied</text-type>
+    <genre>V</genre>
+    <reference>Hs.: Blatt (r/v), Kolummne (a/b), Zeile</reference>
+    <reference-secondary>-</reference-secondary>
+    <library>Salzburg, Universitätsbibl.</library>
+    <library-shelfmark>Cod. M II 6</library-shelfmark>
+    <online>http://www.handschriftencensus.de/12727</online>
+    <medium>Handschrift</medium>
+    <extent>67rb,9</extent>
+    <extract>-</extract>
+    <language>mhd</language>
+    <language-type>oberdeutsch</language-type>
+    <language-region>ostoberdeutsch</language-region>
+    <language-area>bairisch</language-area>
+    <place>Salzburger Domstift</place>
+    <time>12,2</time>
+    <notes-manuscript>nur die erste Liedzeile</notes-manuscript>
+    <date>-</date>
+    <text-place>-</text-place>
+    <text-author>-</text-author>
+    <text-language>-</text-language>
+    <text-source>-</text-source>
+    <edition>Walther Lipphardt, 'Christ ist erstanden'. Zur Geschichte des Liedes, in: Jahrbuch für Liturgik und Hymnologie 5 (1960), S. 96-114.</edition>
+    <corpus>ReM I</corpus>
+    <notes-transcription>-</notes-transcription>
+    <notes-annotation>-</notes-annotation>
+    <digitization_by>Bochum</digitization_by>
+    <collation_by>Bochum</collation_by>
+    <pre_editing_by>Bochum</pre_editing_by>
+    <annotation_by>Bochum</annotation_by>
+    <proofreading_by>Bochum</proofreading_by>
+  </header>
+  <layoutinfo>
+    <page id="p1" no="67" range="c1" side="r"/>
+    <column count="b" id="c1" range="l1"/>
+    <line id="l1" name="9" range="t1_d1..t6_d1" loc="67ra,9"/>
+  </layoutinfo>
+  <shifttags/>
+  <token id="t1" trans="*(C*)hri$t" type="token">
+    <tok_dipl id="t1_d1" trans="*(C*)hri$t" utf="Chriſt"/>
+    <tok_anno ascii="Christ" id="t1_m1" trans="*(C*)hri$t" utf="Chriſt">
+      <norm tag="Krist"/>
+      <lemma tag="Krist"/>
+      <lemma_gen tag="Krist"/>
+      <lemma_idmwb tag="95598000"/>
+      <pos tag="NE"/>
+      <pos_gen tag="NE"/>
+      <infl tag="Nom.Sg"/>
+      <inflClass tag="--"/>
+      <inflClass_gen tag="--"/>
+    </tok_anno>
+  </token>
+  <comment type="K">/K[*(C*): C umschliesst roten Punkt]</comment>
+  <token id="t2" trans="i$t" type="token">
+    <tok_dipl id="t2_d1" trans="i$t" utf="iſt"/>
+    <tok_anno ascii="ist" id="t2_m1" trans="i$t" utf="iſt">
+      <norm tag="ist"/>
+      <lemma tag="sîn"/>
+      <lemma_gen tag="sîn"/>
+      <lemma_idmwb tag="150147000"/>
+      <pos tag="VAFIN"/>
+      <pos_gen tag="VA"/>
+      <infl tag="Ind.Pres.Sg.3"/>
+      <inflClass tag="irr"/>
+      <inflClass_gen tag="irr"/>
+    </tok_anno>
+  </token>
+  <token id="t3" trans="er$tanden" type="token">
+    <tok_dipl id="t3_d1" trans="er$tanden" utf="erſtanden"/>
+    <tok_anno ascii="erstanden" id="t3_m1" trans="er$tanden" utf="erſtanden">
+      <norm tag="erstanden"/>
+      <lemma tag="er-stân"/>
+      <lemma_gen tag="er-stân"/>
+      <lemma_idmwb tag="43788000"/>
+      <pos tag="VVPP"/>
+      <pos_gen tag="VV"/>
+      <infl tag="--"/>
+      <inflClass tag="irr"/>
+      <inflClass_gen tag="irr"/>
+    </tok_anno>
+  </token>
+  <token id="t4" trans="uon" type="token">
+    <tok_dipl id="t4_d1" trans="uon" utf="uon"/>
+    <tok_anno ascii="uon" id="t4_m1" trans="uon" utf="uon">
+      <norm tag="von"/>
+      <lemma tag="von"/>
+      <lemma_gen tag="von"/>
+      <lemma_idmwb tag="213186000"/>
+      <pos tag="APPR"/>
+      <pos_gen tag="AP"/>
+      <infl tag="--"/>
+      <inflClass tag="--"/>
+      <inflClass_gen tag="--"/>
+    </tok_anno>
+  </token>
+  <token id="t5" trans="der" type="token">
+    <tok_dipl id="t5_d1" trans="der" utf="der"/>
+    <tok_anno ascii="der" id="t5_m1" trans="der" utf="der">
+      <norm tag="der"/>
+      <lemma tag="dër"/>
+      <lemma_gen tag="dër"/>
+      <lemma_idmwb tag="29817000"/>
+      <pos tag="DDART"/>
+      <pos_gen tag="DD"/>
+      <infl tag="Fem.Dat.Sg"/>
+      <inflClass tag="--"/>
+      <inflClass_gen tag="--"/>
+    </tok_anno>
+  </token>
+  <token id="t6" trans="mar...(.)" type="token">
+    <tok_dipl id="t6_d1" trans="mar..." utf="mar..."/>
+    <tok_anno ascii="mar..." id="t6_m1" trans="mar..." utf="mar...">
+      <norm tag="marter"/>
+      <lemma tag="marter"/>
+      <lemma_gen tag="marter"/>
+      <lemma_idmwb tag="???"/>
+      <pos tag="NA"/>
+      <pos_gen tag="NA"/>
+      <infl tag="Dat.Sg"/>
+      <inflClass tag="st.Fem"/>
+      <inflClass_gen tag="st.Fem"/>
+      <punc tag="DE"/>
+    </tok_anno>
+  </token>
+</text>

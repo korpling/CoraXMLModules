@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<pepper-job id="a3q7addt" version="1.0">
+	<importer name="CoraXMLImporter" path="./cora/rem/">
+		<customization>
+			<property key="dipl">tok_dipl</property>
+			<property key="mod">tok_anno</property>
+		</customization>
+	</importer>
+	<exporter name="SaltXMLExporter" path="./salt/">
+	</exporter>
+</pepper-job>
