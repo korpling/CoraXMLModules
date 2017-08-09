@@ -43,6 +43,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     private String dipl_tok_textlayer = ATT_UTF; // one of "trans" and "utf"
     private String tok_anno = TAG_MOD;
     private String tok_dipl = TAG_DIPL;
+    private String tok_anno_name = TAG_MOD;
+    private String tok_dipl_name = TAG_DIPL;
     /** defines whether the token layer should be exported **/
     private boolean exportTokenLayer = true;
     /** defines to which layer top-level comments are added; none, if empty **/
@@ -59,6 +61,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     public void setTokNames(String anno, String dipl) {
         this.tok_anno = anno;
         this.tok_dipl = dipl;
+    }
+    public void setTokLayerNames(String anno, String dipl) {
+        this.tok_anno_name = anno;
+        this.tok_dipl_name = dipl;
     }
     // TODO: deal with invalid values for textlayer
     public void setModTokTextlayer(String textlayer) {
@@ -139,7 +145,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             if (text == null) {
                 text = new Text(getDocument().getDocumentGraph(),
                                 tok_dipl, tok_anno,
-                                "tok_" + tok_dipl, "tok_" + tok_anno,
+                                tok_dipl_name, tok_anno_name,
                                 dipl_tok_textlayer, mod_tok_textlayer,
                                 exportTokenLayer, !exportSubtokenannotation.isEmpty(), boundary_annotations);
             }

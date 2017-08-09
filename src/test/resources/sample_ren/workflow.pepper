@@ -3,6 +3,7 @@
 	<importer name="CoraXMLImporter" path="./cora/ren/">
 		<customization>
 			<property key="mod">anno</property>
+			<property key="tok.prefix">tok_</property>
 			<property key="mod/dipl_eq_token">true</property>
 			<property key="toktext.mod">utf</property>
 			<property key="toktext.dipl">ascii</property>

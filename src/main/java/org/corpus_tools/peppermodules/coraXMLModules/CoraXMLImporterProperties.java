@@ -37,11 +37,16 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	public static final String PROP_TOKTEXT_MOD = PREFIX_TOKTEXT + "mod";
 	public static final String PROP_TOKTEXT_DIPL = PREFIX_TOKTEXT + "dipl";
 
-        /**
-         * Name of CoraXML mod/dipl elements
-         */
-        public static final String PROP_TOK_MOD = TAG_MOD;
-        public static final String PROP_TOK_DIPL = TAG_DIPL;
+	/**
+	 * Name of CoraXML mod/dipl elements
+	 */
+	public static final String PROP_TOK_MOD = TAG_MOD;
+	public static final String PROP_TOK_DIPL = TAG_DIPL;
+
+	/**
+	 * Name of properties which defines the prefix for mod and dipl layers.
+	 */
+	public static final String PROP_TOK_PREFIX = "tok.prefix";
 
 	/**
 	 * Name of properties which define whether a layer is exported.
@@ -85,9 +90,9 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 		this.addProperty(new PepperModuleProperty<>(PROP_TOK_IS_SEG, Boolean.class, "This property defines whether mod and dipl each are strict segmentations of token, i.e. the combined values of trans for each are equal with the trans-value of token. By default, this is not assumed (value:false)", Boolean.FALSE, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_EXCLUDE_ANNOTATIONS, String.class, "This property defines a semicolon separated list of annotations that are ignored. By default all annotations are imported (value:\"\").", "", false));
 		this.addProperty(new PepperModuleProperty<>(PROP_BOUNDARY_ANNOTATIONS, String.class, "This property defines a semicolon separated list of annotations that are treated as boundary annotatotions. By default this is the tag boundary (value:boundary)", TAG_BOUNDARY, false));
-                this.addProperty(new PepperModuleProperty<>(PROP_TOK_MOD , String.class, "Name of the element in CoraXML containing the 'mod-token'", TAG_MOD, false));
-                this.addProperty(new PepperModuleProperty<>(PROP_TOK_DIPL, String.class, "Name of the element in CoraXML containing the 'dipl-token'", TAG_DIPL, false));
-
+		this.addProperty(new PepperModuleProperty<>(PROP_TOK_MOD , String.class, "Name of the element in CoraXML containing the 'mod-token'", TAG_MOD, false));
+		this.addProperty(new PepperModuleProperty<>(PROP_TOK_DIPL, String.class, "Name of the element in CoraXML containing the 'dipl-token'", TAG_DIPL, false));
+		this.addProperty(new PepperModuleProperty<>(PROP_TOK_PREFIX, String.class, "This property defines a prefix that is attached to 'dipl-token' and 'mod-token' output layers.", "", false));
 	}
 
 	public String getExcludeAnnotations() {
@@ -118,6 +123,15 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	 */
 	public String getModTokTextlayer() {
 		return ((String) this.getProperty(PROP_TOKTEXT_MOD).getValue());
+	}
+
+	/**
+	 * Returns the attribute to be used as prefix for mod- and dipl-Tokens
+	 *
+	 * @return
+	 */
+	public String getTokLayerPrefix() {
+		return ((String) this.getProperty(PROP_TOK_PREFIX).getValue());
 	}
 
 	/**

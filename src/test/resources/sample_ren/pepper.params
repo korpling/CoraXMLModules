@@ -1,4 +1,5 @@
 mod=anno
+tok.prefix=tok_
 mod/dipl_eq_token=true
 toktext.mod=utf
 toktext.dipl=ascii
