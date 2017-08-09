@@ -39,11 +39,17 @@ import org.eclipse.emf.common.util.URI;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test import against REN-Gold import
+ */
 public class CoraXMLImporterRENTest {
 
 	private CoraXMLImporter fixture = null;
 
 	String filePath = new File("").getAbsolutePath();
+
+	private SCorpusGraph goldCorpusGraph;
+	private SCorpusGraph importedCorpusGraph;
 
 	public CoraXMLImporter getFixture() {
 		return fixture;
@@ -68,14 +74,6 @@ public class CoraXMLImporterRENTest {
 		File pepperParams = new File(filePath.concat("pepper.params"));
 		getFixture().getProperties().addProperties(URI.createFileURI(pepperParams.getAbsolutePath()));
 
-	}
-
-	/**
-	 * Test import against Gold import
-	 */
-	@Test
-	public void testExampleCorpus() {
-
 		File coraDir = new File(filePath.concat("cora/ren/"));
 		File saltDir = new File(filePath.concat("salt/"));
 
@@ -85,19 +83,23 @@ public class CoraXMLImporterRENTest {
 		getFixture().getCorpusDesc().getFormatDesc().setFormatName("coraXML").setFormatVersion("1.0");
 
 		// import CorpusGraph
-		SCorpusGraph importedCorpusGraph = SaltFactory.createSCorpusGraph();
+		this.importedCorpusGraph = SaltFactory.createSCorpusGraph();
 
 		getFixture().getSaltProject().addCorpusGraph(importedCorpusGraph);
 		getFixture().importCorpusStructure(importedCorpusGraph);
 
 		this.start();
 
-		importedCorpusGraph = getFixture().getCorpusGraph();
+		this.importedCorpusGraph = getFixture().getCorpusGraph();
 
 		// load gold CorpusGraph
 		SaltProject goldProject = SaltFactory.createSaltProject();
 		goldProject.loadSaltProject(URI.createFileURI(saltDir.getAbsolutePath()));
-		SCorpusGraph goldCorpusGraph = goldProject.getCorpusGraphs().get(0);
+		this.goldCorpusGraph = goldProject.getCorpusGraphs().get(0);
+	}
+
+	@Test
+	public void testExampleCorpus() {
 
 		// compare number of Documents
 		assertEquals(goldCorpusGraph.getDocuments().size(), importedCorpusGraph.getDocuments().size());
