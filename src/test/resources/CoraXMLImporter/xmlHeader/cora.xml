@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<text id="1">
+  <cora-header name="Test" sigle="1" />
+  <header>
+    <Test1>Value1</Test1>
+    <Test2>Value2</Test2>
+  </header>
+  <layoutinfo>
+    <page id="p1" no="01" range="c1" side="r" />
+    <column id="c1" range="l1" />
+    <line id="l1" name="01" range="t1_d1" />
+  </layoutinfo>
+  <shifttags />
+  <token id="t1" trans="¶">
+    <dipl id="t1_d1" trans="¶" utf="¶" />
+    <mod ascii="¶" checked="y" id="t1_m1" trans="¶" utf="¶">
+      <pos tag="$;" />
+    </mod>
+  </token>
+</text>
