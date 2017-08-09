@@ -107,10 +107,16 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     class CoraXMLReader extends DefaultHandler2 {
 
         boolean in_mod = false;
+        boolean in_header = false;
 
-        StringBuffer header_text = new StringBuffer();
+        // will be set to true if the header contains subelements
+        boolean meta_is_xml = false;
+        String meta_name = "";
+        StringBuffer meta_value = new StringBuffer();
+
         StringBuffer comment_text = new StringBuffer();
         String comment_type;
+
         private Stack<String> xmlElementStack = null;
         private Stack<String> getXMLELementStack() {
             if (xmlElementStack == null) {
@@ -163,6 +169,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                 text().layer(qName)
                       .add_token(attributes);
                 this.in_mod = true;
+            } else if (TAG_HEADER.equals(qName)) {
+                this.in_header = true;
             } else if (tok_dipl.equals(qName)) {
                 text().layer(qName)
                       .add_token(attributes);
@@ -207,7 +215,12 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                         || TAG_NORMALIGN_VARIANT.equals(qName)) {
                     text().annotate("char_align", attributes);
                 } else if ("lemma_idmwb".equals(qName)) {
-                    text().annotate("lemmaId", attributes);
+                    if (!attributes.getValue("tag").equals("--")) {
+                        String lemma_link = "<a href='http://www.mhdwb-online.de/lemmaliste/"
+                                          + attributes.getValue("tag") + "'>"
+                                          + attributes.getValue("tag") + "</a>";
+                        text.annotate("lemmaId", lemma_link);
+                    }
                 } else if ("lemma_gen".equals(qName)) {
                     text().annotate("lemmaLemma", attributes);
                 }
@@ -221,8 +234,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                 else if (attributes.getValue("tag") != null) {
                     text().annotate(qName, attributes);
                 }
+            } else if (this.in_header) {
+                //this.meta_name = "m" + attributes.getValue("annis-name") + "-" + qName;
+                this.meta_name = qName;
             }
-
             // top level comments
             // (mod-level comments have been consumed by previous else if)
             else if ("comment".equals(qName)) {
@@ -239,11 +254,10 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         throws SAXException {
             // we can't rely on getting the entire content here, SAX may quit
             // after an amount if it's buffers are full
-            if (TAG_HEADER.equals(getXMLELementStack().peek())) {
-                header_text.append(c_str, start, length);
-            }
-            else if ("comment".equals(getXMLELementStack().peek())) {
+            if ("comment".equals(getXMLELementStack().peek())) {
                 comment_text.append(c_str, start, length);
+            } else if (this.in_header) {
+                meta_value.append(c_str, start, length);
             }
         }
 
@@ -256,14 +270,16 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                     // TODO: check whether the dipls and mods really contain the
                     // same text
                     // otherwise warn and call create_stokens_simple
-                        text().map_tokens_to_timeline_aligned();
-                    } else
-                        text().map_tokens_to_timeline_simple();
-                }
-                else if (TAG_MOD.equals(qName)) {// tag is TAG_MOD
-                    this.in_mod = false;
-                } else if (TAG_HEADER.equals(qName)) {
-                    String[] lines = header_text.toString().split(System.getProperty("line.separator"));
+                    text().map_tokens_to_timeline_aligned();
+                } else
+                    text().map_tokens_to_timeline_simple();
+            } else if (TAG_MOD.equals(qName)) {// tag is TAG_MOD
+                this.in_mod = false;
+            } else if (TAG_HEADER.equals(qName)) {
+                this.in_header = false;
+                if (!this.meta_is_xml) {
+                    // header contained no subelements -- assume text format
+                    String[] lines = meta_value.toString().split(System.getProperty("line.separator"));
                     for (String line : lines) {
                         line = line.trim();
                         if (line.isEmpty())
@@ -279,25 +295,30 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                                 getDocument().createMetaAnnotation(null, name, value);
                             } else {
                                 logger.warn("Attempting to create a meta that is already present!\n"
-                                        +   "Name: '" + name + "', value: '" + value + "'");
+                                            +   "Name: '" + name + "', value: '" + value + "'");
                             }
                         }
                     }
                 }
-                else if ("comment".equals(qName)) {
-                    // if comment_text is not empty, this is a top level comment
-                    if (comment_text.length() > 0) {
-                        if(!exportCommentsToLayer.isEmpty()) {
-                            text().layer(exportCommentsToLayer).add_comment(comment_text.toString(), comment_type);
-                            if (tokenization_is_segmentation) {
-                                text().map_tokens_to_timeline_aligned();
-                            } else
-                                text().map_tokens_to_timeline_simple();
-                        }
-                        comment_text = new StringBuffer();
+            } else if (this.in_header) {
+                // header contains subelements -- it is xml
+                this.meta_is_xml = true;
+                getDocument().createMetaAnnotation(null, this.meta_name, this.meta_value);
+                this.meta_value = new StringBuffer();
+            } else if ("comment".equals(qName)) {
+                // if comment_text is not empty, this is a top level comment
+                if (comment_text.length() > 0) {
+                    if(!exportCommentsToLayer.isEmpty()) {
+                        text().layer(exportCommentsToLayer).add_comment(comment_text.toString(), comment_type);
+                        if (tokenization_is_segmentation) {
+                            text().map_tokens_to_timeline_aligned();
+                        } else
+                            text().map_tokens_to_timeline_simple();
                     }
+                    comment_text = new StringBuffer();
                 }
-                getXMLELementStack().pop();
+            }
+            getXMLELementStack().pop();
         }
     }
 
