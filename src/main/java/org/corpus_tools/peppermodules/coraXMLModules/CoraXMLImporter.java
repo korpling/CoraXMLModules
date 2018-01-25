@@ -59,6 +59,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	private String tok_dipl = TAG_DIPL;
 	private String tok_layer_prefix = "";
 	private boolean export_token_layer = true;
+	private boolean create_reference_span = false;
 	private String comment_layer_name = "";
 	private String export_subtoken_annotation = "";
 	private boolean tokenization_is_segmentation = false;
@@ -92,6 +93,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		mapper.setModTokTextlayer(mod_tok_textlayer);
 		mapper.setDiplTokTextlayer(dipl_tok_textlayer);
 		mapper.setExportTokenLayer(export_token_layer);
+		mapper.setCreateReferenceSpan(create_reference_span);;
 		mapper.setExportCommentsToLayer(comment_layer_name);
 		mapper.setExportSubtokenannotation(export_subtoken_annotation);
 		mapper.setTokenizationIsSegmentation(tokenization_is_segmentation);
@@ -151,6 +153,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			mod_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getModTokTextlayer();
 			dipl_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getDiplTokTextlayer();
 			export_token_layer = ((CoraXMLImporterProperties) this.getProperties()).getExportTokenLayer();
+			create_reference_span = ((CoraXMLImporterProperties) this.getProperties()).getCreateReferenceSpan();
 			comment_layer_name = ((CoraXMLImporterProperties) this.getProperties()).getExportCommentsToLayer();
 			export_subtoken_annotation = ((CoraXMLImporterProperties) this.getProperties())
 					.getExportSubtokenannotation();

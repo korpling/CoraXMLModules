@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.ext.DefaultHandler2;
+import org.xml.sax.helpers.AttributesImpl;
 
 public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper, CoraXMLDictionary {
     private static final Logger logger= LoggerFactory.getLogger(CoraXMLImporter.MODULE_NAME);
@@ -47,6 +48,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     private String tok_dipl_name = TAG_DIPL;
     /** defines whether the token layer should be exported **/
     private boolean exportTokenLayer = true;
+    /** defines whether a reference span should be created **/
+    private boolean createReferenceSpan = false;
     /** defines to which layer top-level comments are added; none, if empty **/
     private String exportCommentsToLayer = "";
     /** defines whether transcription markup should be turned into annotations **/
@@ -79,6 +82,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
     }
     public void setExportTokenLayer(boolean exportTokenLayer) {
         this.exportTokenLayer = exportTokenLayer;
+    }
+    public void setCreateReferenceSpan(boolean createReferenceSpan) {
+        this.createReferenceSpan = createReferenceSpan;
     }
     public void setExportCommentsToLayer(String layerName) {
         this.exportCommentsToLayer = layerName;
@@ -123,6 +129,9 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         StringBuffer comment_text = new StringBuffer();
         String comment_type;
 
+        String currentPage = "";
+        String currentColumn = "";
+
         private Stack<String> xmlElementStack = null;
         private Stack<String> getXMLELementStack() {
             if (xmlElementStack == null) {
@@ -158,12 +167,23 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
             // layout tags
             if (TAG_PAGE.equals(qName)) {
-            layout().make_page(attributes)
+                currentPage = attributes.getValue("no");
+                if (attributes.getValue("side") != null)
+                    currentPage += attributes.getValue("side");
+                layout().make_page(attributes)
                     .make_side(attributes);
             } else if (TAG_COLUMN.equals(qName)) {
-                layout().make_column(attributes);
+                currentColumn = layout().make_column(attributes);
+
             } else if (TAG_LINE.equals(qName)) {
-                layout().make_line(attributes);
+                Attributes line_attributes = attributes;
+                if (createReferenceSpan && attributes.getValue("loc") == null) {
+                    line_attributes = new AttributesImpl(attributes);
+                    ((AttributesImpl)line_attributes).addAttribute("", "", "loc", "",
+                        currentPage + currentColumn + "," + attributes.getValue("name"));
+                }
+
+                layout().make_line(line_attributes);
             }
 
             // token tags

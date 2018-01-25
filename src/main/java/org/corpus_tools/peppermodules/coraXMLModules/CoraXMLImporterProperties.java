@@ -54,6 +54,11 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	public static final String PROP_EXPORT_TOKEN = PREFIX_EXPORT + "token";
 
 	/**
+	 * Property which defines whether a reference annotation containing page and column information instead of lines.
+	 */
+	public static final String PROP_CREATE_REFERENCE_SPAN = PREFIX_EXPORT + "create_reference";
+
+	/**
 	 * Property which defines to which layer top-level comments are added
 	 */
 	public static final String PROP_COMMENT_LAYER_NAME = PREFIX_EXPORT + "layer_for_comments";
@@ -85,6 +90,7 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 		this.addProperty(new PepperModuleProperty<>(PROP_TOKTEXT_MOD, String.class, "This property defines which attribute of the mod-Tag is used for the token texts (trans, utf or ascii). By default, the simplified ascii version is used (value:ascii)", ATT_ASCII, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_TOKTEXT_DIPL, String.class, "This property defines which attribute of the dipl-Tag is used for the token texts (trans or utf). By default, the unicode version is used (value:utf)", ATT_UTF, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_EXPORT_TOKEN, Boolean.class, "This property defines whether the token layer is exported. By default, it is exported (value:true)", Boolean.TRUE, false));
+		this.addProperty(new PepperModuleProperty<>(PROP_CREATE_REFERENCE_SPAN, Boolean.class, "This property defines whether a reference span is created for lines. By default, it is not created (unless lines have a \"loc\"-attribute) (value:false)", Boolean.FALSE, false));
 		this.addProperty(new PepperModuleProperty<>(PROP_COMMENT_LAYER_NAME, String.class, "This property defines the layer to which top-level comments are exported. By default, they are not exported (value:\"\")", "", false));
 		this.addProperty(new PepperModuleProperty<>(PROP_EXPORT_SUBTOKEN, String.class, "This property defines whether markup in the transcription is turned into subtoken-annotations. The content of the string gives the name of the markup rules used. By default, no subtoken-annotations are created (value:\"\")", "", false));
 		this.addProperty(new PepperModuleProperty<>(PROP_TOK_IS_SEG, Boolean.class, "This property defines whether mod and dipl each are strict segmentations of token, i.e. the combined values of trans for each are equal with the trans-value of token. By default, this is not assumed (value:false)", Boolean.FALSE, false));
@@ -142,6 +148,17 @@ public class CoraXMLImporterProperties extends PepperModuleProperties implements
 	public boolean getExportTokenLayer() {
 		return ((Boolean) this.getProperty(PROP_EXPORT_TOKEN).getValue());
 	}
+
+	/**
+	 * Returns whether a reference span should be created
+	 *
+	 * @return
+	 */
+	public boolean getCreateReferenceSpan() {
+		return ((Boolean) this.getProperty(PROP_CREATE_REFERENCE_SPAN).getValue());
+	}
+
+
 
 	/**
 	 * Returns the name of the layer to which top-level comments are added
