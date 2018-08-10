@@ -208,57 +208,59 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
             }
 
             // annotations on mod
-            else if (this.in_mod && !annotations_to_ignore.contains(qName)) {
+            else if (this.in_mod) {
+                if (!annotations_to_ignore.contains(qName)) {
 
-                // annotations with special treatment
-                if (boundary_annotations.contains(qName)) {
-                    // boundary annotations are realized as spans between them
-                    text().annotate_boundary(qName, attributes);
-                }
-                else if ("punc".equals(qName)) {
-                    if (attributes.getValue(ATT_TAG) != "" &&
-                            attributes.getValue(ATT_TAG) != "--")
-                        text().annotate("punc", attributes);
-                } else if (TAG_TOKENIZATION.equals(qName)) {
-                    // value can be empty, in which case it should add "--"
-                    String value = attributes.getValue(ATT_TAG) != ""
-                            ? attributes.getValue(ATT_TAG) : "--";
-                            text().annotate("tokenization", value);
-                } else if (TAG_POS_LEMMA.equals(qName)) {
-                    text().annotate("posLemma", attributes);
-                } else if (TAG_NORM.equals(qName) || TAG_NORMBROAD.equals(qName)) {
-                    String ann_name = TAG_NORM.equals(qName)
-                            ? "norm" : "modern";
-                    text().annotate(ann_name, attributes);
-                } else if (TAG_INFLCLASS.equals(qName)) {
-                    text().annotate("inflectionClass", attributes);
-                } else if (TAG_INFLCLASS_LEMMA.equals(qName)) {
-                    text().annotate("inflectionClassLemma",
-                            attributes);
-                } else if (TAG_INFL.equals(qName)) {
-                    text().annotate("inflection", attributes);
-                } else if (TAG_NORMALIGN.equals(qName)
-                        || TAG_NORMALIGN_VARIANT.equals(qName)) {
-                    text().annotate("char_align", attributes);
-                } else if ("lemma_idmwb".equals(qName)) {
-                    if (!attributes.getValue("tag").equals("--")) {
-                        String lemma_link = "<a href='http://www.mhdwb-online.de/lemmaliste/"
-                                          + attributes.getValue("tag") + "'>"
-                                          + attributes.getValue("tag") + "</a>";
-                        text.annotate("lemmaId", lemma_link);
+                    // annotations with special treatment
+                    if (boundary_annotations.contains(qName)) {
+                        // boundary annotations are realized as spans between them
+                        text().annotate_boundary(qName, attributes);
                     }
-                } else if ("lemma_gen".equals(qName)) {
-                    text().annotate("lemmaLemma", attributes);
-                }
+                    else if ("punc".equals(qName)) {
+                        if (attributes.getValue(ATT_TAG) != "" &&
+                            attributes.getValue(ATT_TAG) != "--")
+                            text().annotate("punc", attributes);
+                    } else if (TAG_TOKENIZATION.equals(qName)) {
+                        // value can be empty, in which case it should add "--"
+                        String value = attributes.getValue(ATT_TAG) != ""
+                            ? attributes.getValue(ATT_TAG) : "--";
+                        text().annotate("tokenization", value);
+                    } else if (TAG_POS_LEMMA.equals(qName)) {
+                        text().annotate("posLemma", attributes);
+                    } else if (TAG_NORM.equals(qName) || TAG_NORMBROAD.equals(qName)) {
+                        String ann_name = TAG_NORM.equals(qName)
+                            ? "norm" : "modern";
+                        text().annotate(ann_name, attributes);
+                    } else if (TAG_INFLCLASS.equals(qName)) {
+                        text().annotate("inflectionClass", attributes);
+                    } else if (TAG_INFLCLASS_LEMMA.equals(qName)) {
+                        text().annotate("inflectionClassLemma",
+                                        attributes);
+                    } else if (TAG_INFL.equals(qName)) {
+                        text().annotate("inflection", attributes);
+                    } else if (TAG_NORMALIGN.equals(qName)
+                               || TAG_NORMALIGN_VARIANT.equals(qName)) {
+                        text().annotate("char_align", attributes);
+                    } else if ("lemma_idmwb".equals(qName)) {
+                        if (!attributes.getValue("tag").equals("--")) {
+                            String lemma_link = "<a href='http://www.mhdwb-online.de/lemmaliste/"
+                                + attributes.getValue("tag") + "'>"
+                                + attributes.getValue("tag") + "</a>";
+                            text.annotate("lemmaId", lemma_link);
+                        }
+                    } else if ("lemma_gen".equals(qName)) {
+                        text().annotate("lemmaLemma", attributes);
+                    }
 
-                // span annotations
-                else if (attributes.getValue("span-id") != null) {
-                    text().add_tok_to_span(qName, attributes);
-                }
+                    // span annotations
+                    else if (attributes.getValue("span-id") != null) {
+                        text().add_tok_to_span(qName, attributes);
+                    }
 
-                // all other annotations
-                else if (attributes.getValue("tag") != null) {
-                    text().annotate(qName, attributes);
+                    // all other annotations
+                    else if (attributes.getValue("tag") != null) {
+                        text().annotate(qName, attributes);
+                    }
                 }
             } else if (this.in_header) {
                 //this.meta_name = "m" + attributes.getValue("annis-name") + "-" + qName;
@@ -299,7 +301,7 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                     text().map_tokens_to_timeline_aligned();
                 } else
                     text().map_tokens_to_timeline_simple();
-            } else if (TAG_MOD.equals(qName)) {// tag is TAG_MOD
+            } else if (tok_anno.equals(qName)) {// tag is tok_anno
                 this.in_mod = false;
             } else if (TAG_HEADER.equals(qName)) {
                 this.in_header = false;
