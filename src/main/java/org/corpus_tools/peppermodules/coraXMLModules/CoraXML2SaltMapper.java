@@ -156,7 +156,8 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
                                 tok_dipl, tok_anno,
                                 tok_dipl_name, tok_anno_name,
                                 dipl_tok_textlayer, mod_tok_textlayer,
-                                exportTokenLayer, !exportSubtokenannotation.isEmpty(), boundary_annotations);
+                                exportTokenLayer, exportCommentsToLayer,
+                                !exportSubtokenannotation.isEmpty(), boundary_annotations);
             }
             return text;
         }
