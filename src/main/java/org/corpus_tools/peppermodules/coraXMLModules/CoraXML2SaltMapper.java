@@ -18,6 +18,8 @@ package org.corpus_tools.peppermodules.coraXMLModules;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.TreeSet;
@@ -129,8 +131,11 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
         StringBuffer comment_text = new StringBuffer();
         String comment_type;
 
-        String currentPage = "";
-        String currentColumn = "";
+        Map<String, String> pageNameForBeginning = new HashMap<>();
+        String currentPage = null;
+        Map<String, String> columnNameForBeginning = new HashMap<>();
+        Map<String, String> columnIdForBeginning = new HashMap<>();
+        String currentColumn = null;
 
         private Stack<String> xmlElementStack = null;
         private Stack<String> getXMLELementStack() {
@@ -168,15 +173,28 @@ public class CoraXML2SaltMapper extends PepperMapperImpl implements PepperMapper
 
             // layout tags
             if (TAG_PAGE.equals(qName)) {
-                currentPage = attributes.getValue("no");
+                String pageName = attributes.getValue("no");
                 if (attributes.getValue("side") != null)
-                    currentPage += attributes.getValue("side");
+                    pageName += attributes.getValue("side");
+                pageNameForBeginning.put(attributes.getValue("range").split("[.][.]")[0], pageName);
                 layout().make_page(attributes)
                     .make_side(attributes);
             } else if (TAG_COLUMN.equals(qName)) {
-                currentColumn = layout().make_column(attributes);
+                String columnName = layout().make_column(attributes);
+                String columnBeginning = attributes.getValue("range").split("[.][.]")[0];
+                columnNameForBeginning.put(columnBeginning, columnName);
+                columnIdForBeginning.put(columnBeginning, attributes.getValue("id"));
 
             } else if (TAG_LINE.equals(qName)) {
+                if (columnNameForBeginning.containsKey(attributes.getValue("id"))) {
+                    currentColumn = columnNameForBeginning.get(attributes.getValue("id"));
+                    if (currentColumn.equals("<none>") || currentColumn.equals("--"))
+                        currentColumn = "";
+                    String currentColumnId = columnIdForBeginning.get(attributes.getValue("id"));
+                    if (pageNameForBeginning.containsKey(currentColumnId)) {
+                        currentPage = pageNameForBeginning.get(currentColumnId);
+                    }
+                }
                 Attributes line_attributes = attributes;
                 if (createReferenceSpan && attributes.getValue("loc") == null) {
                     line_attributes = new AttributesImpl(attributes);

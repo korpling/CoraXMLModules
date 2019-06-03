@@ -133,8 +133,8 @@ two boundaries for the import.
 
 If false, a separate span for each of the layout elements _page_, _column_ and
 _line_ (https://cora.readthedocs.io/en/latest/document-model/#layout) is
-created. If true, only spans for lines are created containing the complete
-reference information, i.e. the page, the column and line.
+created. If true, additionaly for each line a span is created containing the complete
+reference information, i.e. the page, the column and the line number.
 
 ### export.layer\_for\_comments
 
