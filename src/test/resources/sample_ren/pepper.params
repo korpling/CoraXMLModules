@@ -1,6 +1,9 @@
+mod=anno
+tok.prefix=tok_
 mod/dipl_eq_token=true
 toktext.mod=utf
+toktext.dipl=ascii
 export.token=true
 export.layer_for_comments=token
 export.subtoken_markup=REN
-toktext.dipl=ascii
+export.boundary_tags=bound_sent;bound_head

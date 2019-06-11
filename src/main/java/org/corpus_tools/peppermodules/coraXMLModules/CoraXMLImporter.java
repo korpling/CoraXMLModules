@@ -21,6 +21,7 @@ import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterPrope
 import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterProperties.PROP_EXPORT_SUBTOKEN;
 import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterProperties.PROP_TOKTEXT_MOD;
 import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterProperties.PROP_TOK_IS_SEG;
+import static org.corpus_tools.peppermodules.coraXMLModules.CoraXMLImporterProperties.PROP_TOK_PREFIX;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,7 +57,9 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	private String dipl_tok_textlayer = ATT_UTF;
 	private String tok_anno = TAG_MOD;
 	private String tok_dipl = TAG_DIPL;
+	private String tok_layer_prefix = "";
 	private boolean export_token_layer = true;
+	private boolean create_reference_span = false;
 	private String comment_layer_name = "";
 	private String export_subtoken_annotation = "";
 	private boolean tokenization_is_segmentation = false;
@@ -90,12 +93,14 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 		mapper.setModTokTextlayer(mod_tok_textlayer);
 		mapper.setDiplTokTextlayer(dipl_tok_textlayer);
 		mapper.setExportTokenLayer(export_token_layer);
+		mapper.setCreateReferenceSpan(create_reference_span);;
 		mapper.setExportCommentsToLayer(comment_layer_name);
 		mapper.setExportSubtokenannotation(export_subtoken_annotation);
 		mapper.setTokenizationIsSegmentation(tokenization_is_segmentation);
 		mapper.setExcludeAnnotations(annotations_to_exclude);
 		mapper.setBoundaryAnnotations(boundary_tags);
 		mapper.setTokNames(tok_anno, tok_dipl);
+		mapper.setTokLayerNames(tok_layer_prefix + tok_anno, tok_layer_prefix + tok_dipl);
 		return (mapper);
 	}
 
@@ -117,6 +122,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 	public SelfTestDesc getSelfTestDesc() {
 		final PepperModuleProperties props = getProperties();
 		props.setPropertyValue(PROP_EXPORT_SUBTOKEN, "REN");
+		props.setPropertyValue(PROP_TOK_PREFIX, "tok_");
 		props.setPropertyValue(PROP_TOKTEXT_MOD, "utf");
 		props.setPropertyValue(PROP_TOK_IS_SEG, true);
 		props.setPropertyValue(PROP_COMMENT_LAYER_NAME, "token");
@@ -147,6 +153,7 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 			mod_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getModTokTextlayer();
 			dipl_tok_textlayer = ((CoraXMLImporterProperties) this.getProperties()).getDiplTokTextlayer();
 			export_token_layer = ((CoraXMLImporterProperties) this.getProperties()).getExportTokenLayer();
+			create_reference_span = ((CoraXMLImporterProperties) this.getProperties()).getCreateReferenceSpan();
 			comment_layer_name = ((CoraXMLImporterProperties) this.getProperties()).getExportCommentsToLayer();
 			export_subtoken_annotation = ((CoraXMLImporterProperties) this.getProperties())
 					.getExportSubtokenannotation();
@@ -154,9 +161,9 @@ public class CoraXMLImporter extends PepperImporterImpl implements PepperImporte
 					.getTokenizationIsSegmentation();
 			annotations_to_exclude = ((CoraXMLImporterProperties) this.getProperties()).getExcludeAnnotations();
 			boundary_tags = ((CoraXMLImporterProperties) this.getProperties()).getBoundaryAnnotations();
-			tok_anno = ((CoraXMLImporterProperties) this.getProperties()).getTokName("anno");
-			tok_dipl = ((CoraXMLImporterProperties) this.getProperties()).getTokName("dipl");
-
+			tok_anno = ((CoraXMLImporterProperties) this.getProperties()).getTokName(TAG_MOD);
+			tok_dipl = ((CoraXMLImporterProperties) this.getProperties()).getTokName(TAG_DIPL);
+			tok_layer_prefix = ((CoraXMLImporterProperties) this.getProperties()).getTokLayerPrefix();
 		}
 		// TODO make some initializations if necessary
 		return (super.isReadyToStart());

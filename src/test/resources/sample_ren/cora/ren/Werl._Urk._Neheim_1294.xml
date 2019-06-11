@@ -1,0 +1,1592 @@
+<text id="M5">
+  <cora-header name="Werl. Urk. Neheim 1294" sigle="M5" />
+  <header>place:
+collation_by:NNA (Münster)
+library:Landesarchiv Nordrhein-Westfalen, Abteilung Westfalen (LA NRW, Abt. WF)
+language_area:westfaelisch
+online:
+digitization_by:NNA (Münster)
+drawer:
+abbr_ddd:Werl. Urk. Neheim 1294
+hands:
+base_for_transcription:Handschrift/Druck
+proofreading_by:ESC (Münster)
+online_file:
+genre:U
+columns:
+illustration:
+literature:
+notes_manuscript:
+external_source:
+extent:
+topic_ReN:U
+topic:Recht
+library-shelfmark:Kloster Himmelpforten Urkunden Nr. 47
+notes_transcription:
+time:13/2
+edition:WUB VII = Westfälisches Urkundenbuch. Fortsetzung von Erhards Regesta Historiae Westfaliae. Hrsg. von dem Vereine für Geschichte und Alterthumskunde Westfalens. Siebenter Band: Die Urkunden des kölnischen Westfalens vom J. 1200-1300. Bearb. vom Staatsarchiv Münster. Münster 1908, Nr. 2317, S. 1103-1104.
+style:
+scribe_or_printer:
+pre_editing_by:NNA (Münster)
+reference_secondary:
+reference:
+extract:
+text-type:
+date_ReN:1294
+medium:Handschrift
+corpus:
+notes_annotation:
+annotation_by:ESC (Münster)
+text_ReN:Urkunde Hermanns von Neheim (= Werler Urkunde)
+author:
+notes_language:
+token:</header>
+  <layoutinfo>
+    <page id="p1" no="01" range="c1" side="r" />
+    <column id="c1" name="&lt;none&gt;" range="l1..l15" />
+    <line id="l1" name="01" range="t1_d1..t16_d1" />
+    <line id="l2" name="02" range="t17_d1..t29_d1" />
+    <line id="l3" name="03" range="t30_d1..t46_d1" />
+    <line id="l4" name="04" range="t47_d1..t61_d1" />
+    <line id="l5" name="05" range="t62_d1..t76_d1" />
+    <line id="l6" name="06" range="t77_d1..t93_d1" />
+    <line id="l7" name="07" range="t94_d1..t110_d1" />
+    <line id="l8" name="08" range="t111_d1..t125_d1" />
+    <line id="l9" name="09" range="t125_d2..t142_d1" />
+    <line id="l10" name="10" range="t143_d1..t160_d1" />
+    <line id="l11" name="11" range="t160_d2..t177_d1" />
+    <line id="l12" name="12" range="t178_d1..t194_d1" />
+    <line id="l13" name="13" range="t195_d1..t222_d1" />
+    <line id="l14" name="14" range="t223_d1..t237_d1" />
+    <line id="l15" name="15" range="t238_d1..t253_d1" />
+  </layoutinfo>
+  <shifttags />
+  <token id="t1" trans="Kundich">
+    <dipl id="t1_d1" trans="Kundich" utf="Kundich" />
+    <anno ascii="Kundich" checked="y" id="t1_m1" trans="Kundich" utf="Kundich">
+      <lemma tag="" />
+      <lemma_wsd tag="" /><lemma_simple tag="" /><lemma_var tag="" /><pos tag="ADJD" /><pos_gen tag="ADJ" /><morph tag="Pos" /></anno>
+  </token>
+  <token id="t2" trans="zi">
+    <dipl id="t2_d1" trans="zi" utf="zi" />
+    <anno ascii="zi" checked="y" id="t2_m1" trans="zi" utf="zi">
+      <lemma tag="wēsen" />
+      <lemma_wsd tag="wēsen²" /><lemma_simple tag="wesen" /><lemma_var tag="wesen" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="Irr.3.Sg.Pres.Konj" /></anno>
+  </token>
+  <token id="t3" trans="al§den">
+    <dipl id="t3_d1" trans="al§den" utf="alden" />
+    <anno ascii="al" checked="y" id="t3_m1" trans="al§" utf="al">
+      <lemma tag="al" />
+      <lemma_wsd tag="al" /><lemma_simple tag="al" /><lemma_var tag="al" /><pos tag="DIA" /><pos_gen tag="DI" /><morph tag="*.Dat.Pl" /></anno>
+    <anno ascii="den" checked="y" id="t3_m2" trans="den" utf="den">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="*.Dat.Pl" /></anno>
+  </token>
+  <token id="t4" trans="ghinen">
+    <dipl id="t4_d1" trans="ghinen" utf="ghinen" />
+    <anno ascii="ghinen" checked="y" id="t4_m1" trans="ghinen" utf="ghinen">
+      <lemma tag="gĕne" />
+      <lemma_wsd tag="gĕne" /><lemma_simple tag="gene" /><lemma_var tag="gene" /><pos tag="DPDS" /><pos_gen tag="DD" /><morph tag="*.Dat.Pl" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t5" trans="dey">
+    <dipl id="t5_d1" trans="dey" utf="dey" />
+    <anno ascii="dey" checked="y" id="t5_m1" trans="dey" utf="dey">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DPRELS" /><pos_gen tag="DD" /><morph tag="*.Nom.Pl" /></anno>
+  </token>
+  <token id="t6" trans="dissen">
+    <dipl id="t6_d1" trans="dissen" utf="dissen" />
+    <anno ascii="dissen" checked="y" id="t6_m1" trans="dissen" utf="dissen">
+      <lemma tag="desse/desse/dit" />
+      <lemma_wsd tag="desse/desse/dit" /><lemma_simple tag="desse/desse/dit" /><lemma_var tag="desse/desse/dit" /><pos tag="DDA" /><pos_gen tag="DD" /><morph tag="Masc.Akk.Sg" /></anno>
+  </token>
+  <token id="t7" trans="breyf">
+    <dipl id="t7_d1" trans="breyf" utf="breyf" />
+    <anno ascii="breyf" checked="y" id="t7_m1" trans="breyf" utf="breyf">
+      <lemma tag="brêf" />
+      <lemma_wsd tag="brêf" /><lemma_simple tag="bref" /><lemma_var tag="bref" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Akk.Sg" /></anno>
+  </token>
+  <token id="t8" trans="zeyt">
+    <dipl id="t8_d1" trans="zeyt" utf="zeyt" />
+    <anno ascii="zeyt" checked="y" id="t8_m1" trans="zeyt" utf="zeyt">
+      <lemma tag="sên" />
+      <lemma_wsd tag="sên" /><lemma_simple tag="sen" /><lemma_var tag="sen" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="St.3.Pl.Pres.Ind" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t9" trans="vn{R_de}">
+    <dipl id="t9_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t9_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t10" trans="horet">
+    <dipl id="t10_d1" trans="horet" utf="horet" />
+    <anno ascii="horet" checked="y" id="t10_m1" trans="horet" utf="horet">
+      <lemma tag="hö̂ren" />
+      <lemma_wsd tag="hö̂ren²" /><lemma_simple tag="horen" /><lemma_var tag="horen" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="Sw.3.Pl.Pres.Ind" /></anno>
+  </token>
+  <token id="t11" trans="lesen">
+    <dipl id="t11_d1" trans="lesen" utf="lesen" />
+    <anno ascii="lesen" checked="y" id="t11_m1" trans="lesen" utf="lesen">
+      <lemma tag="lēsen" />
+      <lemma_wsd tag="lēsen¹" /><lemma_simple tag="lesen" /><lemma_var tag="lesen" /><pos tag="VVINF" /><pos_gen tag="VV" /><morph tag="&lt;none&gt;" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t12" trans="dat">
+    <dipl id="t12_d1" trans="dat" utf="dat" />
+    <anno ascii="dat" checked="y" id="t12_m1" trans="dat" utf="dat">
+      <lemma tag="dat" />
+    <lemma_wsd tag="dat²b" /><lemma_simple tag="dat" /><lemma_var tag="dat" /><pos tag="KOUS" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t13" trans="godert">
+    <dipl id="t13_d1" trans="godert" utf="godert" />
+    <anno ascii="godert" checked="y" id="t13_m1" trans="godert" utf="godert">
+      <lemma tag="godert" />
+    <lemma_wsd tag="godert" /><lemma_simple tag="godert" /><lemma_var tag="godert" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t14" trans="van">
+    <dipl id="t14_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t14_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t15" trans="borbeyn">
+    <dipl id="t15_d1" trans="borbeyn" utf="borbeyn" />
+    <anno ascii="borbeyn" checked="y" id="t15_m1" trans="borbeyn" utf="borbeyn">
+      <lemma tag="borbeyn" />
+      <lemma_wsd tag="borbeyn" /><lemma_simple tag="borbeyn" /><lemma_var tag="borbeyn" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat.Sg" /></anno>
+  </token>
+  <token id="t16" trans="myd">
+    <dipl id="t16_d1" trans="myd" utf="myd" />
+    <anno ascii="myd" checked="y" id="t16_m1" trans="myd" utf="myd">
+      <lemma tag="mit" />
+      <lemma_wsd tag="mit" /><lemma_simple tag="mit" /><lemma_var tag="mit" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t17" trans="willen">
+    <dipl id="t17_d1" trans="willen" utf="willen" />
+    <anno ascii="willen" checked="y" id="t17_m1" trans="willen" utf="willen">
+      <lemma tag="wille" />
+    <lemma_wsd tag="wille" /><lemma_simple tag="wille" /><lemma_var tag="wille" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t18" trans="zins">
+    <dipl id="t18_d1" trans="zins" utf="zins" />
+    <anno ascii="zins" checked="y" id="t18_m1" trans="zins" utf="zins">
+      <lemma tag="sîn/ēr/sîn" />
+      <lemma_wsd tag="sîn⁴/ēr¹/sîn⁴" /><lemma_simple tag="sin/er/sin" /><lemma_var tag="sin/er/sin" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Neut.Gen.Sg" /></anno>
+  </token>
+  <token id="t19" trans="wyues">
+    <dipl id="t19_d1" trans="wyues" utf="wyues" />
+    <anno ascii="wyues" checked="y" id="t19_m1" trans="wyues" utf="wyues">
+      <lemma tag="wîf" />
+      <lemma_wsd tag="wîf" /><lemma_simple tag="wif" /><lemma_var tag="wif" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Gen.Sg" /></anno>
+  </token>
+  <token id="t20" trans="elzeben">
+    <dipl id="t20_d1" trans="elzeben" utf="elzeben" />
+    <anno ascii="elzeben" checked="y" id="t20_m1" trans="elzeben" utf="elzeben">
+      <lemma tag="elzeben" />
+      <lemma_wsd tag="elzeben" /><lemma_simple tag="elzeben" /><lemma_var tag="elzeben" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Fem.Gen.Sg" /></anno>
+  </token>
+  <token id="t21" trans="vn{R_de}">
+    <dipl id="t21_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t21_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t22" trans="zir">
+    <dipl id="t22_d1" trans="zir" utf="zir" />
+    <anno ascii="zir" checked="y" id="t22_m1" trans="zir" utf="zir">
+      <lemma tag="sîn/ēr/sîn" />
+      <lemma_wsd tag="sîn⁴/ēr¹/sîn⁴" /><lemma_simple tag="sin/er/sin" /><lemma_var tag="sin/er/sin" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Neut.Gen.Pl" /></anno>
+  </token>
+  <token id="t23" trans="kindere">
+    <dipl id="t23_d1" trans="kindere" utf="kindere" />
+    <anno ascii="kindere" checked="y" id="t23_m1" trans="kindere" utf="kindere">
+      <lemma tag="kint" />
+      <lemma_wsd tag="kint" /><lemma_simple tag="kint" /><lemma_var tag="kint" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Gen.Pl" /></anno>
+  </token>
+  <token id="t24" trans="danyeles">
+    <dipl id="t24_d1" trans="danyeles" utf="danyeles" />
+    <anno ascii="danyeles" checked="y" id="t24_m1" trans="danyeles" utf="danyeles">
+      <lemma tag="danyeles" />
+      <lemma_wsd tag="danyeles" /><lemma_simple tag="danyeles" /><lemma_var tag="danyeles" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Gen.Sg" /></anno>
+  </token>
+  <token id="t25" trans="wilhelms">
+    <dipl id="t25_d1" trans="wilhelms" utf="wilhelms" />
+    <anno ascii="wilhelms" checked="y" id="t25_m1" trans="wilhelms" utf="wilhelms">
+      <lemma tag="wilhelms" />
+      <lemma_wsd tag="wilhelms" /><lemma_simple tag="wilhelms" /><lemma_var tag="wilhelms" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Gen.Sg" /></anno>
+  </token>
+  <token id="t26" trans="goderdes">
+    <dipl id="t26_d1" trans="goderdes" utf="goderdes" />
+    <anno ascii="goderdes" checked="y" id="t26_m1" trans="goderdes" utf="goderdes">
+      <lemma tag="goderdes" />
+      <lemma_wsd tag="goderdes" /><lemma_simple tag="goderdes" /><lemma_var tag="goderdes" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Gen.Sg" /></anno>
+  </token>
+  <token id="t27" trans="frederykes">
+    <dipl id="t27_d1" trans="frederykes" utf="frederykes" />
+    <anno ascii="frederykes" checked="y" id="t27_m1" trans="frederykes" utf="frederykes">
+      <lemma tag="frederykes" />
+      <lemma_wsd tag="frederykes" /><lemma_simple tag="frederykes" /><lemma_var tag="frederykes" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Gen.Sg" /></anno>
+  </token>
+  <token id="t28" trans="Jden">
+    <dipl id="t28_d1" trans="Jden" utf="Jden" />
+    <anno ascii="Jden" checked="y" id="t28_m1" trans="Jden" utf="Jden">
+      <lemma tag="jden" />
+      <lemma_wsd tag="jden" /><lemma_simple tag="jden" /><lemma_var tag="jden" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Fem.Gen.Sg" /></anno>
+  </token>
+  <token id="t29" trans="vn{R_de}">
+    <dipl id="t29_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t29_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t30" trans="meychildes">
+    <dipl id="t30_d1" trans="meychildes" utf="meychildes" />
+    <anno ascii="meychildes" checked="y" id="t30_m1" trans="meychildes" utf="meychildes">
+      <lemma tag="meychildes" />
+      <lemma_wsd tag="meychildes" /><lemma_simple tag="meychildes" /><lemma_var tag="meychildes" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Fem.Gen.Sg" /></anno>
+  </token>
+  <token id="t31" trans="zyn">
+    <dipl id="t31_d1" trans="zyn" utf="zyn" />
+    <anno ascii="zyn" checked="y" id="t31_m1" trans="zyn" utf="zyn">
+      <lemma tag="sîn/ēr/sîn" />
+      <lemma_wsd tag="sîn⁴/ēr¹/sîn⁴" /><lemma_simple tag="sin/er/sin" /><lemma_var tag="sin/er/sin" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Neut.Akk.Sg" /></anno>
+  </token>
+  <token id="t32" trans="gud">
+    <dipl id="t32_d1" trans="gud" utf="gud" />
+    <anno ascii="gud" checked="y" id="t32_m1" trans="gud" utf="gud">
+      <lemma tag="gôt" />
+      <lemma_wsd tag="gôt³" /><lemma_simple tag="got" /><lemma_var tag="got" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Akk.Sg" /></anno>
+  </token>
+  <token id="t33" trans="to">
+    <dipl id="t33_d1" trans="to" utf="to" />
+    <anno ascii="to" checked="y" id="t33_m1" trans="to" utf="to">
+      <lemma tag="tô" />
+    <lemma_wsd tag="tô¹" /><lemma_simple tag="to" /><lemma_var tag="to" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t34" trans="madewygh">
+    <dipl id="t34_d1" trans="madewygh" utf="madewygh" />
+    <anno ascii="madewygh" checked="y" id="t34_m1" trans="madewygh" utf="madewygh">
+      <lemma tag="madewygh" />
+      <lemma_wsd tag="madewygh" /><lemma_simple tag="madewygh" /><lemma_var tag="madewygh" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat.Sg" /></anno>
+  </token>
+  <token id="t35" trans="gheleghen">
+    <dipl id="t35_d1" trans="gheleghen" utf="gheleghen" />
+    <anno ascii="gheleghen" checked="y" id="t35_m1" trans="gheleghen" utf="gheleghen">
+      <lemma tag="liggen" />
+      <lemma_wsd tag="liggen" /><lemma_simple tag="liggen" /><lemma_var tag="liggen" /><pos tag="ADJN" /><pos_gen tag="VVPP" /><morph tag="Pos.Neut.Akk.Sg.St" /><bound_sent tag="Satzteil_I" /></anno>
+  </token>
+  <token id="t36" trans="dat">
+    <dipl id="t36_d1" trans="dat" utf="dat" />
+    <anno ascii="dat" checked="y" id="t36_m1" trans="dat" utf="dat">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DPRELS" /><pos_gen tag="DD" /><morph tag="Neut.Nom.Sg" /></anno>
+  </token>
+  <token id="t37" trans="van">
+    <dipl id="t37_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t37_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t38" trans="my">
+    <dipl id="t38_d1" trans="my" utf="my" />
+    <anno ascii="my" checked="y" id="t38_m1" trans="my" utf="my">
+      <lemma tag="ik" />
+    <lemma_wsd tag="ik" /><lemma_simple tag="ik" /><lemma_var tag="ik" /><pos tag="PPER" /><pos_gen tag="PPER" /><morph tag="1.Sg._.Dat-Akk" /></anno>
+  </token>
+  <token id="t39" trans="to">
+    <dipl id="t39_d1" trans="to" utf="to" />
+    <anno ascii="to" checked="y" id="t39_m1" trans="to" utf="to">
+      <lemma tag="tô" />
+    <lemma_wsd tag="tô¹" /><lemma_simple tag="to" /><lemma_var tag="to" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t40" trans="leyne">
+    <dipl id="t40_d1" trans="leyne" utf="leyne" />
+    <anno ascii="leyne" checked="y" id="t40_m1" trans="leyne" utf="leyne">
+      <lemma tag="lêᵉn" />
+      <lemma_wsd tag="lêᵉn" /><lemma_simple tag="leen" /><lemma_var tag="leen" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t41" trans="gheyt">
+    <dipl id="t41_d1" trans="gheyt" utf="gheyt" />
+    <anno ascii="gheyt" checked="y" id="t41_m1" trans="gheyt" utf="gheyt">
+      <lemma tag="gân" />
+      <lemma_wsd tag="gân" /><lemma_simple tag="gan" /><lemma_var tag="gan" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="Irr.3.Sg.Pres.Ind" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t42" trans="dat">
+    <dipl id="t42_d1" trans="dat" utf="dat" />
+    <anno ascii="dat" checked="y" id="t42_m1" trans="dat" utf="dat">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DPDS" /><pos_gen tag="DD" /><morph tag="Neut.Akk.Sg" /></anno>
+  </token>
+  <token id="t43" trans="heuet">
+    <dipl id="t43_d1" trans="heuet" utf="heuet" />
+    <anno ascii="heuet" checked="y" id="t43_m1" trans="heuet" utf="heuet">
+      <lemma tag="hebben" />
+      <lemma_wsd tag="hebben" /><lemma_simple tag="hebben" /><lemma_var tag="hebben" /><pos tag="VAFIN" /><pos_gen tag="VA" /><morph tag="Sw.3.Sg.Pres.Ind" /></anno>
+  </token>
+  <token id="t44" trans="hey">
+    <dipl id="t44_d1" trans="hey" utf="hey" />
+    <anno ascii="hey" checked="y" id="t44_m1" trans="hey" utf="hey">
+      <lemma tag="hê/sê/et" />
+      <lemma_wsd tag="hê¹/sê¹/et¹" /><lemma_simple tag="he/se/et" /><lemma_var tag="he/se/et" /><pos tag="PPER" /><pos_gen tag="PPER" /><morph tag="3.Sg.Masc.Nom" /></anno>
+  </token>
+  <token id="t45" trans="vor">
+    <dipl id="t45_d1" trans="vor" utf="vor" />
+    <anno ascii="vor" checked="y" id="t45_m1" trans="vor" utf="vor">
+      <lemma tag="vȫr" />
+      <lemma_wsd tag="vȫr³" /><lemma_simple tag="vor" /><lemma_var tag="vor" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t46" trans="eghen">
+    <dipl id="t46_d1" trans="eghen" utf="eghen" />
+    <anno ascii="eghen" checked="y" id="t46_m1" trans="eghen" utf="eghen">
+      <lemma tag="êⁱgen" />
+      <lemma_wsd tag="êⁱgen³" /><lemma_simple tag="eigen" /><lemma_var tag="eigen" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t47" trans="verkoyft">
+    <dipl id="t47_d1" trans="verkoyft" utf="verkoyft" />
+    <anno ascii="verkoyft" checked="y" id="t47_m1" trans="verkoyft" utf="verkoyft">
+      <lemma tag="vorkôpen" />
+      <lemma_wsd tag="vorkôpen²" /><lemma_simple tag="vorkopen" /><lemma_var tag="vorkopen" /><pos tag="VVPP" /><pos_gen tag="VV" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t48" trans="redeliken">
+    <dipl id="t48_d1" trans="redeliken" utf="redeliken" />
+    <anno ascii="redeliken" checked="y" id="t48_m1" trans="redeliken" utf="redeliken">
+      <lemma tag="rēdelĩken" />
+      <lemma_wsd tag="rēdelĩken²" /><lemma_simple tag="redeliken" /><lemma_var tag="redeliken" /><pos tag="AVD" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t49" trans="vn{R_de}">
+    <dipl id="t49_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t49_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t50" trans="reychtliken">
+    <dipl id="t50_d1" trans="reychtliken" utf="reychtliken" />
+    <anno ascii="reychtliken" checked="y" id="t50_m1" trans="reychtliken" utf="reychtliken">
+      <lemma tag="recht(schāp)lĩke" />
+    <lemma_wsd tag="recht(schāp)lĩke" /><lemma_simple tag="recht(schap)like" /><lemma_var tag="rechtlike,rechtschaplike" /><pos tag="AVD" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t51" trans="vmme">
+    <dipl id="t51_d1" trans="vmme" utf="vmme" />
+    <anno ascii="vmme" checked="y" id="t51_m1" trans="vmme" utf="vmme">
+      <lemma tag="ümme" />
+      <lemma_wsd tag="ümme³" /><lemma_simple tag="umme" /><lemma_var tag="umme" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Akk" /></anno>
+  </token>
+  <token id="t52" trans="eyne">
+    <dipl id="t52_d1" trans="eyne" utf="eyne" />
+    <anno ascii="eyne" checked="y" id="t52_m1" trans="eyne" utf="eyne">
+      <lemma tag="êⁱn/êⁱne/êⁱn" />
+      <lemma_wsd tag="êⁱn¹/êⁱne¹/êⁱn¹" /><lemma_simple tag="ein/eine/ein" /><lemma_var tag="ein/eine/ein" /><pos tag="DIARTA" /><pos_gen tag="DI" /><morph tag="Fem.Akk.Sg" /></anno>
+  </token>
+  <token id="t53" trans="zu{R_m}me">
+    <dipl id="t53_d1" trans="zu{R_m}me" utf="zumme" />
+    <anno ascii="zumme" checked="y" id="t53_m1" trans="zu{R_m}me" utf="zumme">
+      <lemma tag="summe" />
+      <lemma_wsd tag="summe²" /><lemma_simple tag="summe" /><lemma_var tag="summe" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Akk.Sg" /></anno>
+  </token>
+  <token id="t54" trans="gheldes">
+    <dipl id="t54_d1" trans="gheldes" utf="gheldes" />
+    <anno ascii="gheldes" checked="y" id="t54_m1" trans="gheldes" utf="gheldes">
+      <lemma tag="gelt" />
+      <lemma_wsd tag="gelt" /><lemma_simple tag="gelt" /><lemma_var tag="gelt" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Gen.Sg" /><bound_sent tag="Satzteil_F" /></anno>
+  </token>
+  <token id="t55" trans="dey">
+    <dipl id="t55_d1" trans="dey" utf="dey" />
+    <anno ascii="dey" checked="y" id="t55_m1" trans="dey" utf="dey">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DPRELS" /><pos_gen tag="DD" /><morph tag="Fem.Nom.Sg" /></anno>
+  </token>
+  <token id="t56" trans="em">
+    <dipl id="t56_d1" trans="em" utf="em" />
+    <anno ascii="em" checked="y" id="t56_m1" trans="em" utf="em">
+      <lemma tag="hê/sê/et" />
+    <lemma_wsd tag="hê¹/sê¹/et¹" /><lemma_simple tag="he/se/et" /><lemma_var tag="he/se/et" /><pos tag="PPER" /><pos_gen tag="PPER" /><morph tag="3.Sg.Masc.Dat" /></anno>
+  </token>
+  <token id="t57" trans="betalt">
+    <dipl id="t57_d1" trans="betalt" utf="betalt" />
+    <anno ascii="betalt" checked="y" id="t57_m1" trans="betalt" utf="betalt">
+      <lemma tag="betālen" />
+      <lemma_wsd tag="betālen" /><lemma_simple tag="betalen" /><lemma_var tag="betalen" /><pos tag="ADJD" /><pos_gen tag="VVPP" /><morph tag="Pos" /></anno>
+  </token>
+  <token id="t58" trans="is">
+    <dipl id="t58_d1" trans="is" utf="is" />
+    <anno ascii="is" checked="y" id="t58_m1" trans="is" utf="is">
+      <lemma tag="wēsen" />
+      <lemma_wsd tag="wēsen²" /><lemma_simple tag="wesen" /><lemma_var tag="wesen" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="Irr.3.Sg.Pres.Ind" /></anno>
+  </token>
+  <token id="t59" trans="eweliken">
+    <dipl id="t59_d1" trans="eweliken" utf="eweliken" />
+    <anno ascii="eweliken" checked="y" id="t59_m1" trans="eweliken" utf="eweliken">
+      <lemma tag="êwelĩke(n)" />
+    <lemma_wsd tag="êwelĩke(n)" /><lemma_simple tag="ewelike(n)" /><lemma_var tag="ewelike,eweliken" /><pos tag="AVD" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t60" trans="to">
+    <dipl id="t60_d1" trans="to" utf="to" />
+    <anno ascii="to" checked="y" id="t60_m1" trans="to" utf="to">
+      <lemma tag="tô" />
+    <lemma_wsd tag="tô¹" /><lemma_simple tag="to" /><lemma_var tag="to" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t61" trans="besittene">
+    <dipl id="t61_d1" trans="besittene" utf="besittene" />
+    <anno ascii="besittene" checked="y" id="t61_m1" trans="besittene" utf="besittene">
+      <lemma tag="besitten" />
+      <lemma_wsd tag="besitten" /><lemma_simple tag="besitten" /><lemma_var tag="besitten" /><pos tag="NA" /><pos_gen tag="VVINF" /><morph tag="Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t62" trans="der">
+    <dipl id="t62_d1" trans="der" utf="der" />
+    <anno ascii="der" checked="y" id="t62_m1" trans="der" utf="der">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Fem.Gen.Sg" /></anno>
+  </token>
+  <token id="t63" trans="ebbedissen">
+    <dipl id="t63_d1" trans="ebbedissen" utf="ebbedissen" />
+    <anno ascii="ebbedissen" checked="y" id="t63_m1" trans="ebbedissen" utf="ebbedissen">
+      <lemma tag="ebbedische" />
+      <lemma_wsd tag="ebbedische" /><lemma_simple tag="ebbedische" /><lemma_var tag="ebbedische" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Gen.Sg" /></anno>
+  </token>
+  <token id="t64" trans="vn{R_de}">
+    <dipl id="t64_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t64_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t65" trans="dem">
+    <dipl id="t65_d1" trans="dem" utf="dem" />
+    <anno ascii="dem" checked="y" id="t65_m1" trans="dem" utf="dem">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Masc-Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t66" trans="conuente">
+    <dipl id="t66_d1" trans="conuente" utf="conuente" />
+    <anno ascii="conuente" checked="y" id="t66_m1" trans="conuente" utf="conuente">
+      <lemma tag="konvent" />
+      <lemma_wsd tag="konvent¹" /><lemma_simple tag="konvent" /><lemma_var tag="konvent" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc-Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t67" trans="to">
+    <dipl id="t67_d1" trans="to" utf="to" />
+    <anno ascii="to" checked="y" id="t67_m1" trans="to" utf="to">
+      <lemma tag="tô" />
+    <lemma_wsd tag="tô¹" /><lemma_simple tag="to" /><lemma_var tag="to" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t68" trans="der">
+    <dipl id="t68_d1" trans="der" utf="der" />
+    <anno ascii="der" checked="y" id="t68_m1" trans="der" utf="der">
+      <lemma tag="dê/dê/dat" />
+    <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t69" trans="hymel§porten">
+    <dipl id="t69_d1" trans="hymel§porten" utf="hymelporten" />
+    <anno ascii="hymel" checked="y" id="t69_m1" trans="hymel§" utf="hymel">
+      <lemma tag="hemmel" />
+      <lemma_wsd tag="hemmel" /><lemma_simple tag="hemmel" /><lemma_var tag="hemmel" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Gen.Pl" /><posMWU span-id="0" tag="NA" /></anno>
+    <anno ascii="porten" checked="y" id="t69_m2" trans="porten" utf="porten">
+      <lemma tag="pōrt" />
+    <lemma_wsd tag="pōrt²" /><lemma_simple tag="port" /><lemma_var tag="port" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Dat.Sg" /><posMWU span-id="0" /></anno>
+  </token>
+  <token id="t70" trans="myd">
+    <dipl id="t70_d1" trans="myd" utf="myd" />
+    <anno ascii="myd" checked="y" id="t70_m1" trans="myd" utf="myd">
+      <lemma tag="mit" />
+      <lemma_wsd tag="mit" /><lemma_simple tag="mit" /><lemma_var tag="mit" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t71" trans="willen">
+    <dipl id="t71_d1" trans="willen" utf="willen" />
+    <anno ascii="willen" checked="y" id="t71_m1" trans="willen" utf="willen">
+      <lemma tag="wille" />
+    <lemma_wsd tag="wille" /><lemma_simple tag="wille" /><lemma_var tag="wille" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t72" trans="myns">
+    <dipl id="t72_d1" trans="myns" utf="myns" />
+    <anno ascii="myns" checked="y" id="t72_m1" trans="myns" utf="myns">
+      <lemma tag="mîn" />
+      <lemma_wsd tag="mîn²" /><lemma_simple tag="min" /><lemma_var tag="min" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Neut.Gen.Sg" /></anno>
+  </token>
+  <token id="t73" trans="wiues">
+    <dipl id="t73_d1" trans="wiues" utf="wiues" />
+    <anno ascii="wiues" checked="y" id="t73_m1" trans="wiues" utf="wiues">
+      <lemma tag="wîf" />
+      <lemma_wsd tag="wîf" /><lemma_simple tag="wif" /><lemma_var tag="wif" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Gen.Sg" /></anno>
+  </token>
+  <token id="t74" trans="stephanien">
+    <dipl id="t74_d1" trans="stephanien" utf="stephanien" />
+    <anno ascii="stephanien" checked="y" id="t74_m1" trans="stephanien" utf="stephanien">
+      <lemma tag="stephanien" />
+      <lemma_wsd tag="stephanien" /><lemma_simple tag="stephanien" /><lemma_var tag="stephanien" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Fem.Gen.Sg" /></anno>
+  </token>
+  <token id="t75" trans="vn{R_de}">
+    <dipl id="t75_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t75_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t76" trans="myr">
+    <dipl id="t76_d1" trans="myr" utf="myr" />
+    <anno ascii="myr" checked="y" id="t76_m1" trans="myr" utf="myr">
+      <lemma tag="mîn" />
+      <lemma_wsd tag="mîn²" /><lemma_simple tag="min" /><lemma_var tag="min" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t77" trans="zoͧyne">
+    <dipl id="t77_d1" trans="zoͧyne" utf="zoͧyne" />
+    <anno ascii="zouyne" checked="y" id="t77_m1" trans="zoͧyne" utf="zoͧyne">
+      <lemma tag="sȫne" />
+      <lemma_wsd tag="sȫne¹" /><lemma_simple tag="sone" /><lemma_var tag="sone" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t78" trans="iohans">
+    <dipl id="t78_d1" trans="iohans" utf="iohans" />
+    <anno ascii="iohans" checked="y" id="t78_m1" trans="iohans" utf="iohans">
+      <lemma tag="iohans" />
+      <lemma_wsd tag="iohans" /><lemma_simple tag="iohans" /><lemma_var tag="iohans" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Gen.Sg" /></anno>
+  </token>
+  <token id="t79" trans="vn{R_de}">
+    <dipl id="t79_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t79_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t80" trans="hermans">
+    <dipl id="t80_d1" trans="hermans" utf="hermans" />
+    <anno ascii="hermans" checked="y" id="t80_m1" trans="hermans" utf="hermans">
+      <lemma tag="hermans" />
+      <lemma_wsd tag="hermans" /><lemma_simple tag="hermans" /><lemma_var tag="hermans" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Gen.Sg" /></anno>
+  </token>
+  <token id="t81" trans="vn{R_de}">
+    <dipl id="t81_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t81_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t82" trans="al">
+    <dipl id="t82_d1" trans="al" utf="al" />
+    <anno ascii="al" checked="y" id="t82_m1" trans="al" utf="al">
+      <lemma tag="al" />
+      <lemma_wsd tag="al" /><lemma_simple tag="al" /><lemma_var tag="al" /><pos tag="DIA" /><pos_gen tag="DI" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t83" trans="myr">
+    <dipl id="t83_d1" trans="myr" utf="myr" />
+    <anno ascii="myr" checked="y" id="t83_m1" trans="myr" utf="myr">
+      <lemma tag="mîn" />
+      <lemma_wsd tag="mîn²" /><lemma_simple tag="min" /><lemma_var tag="min" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t84" trans="reychten">
+    <dipl id="t84_d1" trans="reychten" utf="reychten" />
+    <anno ascii="reychten" checked="y" id="t84_m1" trans="reychten" utf="reychten">
+      <lemma tag="recht" />
+      <lemma_wsd tag="recht²" /><lemma_simple tag="recht" /><lemma_var tag="recht" /><pos tag="ADJA" /><pos_gen tag="ADJ" /><morph tag="Pos.Masc.Gen.Pl.Sw" /></anno>
+  </token>
+  <token id="t85" trans="eruen">
+    <dipl id="t85_d1" trans="eruen" utf="eruen" />
+    <anno ascii="eruen" checked="y" id="t85_m1" trans="eruen" utf="eruen">
+      <lemma tag="erve" />
+      <lemma_wsd tag="erve¹" /><lemma_simple tag="erve" /><lemma_var tag="erve" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t86" trans="myd">
+    <dipl id="t86_d1" trans="myd" utf="myd" />
+    <anno ascii="myd" checked="y" id="t86_m1" trans="myd" utf="myd">
+      <lemma tag="mit" />
+    <lemma_wsd tag="mit" /><lemma_simple tag="mit" /><lemma_var tag="mit" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t87" trans="irme">
+    <dipl id="t87_d1" trans="irme" utf="irme" />
+    <anno ascii="irme" checked="y" id="t87_m1" trans="irme" utf="irme">
+      <lemma tag="sîn/ēr/sîn" />
+      <lemma_wsd tag="sîn⁴/ēr¹/sîn⁴" /><lemma_simple tag="sin/er/sin" /><lemma_var tag="sin/er/sin" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t88" trans="rade">
+    <dipl id="t88_d1" trans="rade" utf="rade" />
+    <anno ascii="rade" checked="y" id="t88_m1" trans="rade" utf="rade">
+      <lemma tag="rât" />
+    <lemma_wsd tag="rât¹" /><lemma_simple tag="rat" /><lemma_var tag="rat" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t89" trans="vn{R_de}">
+    <dipl id="t89_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t89_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t90" trans="vuͦlbort">
+    <dipl id="t90_d1" trans="vuͦlbort" utf="vuͦlbort" />
+    <anno ascii="vuolbort" checked="y" id="t90_m1" trans="vuͦlbort" utf="vuͦlbort">
+      <lemma tag="vulbōrt" />
+      <lemma_wsd tag="vulbōrt" /><lemma_simple tag="vulbort" /><lemma_var tag="vulbort" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="*.Dat.Sg" /></anno>
+  </token>
+  <token id="t91" trans="myd">
+    <dipl id="t91_d1" trans="myd" utf="myd" />
+    <anno ascii="myd" checked="y" id="t91_m1" trans="myd" utf="myd">
+      <lemma tag="mit" />
+      <lemma_wsd tag="mit" /><lemma_simple tag="mit" /><lemma_var tag="mit" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t92" trans="ir">
+    <dipl id="t92_d1" trans="ir" utf="ir" />
+    <anno ascii="ir" checked="y" id="t92_m1" trans="ir" utf="ir">
+      <lemma tag="sîn/ēr/sîn" />
+      <lemma_wsd tag="sîn⁴/ēr¹/sîn⁴" /><lemma_simple tag="sin/er/sin" /><lemma_var tag="sin/er/sin" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Fem.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t93" trans="wyscap">
+    <dipl id="t93_d1" trans="wyscap" utf="wyscap" />
+    <anno ascii="wyscap" checked="y" id="t93_m1" trans="wyscap" utf="wyscap">
+      <lemma tag="witschap" />
+      <lemma_wsd tag="witschap" /><lemma_simple tag="witschap" /><lemma_var tag="witschap" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t94" trans="vn{R_de}">
+    <dipl id="t94_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t94_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t95" trans="myd">
+    <dipl id="t95_d1" trans="myd" utf="myd" />
+    <anno ascii="myd" checked="y" id="t95_m1" trans="myd" utf="myd">
+      <lemma tag="mit" />
+    <lemma_wsd tag="mit" /><lemma_simple tag="mit" /><lemma_var tag="mit" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t96" trans="irme">
+    <dipl id="t96_d1" trans="irme" utf="irme" />
+    <anno ascii="irme" checked="y" id="t96_m1" trans="irme" utf="irme">
+      <lemma tag="sîn/ēr/sîn" />
+      <lemma_wsd tag="sîn⁴/ēr¹/sîn⁴" /><lemma_simple tag="sin/er/sin" /><lemma_var tag="sin/er/sin" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t97" trans="willen">
+    <dipl id="t97_d1" trans="willen" utf="willen" />
+    <anno ascii="willen" checked="y" id="t97_m1" trans="willen" utf="willen">
+      <lemma tag="wille" />
+      <lemma_wsd tag="wille" /><lemma_simple tag="wille" /><lemma_var tag="wille" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t98" trans="vortmer">
+    <dipl id="t98_d1" trans="vortmer" utf="vortmer" />
+    <anno ascii="vortmer" checked="y" id="t98_m1" trans="vortmer" utf="vortmer">
+      <lemma tag="vōrtmêr" />
+    <lemma_wsd tag="vōrtmêr" /><lemma_simple tag="vortmer" /><lemma_var tag="vortmer" /><pos tag="AVKO" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t99" trans="myd">
+    <dipl id="t99_d1" trans="myd" utf="myd" />
+    <anno ascii="myd" checked="y" id="t99_m1" trans="myd" utf="myd">
+      <lemma tag="mit" />
+      <lemma_wsd tag="mit" /><lemma_simple tag="mit" /><lemma_var tag="mit" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t100" trans="willen">
+    <dipl id="t100_d1" trans="willen" utf="willen" />
+    <anno ascii="willen" checked="y" id="t100_m1" trans="willen" utf="willen">
+      <lemma tag="wille" />
+    <lemma_wsd tag="wille" /><lemma_simple tag="wille" /><lemma_var tag="wille" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t101" trans="myr">
+    <dipl id="t101_d1" trans="myr" utf="myr" />
+    <anno ascii="myr" checked="y" id="t101_m1" trans="myr" utf="myr">
+      <lemma tag="mîn" />
+      <lemma_wsd tag="mîn²" /><lemma_simple tag="min" /><lemma_var tag="min" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t102" trans="zoyne">
+    <dipl id="t102_d1" trans="zoyne" utf="zoyne" />
+    <anno ascii="zoyne" checked="y" id="t102_m1" trans="zoyne" utf="zoyne">
+      <lemma tag="sȫne" />
+      <lemma_wsd tag="sȫne¹" /><lemma_simple tag="sone" /><lemma_var tag="sone" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t103" trans="vorghenomd">
+    <dipl id="t103_d1" trans="vorghenomd" utf="vorghenomd" />
+    <anno ascii="vorghenomd" checked="y" id="t103_m1" trans="vorghenomd" utf="vorghenomd">
+      <lemma tag="vȫrbenö̂met" />
+      <lemma_wsd tag="vȫrbenö̂met" /><lemma_simple tag="vorbenomet" /><lemma_var tag="vorbenomet" /><pos tag="ADJN" /><pos_gen tag="VVPP" /><morph tag="Pos.Masc.Gen.Pl.St" /></anno>
+  </token>
+  <token id="t104" trans="vn{R_de}">
+    <dipl id="t104_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t104_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t105" trans="al">
+    <dipl id="t105_d1" trans="al" utf="al" />
+    <anno ascii="al" checked="y" id="t105_m1" trans="al" utf="al">
+      <lemma tag="al" />
+      <lemma_wsd tag="al" /><lemma_simple tag="al" /><lemma_var tag="al" /><pos tag="DIA" /><pos_gen tag="DI" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t106" trans="myr">
+    <dipl id="t106_d1" trans="myr" utf="myr" />
+    <anno ascii="myr" checked="y" id="t106_m1" trans="myr" utf="myr">
+      <lemma tag="mîn" />
+      <lemma_wsd tag="mîn²" /><lemma_simple tag="min" /><lemma_var tag="min" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Gen.Pl" /></anno>
+  </token>
+  <token id="t107" trans="reychten">
+    <dipl id="t107_d1" trans="reychten" utf="reychten" />
+    <anno ascii="reychten" checked="y" id="t107_m1" trans="reychten" utf="reychten">
+      <lemma tag="recht" />
+      <lemma_wsd tag="recht²" /><lemma_simple tag="recht" /><lemma_var tag="recht" /><pos tag="ADJA" /><pos_gen tag="ADJ" /><morph tag="Pos.Masc.Gen.Pl.Sw" /></anno>
+  </token>
+  <token id="t108" trans="eruen">
+    <dipl id="t108_d1" trans="eruen" utf="eruen" />
+    <anno ascii="eruen" checked="y" id="t108_m1" trans="eruen" utf="eruen">
+      <lemma tag="erve" />
+      <lemma_wsd tag="erve¹" /><lemma_simple tag="erve" /><lemma_var tag="erve" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Gen.Pl" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t109" trans="so">
+    <dipl id="t109_d1" trans="so" utf="so" />
+    <anno ascii="so" checked="y" id="t109_m1" trans="so" utf="so">
+      <lemma tag="sô" />
+    <lemma_wsd tag="sô²" /><lemma_simple tag="so" /><lemma_var tag="so" /><pos tag="AVKO" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t110" trans="gheue">
+    <dipl id="t110_d1" trans="gheue" utf="gheue" />
+    <anno ascii="gheue" checked="y" id="t110_m1" trans="gheue" utf="gheue">
+      <lemma tag="gēven" />
+      <lemma_wsd tag="gēven" /><lemma_simple tag="geven" /><lemma_var tag="geven" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="St.1.Sg.Pres.Ind" /></anno>
+  </token>
+  <token id="t111" trans="ich">
+    <dipl id="t111_d1" trans="ich" utf="ich" />
+    <anno ascii="ich" checked="y" id="t111_m1" trans="ich" utf="ich">
+      <lemma tag="ik" />
+      <lemma_wsd tag="ik" /><lemma_simple tag="ik" /><lemma_var tag="ik" /><pos tag="PPER" /><pos_gen tag="PPER" /><morph tag="1.Sg._.Nom" /></anno>
+  </token>
+  <token id="t112" trans="vmme">
+    <dipl id="t112_d1" trans="vmme" utf="vmme" />
+    <anno ascii="vmme" checked="y" id="t112_m1" trans="vmme" utf="vmme">
+      <lemma tag="ümme" />
+      <lemma_wsd tag="ümme³" /><lemma_simple tag="umme" /><lemma_var tag="umme" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t113" trans="godes">
+    <dipl id="t113_d1" trans="godes" utf="godes" />
+    <anno ascii="godes" checked="y" id="t113_m1" trans="godes" utf="godes">
+      <lemma tag="got" />
+      <lemma_wsd tag="got¹" /><lemma_simple tag="got" /><lemma_var tag="got" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Gen.Sg" /></anno>
+  </token>
+  <token id="t114" trans="willen">
+    <dipl id="t114_d1" trans="willen" utf="willen" />
+    <anno ascii="willen" checked="y" id="t114_m1" trans="willen" utf="willen">
+      <lemma tag="wille" />
+    <lemma_wsd tag="wille" /><lemma_simple tag="wille" /><lemma_var tag="wille" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t115" trans="der">
+    <dipl id="t115_d1" trans="der" utf="der" />
+    <anno ascii="der" checked="y" id="t115_m1" trans="der" utf="der">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t116" trans="ebbedissen">
+    <dipl id="t116_d1" trans="ebbedissen" utf="ebbedissen" />
+    <anno ascii="ebbedissen" checked="y" id="t116_m1" trans="ebbedissen" utf="ebbedissen">
+      <lemma tag="ebbedische" />
+      <lemma_wsd tag="ebbedische" /><lemma_simple tag="ebbedische" /><lemma_var tag="ebbedische" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t117" trans="vn{R_de}">
+    <dipl id="t117_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t117_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t118" trans="irme">
+    <dipl id="t118_d1" trans="irme" utf="irme" />
+    <anno ascii="irme" checked="y" id="t118_m1" trans="irme" utf="irme">
+      <lemma tag="sîn/ēr/sîn" />
+      <lemma_wsd tag="sîn⁴/ēr¹/sîn⁴" /><lemma_simple tag="sin/er/sin" /><lemma_var tag="sin/er/sin" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t119" trans="conuente">
+    <dipl id="t119_d1" trans="conuente" utf="conuente" />
+    <anno ascii="conuente" checked="y" id="t119_m1" trans="conuente" utf="conuente">
+      <lemma tag="konvent" />
+      <lemma_wsd tag="konvent¹" /><lemma_simple tag="konvent" /><lemma_var tag="konvent" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t120" trans="den">
+    <dipl id="t120_d1" trans="den" utf="den" />
+    <anno ascii="den" checked="y" id="t120_m1" trans="den" utf="den">
+      <lemma tag="dê/dê/dat" />
+    <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Masc.Akk.Sg" /></anno>
+  </token>
+  <token id="t121" trans="eͤghendoͤym">
+    <dipl id="t121_d1" trans="eͤghendoͤym" utf="eͤghendoͤym" />
+    <anno ascii="eeghendoeym" checked="y" id="t121_m1" trans="eͤghendoͤym" utf="eͤghendoͤym">
+      <lemma tag="êⁱgendôm" />
+      <lemma_wsd tag="êⁱgendôm" /><lemma_simple tag="eigendom" /><lemma_var tag="eigendom" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Akk.Sg" /></anno>
+  </token>
+  <token id="t122" trans="des">
+    <dipl id="t122_d1" trans="des" utf="des" />
+    <anno ascii="des" checked="y" id="t122_m1" trans="des" utf="des">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Neut.Gen.Sg" /></anno>
+  </token>
+  <token id="t123" trans="vorbenomden">
+    <dipl id="t123_d1" trans="vorbenomden" utf="vorbenomden" />
+    <anno ascii="vorbenomden" checked="y" id="t123_m1" trans="vorbenomden" utf="vorbenomden">
+      <lemma tag="vȫrbenö̂met" />
+      <lemma_wsd tag="vȫrbenö̂met" /><lemma_simple tag="vorbenomet" /><lemma_var tag="vorbenomet" /><pos tag="ADJA" /><pos_gen tag="VVPP" /><morph tag="Pos.Neut.Gen.Sg.Sw" /></anno>
+  </token>
+  <token id="t124" trans="gudes">
+    <dipl id="t124_d1" trans="gudes" utf="gudes" />
+    <anno ascii="gudes" checked="y" id="t124_m1" trans="gudes" utf="gudes">
+      <lemma tag="gôt" />
+      <lemma_wsd tag="gôt³" /><lemma_simple tag="got" /><lemma_var tag="got" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Gen.Sg" /></anno>
+  </token>
+  <token id="t125" trans="ewe#liken">
+    <dipl id="t125_d1" trans="ewe#" utf="ewe" />
+    <dipl id="t125_d2" trans="liken" utf="liken" />
+    <anno ascii="eweliken" checked="y" id="t125_m1" trans="ewe#liken" utf="eweliken">
+      <lemma tag="êwelĩke(n)" />
+      <lemma_wsd tag="êwelĩke(n)" /><lemma_simple tag="ewelike(n)" /><lemma_var tag="ewelike,eweliken" /><pos tag="AVD" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t126" trans="vn{R_de}">
+    <dipl id="t126_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t126_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t127" trans="vmmermer">
+    <dipl id="t127_d1" trans="vmmermer" utf="vmmermer" />
+    <anno ascii="vmmermer" checked="y" id="t127_m1" trans="vmmermer" utf="vmmermer">
+      <lemma tag="iem(m)ermêr(e)" />
+    <lemma_wsd tag="iem(m)ermêr(e)" /><lemma_simple tag="iem(m)ermer(e)" /><lemma_var tag="iemermer,iemermere,iemmermer,iemmermere" /><pos tag="AVD" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t128" trans="to">
+    <dipl id="t128_d1" trans="to" utf="to" />
+    <anno ascii="to" checked="y" id="t128_m1" trans="to" utf="to">
+      <lemma tag="tô" />
+    <lemma_wsd tag="tô¹" /><lemma_simple tag="to" /><lemma_var tag="to" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t129" trans="behaldene">
+    <dipl id="t129_d1" trans="behaldene" utf="behaldene" />
+    <anno ascii="behaldene" checked="y" id="t129_m1" trans="behaldene" utf="behaldene">
+      <lemma tag="behōlden" />
+      <lemma_wsd tag="behōlden" /><lemma_simple tag="beholden" /><lemma_var tag="beholden" /><pos tag="NA" /><pos_gen tag="VVINF" /><morph tag="Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t130" trans="vn{R_de}">
+    <dipl id="t130_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t130_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t131" trans="vmme">
+    <dipl id="t131_d1" trans="vmme" utf="vmme" />
+    <anno ascii="vmme" checked="y" id="t131_m1" trans="vmme" utf="vmme">
+      <lemma tag="ümme" />
+      <lemma_wsd tag="ümme³" /><lemma_simple tag="umme" /><lemma_var tag="umme" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t132" trans="godes">
+    <dipl id="t132_d1" trans="godes" utf="godes" />
+    <anno ascii="godes" checked="y" id="t132_m1" trans="godes" utf="godes">
+      <lemma tag="got" />
+    <lemma_wsd tag="got¹" /><lemma_simple tag="got" /><lemma_var tag="got" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Gen.Sg" /></anno>
+  </token>
+  <token id="t133" trans="willen">
+    <dipl id="t133_d1" trans="willen" utf="willen" />
+    <anno ascii="willen" checked="y" id="t133_m1" trans="willen" utf="willen">
+      <lemma tag="wille" />
+    <lemma_wsd tag="wille" /><lemma_simple tag="wille" /><lemma_var tag="wille" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t134" trans="al">
+    <dipl id="t134_d1" trans="al" utf="al" />
+    <anno ascii="al" checked="y" id="t134_m1" trans="al" utf="al">
+      <lemma tag="al" />
+      <lemma_wsd tag="al" /><lemma_simple tag="al" /><lemma_var tag="al" /><pos tag="DIA" /><pos_gen tag="DI" /><morph tag="Neut.Akk.Sg" /></anno>
+  </token>
+  <token id="t135" trans="dat">
+    <dipl id="t135_d1" trans="dat" utf="dat" />
+    <anno ascii="dat" checked="y" id="t135_m1" trans="dat" utf="dat">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Neut.Akk.Sg" /></anno>
+  </token>
+  <token id="t136" trans="reyght">
+    <dipl id="t136_d1" trans="reyght" utf="reyght" />
+    <anno ascii="reyght" checked="y" id="t136_m1" trans="reyght" utf="reyght">
+      <lemma tag="recht" />
+      <lemma_wsd tag="recht¹" /><lemma_simple tag="recht" /><lemma_var tag="recht" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Akk.Sg" /><bound_sent tag="Satzteil_I" /></anno>
+  </token>
+  <token id="t137" trans="dat">
+    <dipl id="t137_d1" trans="dat" utf="dat" />
+    <anno ascii="dat" checked="y" id="t137_m1" trans="dat" utf="dat">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DPRELS" /><pos_gen tag="DD" /><morph tag="Neut.Akk.Sg" /></anno>
+  </token>
+  <token id="t138" trans="ich">
+    <dipl id="t138_d1" trans="ich" utf="ich" />
+    <anno ascii="ich" checked="y" id="t138_m1" trans="ich" utf="ich">
+      <lemma tag="ik" />
+      <lemma_wsd tag="ik" /><lemma_simple tag="ik" /><lemma_var tag="ik" /><pos tag="PPER" /><pos_gen tag="PPER" /><morph tag="1.Sg._.Nom" /></anno>
+  </token>
+  <token id="t139" trans="vn{R_de}">
+    <dipl id="t139_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t139_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t140" trans="myn">
+    <dipl id="t140_d1" trans="myn" utf="myn" />
+    <anno ascii="myn" checked="y" id="t140_m1" trans="myn" utf="myn">
+      <lemma tag="mîn" />
+      <comment tag="Form ungleich Funktion" />
+    <lemma_wsd tag="mîn²" /><lemma_simple tag="min" /><lemma_var tag="min" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Nom.Pl" /></anno>
+  </token>
+  <token id="t141" trans="eruen">
+    <dipl id="t141_d1" trans="eruen" utf="eruen" />
+    <anno ascii="eruen" checked="y" id="t141_m1" trans="eruen" utf="eruen">
+      <lemma tag="erve" />
+      <lemma_wsd tag="erve¹" /><lemma_simple tag="erve" /><lemma_var tag="erve" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Nom.Pl" /></anno>
+  </token>
+  <token id="t142" trans="an">
+    <dipl id="t142_d1" trans="an" utf="an" />
+    <anno ascii="an" checked="y" id="t142_m1" trans="an" utf="an">
+      <lemma tag="an" />
+      <lemma_wsd tag="an" /><lemma_simple tag="an" /><lemma_var tag="an" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t143" trans="dem">
+    <dipl id="t143_d1" trans="dem" utf="dem" />
+    <anno ascii="dem" checked="y" id="t143_m1" trans="dem" utf="dem">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t144" trans="gude">
+    <dipl id="t144_d1" trans="gude" utf="gude" />
+    <anno ascii="gude" checked="y" id="t144_m1" trans="gude" utf="gude">
+      <lemma tag="gôt" />
+      <lemma_wsd tag="gôt³" /><lemma_simple tag="got" /><lemma_var tag="got" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t145" trans="hadden">
+    <dipl id="t145_d1" trans="hadden" utf="hadden" />
+    <anno ascii="hadden" checked="y" id="t145_m1" trans="hadden" utf="hadden">
+      <lemma tag="hebben" />
+      <lemma_wsd tag="hebben" /><lemma_simple tag="hebben" /><lemma_var tag="hebben" /><pos tag="VAFIN" /><pos_gen tag="VA" /><morph tag="Sw.1.Pl.Past.Ind" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t146" trans="dat">
+    <dipl id="t146_d1" trans="dat" utf="dat" />
+    <anno ascii="dat" checked="y" id="t146_m1" trans="dat" utf="dat">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DPDS" /><pos_gen tag="DD" /><morph tag="Neut.Akk.Sg" /></anno>
+  </token>
+  <token id="t147" trans="dreghe">
+    <dipl id="t147_d1" trans="dreghe" utf="dreghe" />
+    <anno ascii="dreghe" checked="y" id="t147_m1" trans="dreghe" utf="dreghe">
+      <lemma tag="updrāgen" />
+      <lemma_wsd tag="updrāgen" /><lemma_simple tag="updragen" /><lemma_var tag="updragen" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="St.1.Pl.Past.*" /></anno>
+  </token>
+  <token id="t148" trans="wy">
+    <dipl id="t148_d1" trans="wy" utf="wy" />
+    <anno ascii="wy" checked="y" id="t148_m1" trans="wy" utf="wy">
+      <lemma tag="wî" />
+      <lemma_wsd tag="wî¹" /><lemma_simple tag="wi" /><lemma_var tag="wi" /><pos tag="PPER" /><pos_gen tag="PPER" /><morph tag="1.Pl._.Nom" /></anno>
+  </token>
+  <token id="t149" trans="oyp">
+    <dipl id="t149_d1" trans="oyp" utf="oyp" />
+    <anno ascii="oyp" checked="y" id="t149_m1" trans="oyp" utf="oyp">
+      <lemma tag="&lt;none&gt;" />
+    <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="PTKVZ" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t150" trans="der">
+    <dipl id="t150_d1" trans="der" utf="der" />
+    <anno ascii="der" checked="y" id="t150_m1" trans="der" utf="der">
+      <lemma tag="dê/dê/dat" />
+    <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t151" trans="ebbedissen">
+    <dipl id="t151_d1" trans="ebbedissen" utf="ebbedissen" />
+    <anno ascii="ebbedissen" checked="y" id="t151_m1" trans="ebbedissen" utf="ebbedissen">
+      <lemma tag="ebbedische" />
+    <lemma_wsd tag="ebbedische" /><lemma_simple tag="ebbedische" /><lemma_var tag="ebbedische" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t152" trans="vn{R_de}">
+    <dipl id="t152_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t152_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t153" trans="irme">
+    <dipl id="t153_d1" trans="irme" utf="irme" />
+    <anno ascii="irme" checked="y" id="t153_m1" trans="irme" utf="irme">
+      <lemma tag="sîn/ēr/sîn" />
+      <lemma_wsd tag="sîn⁴/ēr¹/sîn⁴" /><lemma_simple tag="sin/er/sin" /><lemma_var tag="sin/er/sin" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t154" trans="styghte">
+    <dipl id="t154_d1" trans="styghte" utf="styghte" />
+    <anno ascii="styghte" checked="y" id="t154_m1" trans="styghte" utf="styghte">
+      <lemma tag="sticht(e)" />
+      <lemma_wsd tag="sticht(e)" /><lemma_simple tag="sticht(e)" /><lemma_var tag="sticht,stichte" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat.Sg" /><bound_sent tag="Satzteil_F" /></anno>
+  </token>
+  <token id="t155" trans="vn{R_de}">
+    <dipl id="t155_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t155_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t156" trans="vor#tiget">
+    <dipl id="t156_d1" trans="vor#" utf="vor" />
+    <dipl id="t156_d2" trans="tiget" utf="tiget" />
+    <anno ascii="vortiget" checked="y" id="t156_m1" trans="vor#tiget" utf="vortiget">
+      <lemma tag="vortîen" />
+      <lemma_wsd tag="vortîen" /><lemma_simple tag="vortien" /><lemma_var tag="vortien" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="St.1.Pl.Pres.Ind" /></anno>
+  </token>
+  <token id="t157" trans="des">
+    <dipl id="t157_d1" trans="des" utf="des" />
+    <anno ascii="des" checked="y" id="t157_m1" trans="des" utf="des">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DPDS" /><pos_gen tag="DD" /><morph tag="Neut.Gen.Sg" /></anno>
+  </token>
+  <token id="t158" trans="Jn">
+    <dipl id="t158_d1" trans="Jn" utf="Jn" />
+    <anno ascii="Jn" checked="y" id="t158_m1" trans="Jn" utf="Jn">
+      <lemma tag="in" />
+      <lemma_wsd tag="in²" /><lemma_simple tag="in" /><lemma_var tag="in" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t159" trans="dir">
+    <dipl id="t159_d1" trans="dir" utf="dir" />
+    <anno ascii="dir" checked="y" id="t159_m1" trans="dir" utf="dir">
+      <lemma tag="desse/desse/dit" />
+      <lemma_wsd tag="desse/desse/dit" /><lemma_simple tag="desse/desse/dit" /><lemma_var tag="desse/desse/dit" /><pos tag="DDA" /><pos_gen tag="DD" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t160" trans="gyghe#werdighen">
+    <dipl id="t160_d1" trans="gyghe#" utf="gyghe" />
+    <dipl id="t160_d2" trans="werdighen" utf="werdighen" />
+    <anno ascii="gyghewerdighen" checked="y" id="t160_m1" trans="gyghe#werdighen" utf="gyghewerdighen">
+      <lemma tag="gēgenwārdich" />
+      <lemma_wsd tag="gēgenwārdich" /><lemma_simple tag="gegenwardich" /><lemma_var tag="gegenwardich" /><pos tag="ADJA" /><pos_gen tag="ADJ" /><morph tag="Pos.Fem.Dat.Sg.Sw" /></anno>
+  </token>
+  <token id="t161" trans="scryft">
+    <dipl id="t161_d1" trans="scryft" utf="scryft" />
+    <anno ascii="scryft" checked="y" id="t161_m1" trans="scryft" utf="scryft">
+      <lemma tag="schrift" />
+      <lemma_wsd tag="schrift" /><lemma_simple tag="schrift" /><lemma_var tag="schrift" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Dat.Sg" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t162" trans="vn{R_de}">
+    <dipl id="t162_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t162_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t163" trans="to">
+    <dipl id="t163_d1" trans="to" utf="to" />
+    <anno ascii="to" checked="y" id="t163_m1" trans="to" utf="to">
+      <lemma tag="tô" />
+    <lemma_wsd tag="tô¹" /><lemma_simple tag="to" /><lemma_var tag="to" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t164" trans="eynem">
+    <dipl id="t164_d1" trans="eynem" utf="eynem" />
+    <anno ascii="eynem" checked="y" id="t164_m1" trans="eynem" utf="eynem">
+      <lemma tag="êⁱn/êⁱne/êⁱn" />
+      <lemma_wsd tag="êⁱn¹/êⁱne¹/êⁱn¹" /><lemma_simple tag="ein/eine/ein" /><lemma_var tag="ein/eine/ein" /><pos tag="DIARTA" /><pos_gen tag="DI" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t165" trans="tughe">
+    <dipl id="t165_d1" trans="tughe" utf="tughe" />
+    <anno ascii="tughe" checked="y" id="t165_m1" trans="tughe" utf="tughe">
+      <lemma tag="tü̂ge" />
+      <lemma_wsd tag="tü̂ge¹" /><lemma_simple tag="tuge" /><lemma_var tag="tuge" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Dat.Sg" /></anno>
+  </token>
+  <token id="t166" trans="disser">
+    <dipl id="t166_d1" trans="disser" utf="disser" />
+    <anno ascii="disser" checked="y" id="t166_m1" trans="disser" utf="disser">
+      <lemma tag="desse/desse/dit" />
+      <lemma_wsd tag="desse/desse/dit" /><lemma_simple tag="desse/desse/dit" /><lemma_var tag="desse/desse/dit" /><pos tag="DDA" /><pos_gen tag="DD" /><morph tag="Neut.Gen.Pl" /></anno>
+  </token>
+  <token id="t167" trans="dynk">
+    <dipl id="t167_d1" trans="dynk" utf="dynk" />
+    <anno ascii="dynk" checked="y" id="t167_m1" trans="dynk" utf="dynk">
+      <lemma tag="dinc" />
+      <lemma_wsd tag="dinc" /><lemma_simple tag="dinc" /><lemma_var tag="dinc" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Gen.Pl" /></anno>
+  </token>
+  <token id="t168" trans="so">
+    <dipl id="t168_d1" trans="so" utf="so" />
+    <anno ascii="so" checked="y" id="t168_m1" trans="so" utf="so">
+      <lemma tag="sô" />
+    <lemma_wsd tag="sô²" /><lemma_simple tag="so" /><lemma_var tag="so" /><pos tag="AVKO" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t169" trans="is">
+    <dipl id="t169_d1" trans="is" utf="is" />
+    <anno ascii="is" checked="y" id="t169_m1" trans="is" utf="is">
+      <lemma tag="wēsen" />
+      <lemma_wsd tag="wēsen²" /><lemma_simple tag="wesen" /><lemma_var tag="wesen" /><pos tag="VAFIN" /><pos_gen tag="VA" /><morph tag="Irr.3.Sg.Pres.Ind" /></anno>
+  </token>
+  <token id="t170" trans="myn">
+    <dipl id="t170_d1" trans="myn" utf="myn" />
+    <anno ascii="myn" checked="y" id="t170_m1" trans="myn" utf="myn">
+      <lemma tag="mîn" />
+      <lemma_wsd tag="mîn²" /><lemma_simple tag="min" /><lemma_var tag="min" /><pos tag="DPOSA" /><pos_gen tag="DPOS" /><morph tag="Neut.Nom.Sg" /></anno>
+  </token>
+  <token id="t171" trans="zighel">
+    <dipl id="t171_d1" trans="zighel" utf="zighel" />
+    <anno ascii="zighel" checked="y" id="t171_m1" trans="zighel" utf="zighel">
+      <lemma tag="sēgel" />
+      <lemma_wsd tag="sēgel²" /><lemma_simple tag="segel" /><lemma_var tag="segel" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Nom.Sg" /></anno>
+  </token>
+  <token id="t172" trans="vn{R_de}">
+    <dipl id="t172_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t172_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t173" trans="der">
+    <dipl id="t173_d1" trans="der" utf="der" />
+    <anno ascii="der" checked="y" id="t173_m1" trans="der" utf="der">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Masc-Fem.Gen.Sg" /></anno>
+  </token>
+  <token id="t174" trans="stades">
+    <dipl id="t174_d1" trans="stades" utf="stades" />
+    <anno ascii="stades" checked="y" id="t174_m1" trans="stades" utf="stades">
+      <lemma tag="stat" />
+      <lemma_wsd tag="stat⁴" /><lemma_simple tag="stat" /><lemma_var tag="stat" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc-Fem.Gen.Sg" /></anno>
+  </token>
+  <token id="t175" trans="zighel">
+    <dipl id="t175_d1" trans="zighel" utf="zighel" />
+    <anno ascii="zighel" checked="y" id="t175_m1" trans="zighel" utf="zighel">
+      <lemma tag="sēgel" />
+      <lemma_wsd tag="sēgel²" /><lemma_simple tag="segel" /><lemma_var tag="segel" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Neut.Nom.Sg" /></anno>
+  </token>
+  <token id="t176" trans="van">
+    <dipl id="t176_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t176_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t177" trans="werle">
+    <dipl id="t177_d1" trans="werle" utf="werle" />
+    <anno ascii="werle" checked="y" id="t177_m1" trans="werle" utf="werle">
+      <lemma tag="werle" />
+      <lemma_wsd tag="werle" /><lemma_simple tag="werle" /><lemma_var tag="werle" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat.Sg" /></anno>
+  </token>
+  <token id="t178" trans="to">
+    <dipl id="t178_d1" trans="to" utf="to" />
+    <anno ascii="to" checked="y" id="t178_m1" trans="to" utf="to">
+      <lemma tag="tô" />
+    <lemma_wsd tag="tô¹" /><lemma_simple tag="to" /><lemma_var tag="to" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t179" trans="eyner">
+    <dipl id="t179_d1" trans="eyner" utf="eyner" />
+    <anno ascii="eyner" checked="y" id="t179_m1" trans="eyner" utf="eyner">
+      <lemma tag="êⁱn/êⁱne/êⁱn" />
+      <lemma_wsd tag="êⁱn¹/êⁱne¹/êⁱn¹" /><lemma_simple tag="ein/eine/ein" /><lemma_var tag="ein/eine/ein" /><pos tag="DIARTA" /><pos_gen tag="DI" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t180" trans="merer">
+    <dipl id="t180_d1" trans="merer" utf="merer" />
+    <anno ascii="merer" checked="y" id="t180_m1" trans="merer" utf="merer">
+      <lemma tag="vēle" />
+      <lemma_wsd tag="vēle¹" /><lemma_simple tag="vele" /><lemma_var tag="vele" /><pos tag="DIA" /><pos_gen tag="DI" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t181" trans="zykerygheyt">
+    <dipl id="t181_d1" trans="zykerygheyt" utf="zykerygheyt" />
+    <anno ascii="zykerygheyt" checked="y" id="t181_m1" trans="zykerygheyt" utf="zykerygheyt">
+      <lemma tag="sēkerhêⁱt" />
+      <lemma_wsd tag="sēkerhêⁱt" /><lemma_simple tag="sekerheit" /><lemma_var tag="sekerheit" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t182" trans="an">
+    <dipl id="t182_d1" trans="an" utf="an" />
+    <anno ascii="an" checked="y" id="t182_m1" trans="an" utf="an">
+      <lemma tag="an" />
+    <lemma_wsd tag="an" /><lemma_simple tag="an" /><lemma_var tag="an" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Akk" /></anno>
+  </token>
+  <token id="t183" trans="dissen">
+    <dipl id="t183_d1" trans="dissen" utf="dissen" />
+    <anno ascii="dissen" checked="y" id="t183_m1" trans="dissen" utf="dissen">
+      <lemma tag="desse/desse/dit" />
+      <lemma_wsd tag="desse/desse/dit" /><lemma_simple tag="desse/desse/dit" /><lemma_var tag="desse/desse/dit" /><pos tag="DDA" /><pos_gen tag="DD" /><morph tag="Masc.Akk.Sg" /></anno>
+  </token>
+  <token id="t184" trans="breyff">
+    <dipl id="t184_d1" trans="breyff" utf="breyff" />
+    <anno ascii="breyff" checked="y" id="t184_m1" trans="breyff" utf="breyff">
+      <lemma tag="brêf" />
+    <lemma_wsd tag="brêf" /><lemma_simple tag="bref" /><lemma_var tag="bref" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Akk.Sg" /></anno>
+  </token>
+  <token id="t185" trans="ghehangen">
+    <dipl id="t185_d1" trans="ghehangen" utf="ghehangen" />
+    <anno ascii="ghehangen" checked="y" id="t185_m1" trans="ghehangen" utf="ghehangen">
+      <lemma tag="hengen" />
+      <lemma_wsd tag="hengen" /><lemma_simple tag="hengen" /><lemma_var tag="hengen" /><pos tag="ADJD" /><pos_gen tag="VVPP" /><morph tag="Pos" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t186" trans="hir">
+    <dipl id="t186_d1" trans="hir" utf="hir" />
+    <anno ascii="hir" checked="y" id="t186_m1" trans="hir" utf="hir">
+      <lemma tag="hîr" />
+    <lemma_wsd tag="hîr" /><lemma_simple tag="hir" /><lemma_var tag="hir" /><pos tag="AVD" /><pos_gen tag="AVD" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t187" trans="was">
+    <dipl id="t187_d1" trans="was" utf="was" />
+    <anno ascii="was" checked="y" id="t187_m1" trans="was" utf="was">
+      <lemma tag="wēsen" />
+    <lemma_wsd tag="wēsen²" /><lemma_simple tag="wesen" /><lemma_var tag="wesen" /><pos tag="VVFIN" /><pos_gen tag="VV" /><morph tag="Irr.3.Sg.Past.Ind" /></anno>
+  </token>
+  <token id="t188" trans="oyuer">
+    <dipl id="t188_d1" trans="oyuer" utf="oyuer" />
+    <anno ascii="oyuer" checked="y" id="t188_m1" trans="oyuer" utf="oyuer">
+      <lemma tag="ȫver" />
+      <lemma_wsd tag="ȫver¹" /><lemma_simple tag="over" /><lemma_var tag="over" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t189" trans="vn{R_de}">
+    <dipl id="t189_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t189_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t190" trans="an">
+    <dipl id="t190_d1" trans="an" utf="an" />
+    <anno ascii="an" checked="y" id="t190_m1" trans="an" utf="an">
+      <lemma tag="an" />
+      <lemma_wsd tag="an" /><lemma_simple tag="an" /><lemma_var tag="an" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t191" trans="her">
+    <dipl id="t191_d1" trans="her" utf="her" />
+    <anno ascii="her" checked="y" id="t191_m1" trans="her" utf="her">
+      <lemma tag="hêre" />
+    <lemma_wsd tag="hêre⁴" /><lemma_simple tag="here" /><lemma_var tag="here" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t192" trans="herman">
+    <dipl id="t192_d1" trans="herman" utf="herman" />
+    <anno ascii="herman" checked="y" id="t192_m1" trans="herman" utf="herman">
+      <lemma tag="herman" />
+      <lemma_wsd tag="herman" /><lemma_simple tag="herman" /><lemma_var tag="herman" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t193" trans="van">
+    <dipl id="t193_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t193_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t194" trans="Werle">
+    <dipl id="t194_d1" trans="Werle" utf="Werle" />
+    <anno ascii="Werle" checked="y" id="t194_m1" trans="Werle" utf="Werle">
+      <lemma tag="werle" />
+      <lemma_wsd tag="werle" /><lemma_simple tag="werle" /><lemma_var tag="werle" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat.Sg" /></anno>
+  </token>
+  <token id="t195" trans="ridder">
+    <dipl id="t195_d1" trans="ridder" utf="ridder" />
+    <anno ascii="ridder" checked="y" id="t195_m1" trans="ridder" utf="ridder">
+      <lemma tag="ridder" />
+      <lemma_wsd tag="ridder¹" /><lemma_simple tag="ridder" /><lemma_var tag="ridder" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t196" trans="hinrich">
+    <dipl id="t196_d1" trans="hinrich" utf="hinrich" />
+    <anno ascii="hinrich" checked="y" id="t196_m1" trans="hinrich" utf="hinrich">
+      <lemma tag="hinrich" />
+      <lemma_wsd tag="hinrich" /><lemma_simple tag="hinrich" /><lemma_var tag="hinrich" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t197" trans="van">
+    <dipl id="t197_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t197_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t198" trans="berdinc">
+    <dipl id="t198_d1" trans="berdinc" utf="berdinc" />
+    <anno ascii="berdinc" checked="y" id="t198_m1" trans="berdinc" utf="berdinc">
+      <lemma tag="berdinc" />
+      <lemma_wsd tag="berdinc" /><lemma_simple tag="berdinc" /><lemma_var tag="berdinc" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t199" trans="flore">
+    <dipl id="t199_d1" trans="flore" utf="flore" />
+    <anno ascii="flore" checked="y" id="t199_m1" trans="flore" utf="flore">
+      <lemma tag="flore" />
+      <lemma_wsd tag="flore" /><lemma_simple tag="flore" /><lemma_var tag="flore" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t200" trans="van">
+    <dipl id="t200_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t200_m1" trans="van" utf="van">
+      <lemma tag="van" />
+      <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t201" trans="vflen">
+    <dipl id="t201_d1" trans="vflen" utf="vflen" />
+    <anno ascii="vflen" checked="y" id="t201_m1" trans="vflen" utf="vflen">
+      <lemma tag="vflen" />
+      <lemma_wsd tag="vflen" /><lemma_simple tag="vflen" /><lemma_var tag="vflen" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t202" trans="gherwin">
+    <dipl id="t202_d1" trans="gherwin" utf="gherwin" />
+    <anno ascii="gherwin" checked="y" id="t202_m1" trans="gherwin" utf="gherwin">
+      <lemma tag="gherwin" />
+      <lemma_wsd tag="gherwin" /><lemma_simple tag="gherwin" /><lemma_var tag="gherwin" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t203" trans="van">
+    <dipl id="t203_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t203_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t204" trans="engere">
+    <dipl id="t204_d1" trans="engere" utf="engere" />
+    <anno ascii="engere" checked="y" id="t204_m1" trans="engere" utf="engere">
+      <lemma tag="engere" />
+      <lemma_wsd tag="engere" /><lemma_simple tag="engere" /><lemma_var tag="engere" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat.Sg" /></anno>
+  </token>
+  <token id="t205" trans="gerwin">
+    <dipl id="t205_d1" trans="gerwin" utf="gerwin" />
+    <anno ascii="gerwin" checked="y" id="t205_m1" trans="gerwin" utf="gerwin">
+      <lemma tag="gerwin" />
+      <lemma_wsd tag="gerwin" /><lemma_simple tag="gerwin" /><lemma_var tag="gerwin" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t206" trans="van">
+    <dipl id="t206_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t206_m1" trans="van" utf="van">
+      <lemma tag="van" />
+      <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t207" trans="tuͦnen">
+    <dipl id="t207_d1" trans="tuͦnen" utf="tuͦnen" />
+    <anno ascii="tuonen" checked="y" id="t207_m1" trans="tuͦnen" utf="tuͦnen">
+      <lemma tag="tuͦnen" />
+      <lemma_wsd tag="tuͦnen" /><lemma_simple tag="tunen" /><lemma_var tag="tunen" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t208" trans="ghameryc">
+    <dipl id="t208_d1" trans="ghameryc" utf="ghameryc" />
+    <anno ascii="ghameryc" checked="y" id="t208_m1" trans="ghameryc" utf="ghameryc">
+      <lemma tag="ghameryc" />
+      <lemma_wsd tag="ghameryc" /><lemma_simple tag="ghameryc" /><lemma_var tag="ghameryc" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t209" trans="tonyus">
+    <dipl id="t209_d1" trans="tonyus" utf="tonyus" />
+    <anno ascii="tonyus" checked="y" id="t209_m1" trans="tonyus" utf="tonyus">
+      <lemma tag="tonyus" />
+      <lemma_wsd tag="tonyus" /><lemma_simple tag="tonyus" /><lemma_var tag="tonyus" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t210" trans="Sluyk">
+    <dipl id="t210_d1" trans="Sluyk" utf="Sluyk" />
+    <anno ascii="Sluyk" checked="y" id="t210_m1" trans="Sluyk" utf="Sluyk">
+      <lemma tag="sluyk" />
+      <lemma_wsd tag="sluyk" /><lemma_simple tag="sluyk" /><lemma_var tag="sluyk" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t211" trans="brun">
+    <dipl id="t211_d1" trans="brun" utf="brun" />
+    <anno ascii="brun" checked="y" id="t211_m1" trans="brun" utf="brun">
+      <lemma tag="brun" />
+      <lemma_wsd tag="brun" /><lemma_simple tag="brun" /><lemma_var tag="brun" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t212" trans="van">
+    <dipl id="t212_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t212_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t213" trans="werle">
+    <dipl id="t213_d1" trans="werle" utf="werle" />
+    <anno ascii="werle" checked="y" id="t213_m1" trans="werle" utf="werle">
+      <lemma tag="werle" />
+      <lemma_wsd tag="werle" /><lemma_simple tag="werle" /><lemma_var tag="werle" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat.Sg" /></anno>
+  </token>
+  <token id="t214" trans="iohan">
+    <dipl id="t214_d1" trans="iohan" utf="iohan" />
+    <anno ascii="iohan" checked="y" id="t214_m1" trans="iohan" utf="iohan">
+      <lemma tag="iohan" />
+      <lemma_wsd tag="iohan" /><lemma_simple tag="iohan" /><lemma_var tag="iohan" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t215" trans="van">
+    <dipl id="t215_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t215_m1" trans="van" utf="van">
+      <lemma tag="van" />
+      <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t216" trans="buderike">
+    <dipl id="t216_d1" trans="buderike" utf="buderike" />
+    <anno ascii="buderike" checked="y" id="t216_m1" trans="buderike" utf="buderike">
+      <lemma tag="buderike" />
+      <lemma_wsd tag="buderike" /><lemma_simple tag="buderike" /><lemma_var tag="buderike" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat.Sg" /></anno>
+  </token>
+  <token id="t217" trans="kostentyn">
+    <dipl id="t217_d1" trans="kostentyn" utf="kostentyn" />
+    <anno ascii="kostentyn" checked="y" id="t217_m1" trans="kostentyn" utf="kostentyn">
+      <lemma tag="kostentyn" />
+      <lemma_wsd tag="kostentyn" /><lemma_simple tag="kostentyn" /><lemma_var tag="kostentyn" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t218" trans="van">
+    <dipl id="t218_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t218_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t219" trans="budrike">
+    <dipl id="t219_d1" trans="budrike" utf="budrike" />
+    <anno ascii="budrike" checked="y" id="t219_m1" trans="budrike" utf="budrike">
+      <lemma tag="budrike" />
+      <lemma_wsd tag="budrike" /><lemma_simple tag="budrike" /><lemma_var tag="budrike" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat.Sg" /></anno>
+  </token>
+  <token id="t220" trans="herman">
+    <dipl id="t220_d1" trans="herman" utf="herman" />
+    <anno ascii="herman" checked="y" id="t220_m1" trans="herman" utf="herman">
+      <lemma tag="herman" />
+      <lemma_wsd tag="herman" /><lemma_simple tag="herman" /><lemma_var tag="herman" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t221" trans="van">
+    <dipl id="t221_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t221_m1" trans="van" utf="van">
+      <lemma tag="van" />
+      <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t222" trans="borsyt">
+    <dipl id="t222_d1" trans="borsyt" utf="borsyt" />
+    <anno ascii="borsyt" checked="y" id="t222_m1" trans="borsyt" utf="borsyt">
+      <lemma tag="borsyt" />
+      <lemma_wsd tag="borsyt" /><lemma_simple tag="borsyt" /><lemma_var tag="borsyt" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t223" trans="diderich">
+    <dipl id="t223_d1" trans="diderich" utf="diderich" />
+    <anno ascii="diderich" checked="y" id="t223_m1" trans="diderich" utf="diderich">
+      <lemma tag="diderich" />
+      <lemma_wsd tag="diderich" /><lemma_simple tag="diderich" /><lemma_var tag="diderich" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t224" trans="van">
+    <dipl id="t224_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t224_m1" trans="van" utf="van">
+      <lemma tag="van" />
+      <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t225" trans="hoyginge">
+    <dipl id="t225_d1" trans="hoyginge" utf="hoyginge" />
+    <anno ascii="hoyginge" checked="y" id="t225_m1" trans="hoyginge" utf="hoyginge">
+      <lemma tag="hoyginge" />
+      <lemma_wsd tag="hoyginge" /><lemma_simple tag="hoyginge" /><lemma_var tag="hoyginge" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t226" trans="godert">
+    <dipl id="t226_d1" trans="godert" utf="godert" />
+    <anno ascii="godert" checked="y" id="t226_m1" trans="godert" utf="godert">
+      <lemma tag="godert" />
+      <lemma_wsd tag="godert" /><lemma_simple tag="godert" /><lemma_var tag="godert" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t227" trans="van">
+    <dipl id="t227_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t227_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t228" trans="der">
+    <dipl id="t228_d1" trans="der" utf="der" />
+    <anno ascii="der" checked="y" id="t228_m1" trans="der" utf="der">
+      <lemma tag="dê/dê/dat" />
+    <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t229" trans="mulen">
+    <dipl id="t229_d1" trans="mulen" utf="mulen" />
+    <anno ascii="mulen" checked="y" id="t229_m1" trans="mulen" utf="mulen">
+      <lemma tag="mȫle" />
+      <lemma_wsd tag="mȫle" /><lemma_simple tag="mole" /><lemma_var tag="mole" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Fem.Dat.Sg" /></anno>
+  </token>
+  <token id="t230" trans="iohan">
+    <dipl id="t230_d1" trans="iohan" utf="iohan" />
+    <anno ascii="iohan" checked="y" id="t230_m1" trans="iohan" utf="iohan">
+      <lemma tag="iohan" />
+      <lemma_wsd tag="iohan" /><lemma_simple tag="iohan" /><lemma_var tag="iohan" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t231" trans="van">
+    <dipl id="t231_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t231_m1" trans="van" utf="van">
+      <lemma tag="van" />
+      <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat-Akk" /></anno>
+  </token>
+  <token id="t232" trans="hoyginge">
+    <dipl id="t232_d1" trans="hoyginge" utf="hoyginge" />
+    <anno ascii="hoyginge" checked="y" id="t232_m1" trans="hoyginge" utf="hoyginge">
+      <lemma tag="hoyginge" />
+      <lemma_wsd tag="hoyginge" /><lemma_simple tag="hoyginge" /><lemma_var tag="hoyginge" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="_.Dat-Akk.Sg" /></anno>
+  </token>
+  <token id="t233" trans="hinrich">
+    <dipl id="t233_d1" trans="hinrich" utf="hinrich" />
+    <anno ascii="hinrich" checked="y" id="t233_m1" trans="hinrich" utf="hinrich">
+      <lemma tag="hinrich" />
+      <lemma_wsd tag="hinrich" /><lemma_simple tag="hinrich" /><lemma_var tag="hinrich" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t234" trans="van">
+    <dipl id="t234_d1" trans="van" utf="van" />
+    <anno ascii="van" checked="y" id="t234_m1" trans="van" utf="van">
+      <lemma tag="van" />
+    <lemma_wsd tag="van¹" /><lemma_simple tag="van" /><lemma_var tag="van" /><pos tag="APPR" /><pos_gen tag="AP" /><morph tag="Dat" /></anno>
+  </token>
+  <token id="t235" trans="dem">
+    <dipl id="t235_d1" trans="dem" utf="dem" />
+    <anno ascii="dem" checked="y" id="t235_m1" trans="dem" utf="dem">
+      <lemma tag="dê/dê/dat" />
+      <lemma_wsd tag="dê¹/dê¹/dat²a" /><lemma_simple tag="de/de/dat" /><lemma_var tag="de/de/dat" /><pos tag="DDARTA" /><pos_gen tag="DD" /><morph tag="Masc-Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t236" trans="hamme">
+    <dipl id="t236_d1" trans="hamme" utf="hamme" />
+    <anno ascii="hamme" checked="y" id="t236_m1" trans="hamme" utf="hamme">
+      <lemma tag="hamme" />
+      <lemma_wsd tag="hamme" /><lemma_simple tag="hamme" /><lemma_var tag="hamme" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc-Neut.Dat.Sg" /></anno>
+  </token>
+  <token id="t237" trans="wilhem">
+    <dipl id="t237_d1" trans="wilhem" utf="wilhem" />
+    <anno ascii="wilhem" checked="y" id="t237_m1" trans="wilhem" utf="wilhem">
+      <lemma tag="wilhem" />
+      <lemma_wsd tag="wilhem" /><lemma_simple tag="wilhem" /><lemma_var tag="wilhem" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t238" trans="goswin">
+    <dipl id="t238_d1" trans="goswin" utf="goswin" />
+    <anno ascii="goswin" checked="y" id="t238_m1" trans="goswin" utf="goswin">
+      <lemma tag="goswin" />
+      <lemma_wsd tag="goswin" /><lemma_simple tag="goswin" /><lemma_var tag="goswin" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t239" trans="vn{R_de}">
+    <dipl id="t239_d1" trans="vn{R_de}" utf="vnde" />
+    <anno ascii="vnde" checked="y" id="t239_m1" trans="vn{R_de}" utf="vnde">
+      <lemma tag="unde" />
+    <lemma_wsd tag="unde²" /><lemma_simple tag="unde" /><lemma_var tag="unde" /><pos tag="KON" /><pos_gen tag="KO" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t240" trans="herman">
+    <dipl id="t240_d1" trans="herman" utf="herman" />
+    <anno ascii="herman" checked="y" id="t240_m1" trans="herman" utf="herman">
+      <lemma tag="herman" />
+      <lemma_wsd tag="herman" /><lemma_simple tag="herman" /><lemma_var tag="herman" /><pos tag="NE" /><pos_gen tag="NE" /><morph tag="Masc.Nom.Sg" /></anno>
+  </token>
+  <token id="t241" trans="burgh{R_er}mest{R_er}e">
+    <dipl id="t241_d1" trans="burgh{R_er}mest{R_er}e" utf="burghermestere" />
+    <anno ascii="burghermestere" checked="y" id="t241_m1" trans="burgh{R_er}mest{R_er}e" utf="burghermestere">
+      <lemma tag="börgermêister" />
+      <lemma_wsd tag="börgermêister" /><lemma_simple tag="borgermeister" /><lemma_var tag="borgermeister" /><pos tag="NA" /><pos_gen tag="NA" /><morph tag="Masc.Nom.Sg" /><bound_sent tag="Satz" /></anno>
+  </token>
+  <token id="t242" trans="actu{R_m}">
+    <dipl id="t242_d1" trans="actu{R_m}" utf="actum" />
+    <anno ascii="actum" checked="y" id="t242_m1" trans="actu{R_m}" utf="actum">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t243" trans="{A_et}">
+    <dipl id="t243_d1" trans="{A_et}" utf="et" />
+    <anno ascii="et" checked="y" id="t243_m1" trans="{A_et}" utf="et">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t244" trans="datu{R_m}">
+    <dipl id="t244_d1" trans="datu{R_m}" utf="datum" />
+    <anno ascii="datum" checked="y" id="t244_m1" trans="datu{R_m}" utf="datum">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t245" trans="a{R_n}no">
+    <dipl id="t245_d1" trans="a{R_n}no" utf="anno" />
+    <anno ascii="anno" checked="y" id="t245_m1" trans="a{R_n}no" utf="anno">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t246" trans="d{L_omi}ni">
+    <dipl id="t246_d1" trans="d{L_omi}ni" utf="domini" />
+    <anno ascii="domini" checked="y" id="t246_m1" trans="d{L_omi}ni" utf="domini">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t247" trans="Mo">
+    <dipl id="t247_d1" trans="Mo" utf="Mo" />
+    <anno ascii="Mo" checked="y" id="t247_m1" trans="Mo" utf="Mo">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t248" trans="coco">
+    <dipl id="t248_d1" trans="coco" utf="coco" />
+    <anno ascii="coco" checked="y" id="t248_m1" trans="coco" utf="coco">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t249" trans="nonag{R_esimo}">
+    <dipl id="t249_d1" trans="nonag{R_esimo}" utf="nonagesimo" />
+    <anno ascii="nonagesimo" checked="y" id="t249_m1" trans="nonag{R_esimo}" utf="nonagesimo">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t250" trans="q{R_ua}rto">
+    <dipl id="t250_d1" trans="q{R_ua}rto" utf="quarto" />
+    <anno ascii="quarto" checked="y" id="t250_m1" trans="q{R_ua}rto" utf="quarto">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t251" trans="d{L_omi}nica">
+    <dipl id="t251_d1" trans="d{L_omi}nica" utf="dominica" />
+    <anno ascii="dominica" checked="y" id="t251_m1" trans="d{L_omi}nica" utf="dominica">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t252" trans="esto">
+    <dipl id="t252_d1" trans="esto" utf="esto" />
+    <anno ascii="esto" checked="y" id="t252_m1" trans="esto" utf="esto">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+  <token id="t253" trans="michi">
+    <dipl id="t253_d1" trans="michi" utf="michi" />
+    <anno ascii="michi" checked="y" id="t253_m1" trans="michi" utf="michi">
+      <lemma tag="&lt;none&gt;" />
+      <lemma_wsd tag="&lt;none&gt;" /><lemma_simple tag="&lt;none&gt;" /><lemma_var tag="&lt;none&gt;" /><pos tag="FM" /><pos_gen tag="FM" /><morph tag="&lt;none&gt;" /></anno>
+  </token>
+</text>

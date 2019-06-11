@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<saltCommon:SaltProject xmlns:sCorpusStructure="sCorpusStructure" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:saltCore="saltCore" xmlns:saltCommon="saltCommon" xmi:version="2.0">
+	<sCorpusGraphs>
+	<labels xsi:type="saltCore:SFeature" namespace="salt" name="SNAME" value="T::rem"/>
+	<nodes xsi:type="sCorpusStructure:SCorpus">
+		<labels xsi:type="saltCore:SElementId" namespace="salt" name="id" value="T::salt:/rem"/>
+		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SNAME" value="T::rem"/>
+	</nodes>
+	<nodes xsi:type="sCorpusStructure:SDocument">
+		<labels xsi:type="saltCore:SElementId" namespace="salt" name="id" value="T::salt:/rem/M044-N1"/>
+		
+		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SDOCUMENT_GRAPH_LOCATION" value="T::file:/tmp/pepper_barteld/workspace/v5atp7mb/M044-N1348719225663834303.salt"/>
+		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SNAME" value="T::M044-N1"/>
+	</nodes>
+	<edges xsi:type="sCorpusStructure:SCorpusDocumentRelation" source="//@nodes.0" target="//@nodes.1">
+		<labels xsi:type="saltCore:SElementId" namespace="salt" name="id" value="T::salt:/corpDocRel1"/>
+		<labels xsi:type="saltCore:SFeature" namespace="salt" name="SNAME" value="T::corpDocRel1"/>
+	</edges>
+	</sCorpusGraphs>
+</saltCommon:SaltProject>

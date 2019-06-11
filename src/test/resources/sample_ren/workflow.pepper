@@ -2,12 +2,15 @@
 <pepper-job id="a3q7addt" version="1.0">
 	<importer name="CoraXMLImporter" path="./cora/ren/">
 		<customization>
+			<property key="mod">anno</property>
+			<property key="tok.prefix">tok_</property>
 			<property key="mod/dipl_eq_token">true</property>
 			<property key="toktext.mod">utf</property>
+			<property key="toktext.dipl">ascii</property>
 			<property key="export.token">true</property>
 			<property key="export.layer_for_comments">token</property>
 			<property key="export.subtoken_markup">REN</property>
-			<property key="toktext.dipl">ascii</property>
+			<property key="export.boundary_tags">bound_sent;bound_head</property>
 		</customization>
 	</importer>
 	<exporter name="SaltXMLExporter" path="./salt/">

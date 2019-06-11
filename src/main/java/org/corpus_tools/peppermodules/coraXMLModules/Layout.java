@@ -78,7 +78,7 @@ class Layout {
         add(side);
         return this;
     }
-    public Layout make_column(Attributes attr) {
+    public String make_column(Attributes attr) {
 
         if (element_starts.get(attr.getValue("id")) != null) {
             current_column = 'a';
@@ -99,7 +99,7 @@ class Layout {
         update(attr.getValue("id"), column);
 
         add(column);
-        return this;
+        return col_name;
     }
     public Layout make_line(Attributes attr) {
         LayoutElement line = make_element(3, "line").set_range(attr)

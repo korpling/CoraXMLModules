@@ -68,6 +68,7 @@ class Text {
         }
         public void set_seg(String name) {
             seg_name = name;
+            textual.setName(seg_name);
         }
         void set_start(Integer pos) { current_position = pos; }
 
@@ -379,8 +380,11 @@ class Text {
 
     private Text() {}
     public Text(SDocumentGraph the_graph,
+                String tok_dipl_name, String tok_mod_name,
+                String dipl_seg_name, String mod_seg_name,
                 String tok_dipl_textlayer, String tok_mod_textlayer,
-                boolean export_token_layer, boolean export_subtoken_annotation, Set<String> boundary_types) {
+                boolean export_token_layer, String comments_layer_name,
+                boolean export_subtoken_annotation, Set<String> boundary_types) {
 
         graph = the_graph;
 
@@ -394,12 +398,12 @@ class Text {
         }
 
         TextLayer dipl_layer = make_layer(tok_dipl_textlayer);
-        dipl_layer.set_seg("tok_dipl");
+        dipl_layer.set_seg(dipl_seg_name);
         mod_layer = make_annotatable_layer(tok_mod_textlayer, boundary_types);
-        mod_layer.set_seg("tok_mod");
+        mod_layer.set_seg(mod_seg_name);
 
-        sub_layers.put("dipl", dipl_layer);
-        sub_layers.put("mod", mod_layer);
+        sub_layers.put(tok_dipl_name, dipl_layer);
+        sub_layers.put(tok_mod_name, mod_layer);
 
         if (export_subtoken_annotation) {
           TextLayer subtok_layer = make_layer("trans");
@@ -407,6 +411,12 @@ class Text {
             sub_layers.put("sub", subtok_layer);
         }
 
+        // add layer for comments if it is none of the token layers
+        if (!comments_layer_name.isEmpty() && !sub_layers.containsKey(comments_layer_name)) {
+            TextLayer comments_layer = make_layer(comments_layer_name);
+            comments_layer.set_seg(comments_layer_name);
+            sub_layers.put(comments_layer_name, comments_layer);
+        }
 
         // initialize the timeline
         timeline = SaltFactory.createSTimeline();
@@ -489,7 +499,7 @@ class Text {
             timeline.increasePointOfTime();
             int end = timeline.getEnd() - 1;
             for(String layer: sub_layers.keySet()) {
-              if ((!layer.equals("token")) && (tok_offset == layer(layer).offsets.get(0))) {
+              if ((!layer.equals("token")) && layer(layer).offsets.size() > 0 && (tok_offset == layer(layer).offsets.get(0))) {
                 layer(layer).tok_to_timeline(timeline, end);
                 layer(layer).offsets.remove(0);
               }
